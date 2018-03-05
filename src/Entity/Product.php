@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use App\Entity\Review;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -113,6 +114,28 @@ class Product
     private $image;
     
     
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="Product",cascade={"persist"})
+     */
+    
+    private $Review;
+    
+    /**
+     * @return mixed
+     */
+    public function getReview()
+    {
+        return $this->Review;
+    }
+
+    /**
+     * @param mixed $Review
+     */
+    public function setReview($Review)
+    {
+        $this->Review = $Review;
+    }
+
     /**
      * @return mixed
      */

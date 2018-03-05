@@ -213,6 +213,8 @@
 											<h4 class="text-uppercase">Write Your Review</h4>
 											<p>Your email address will not be published.</p>
 											<form class="review-form" id="formulaire">
+											
+											<input type="hidden" value="{{ articlesdetail.id }}" name ='id'>
 												<div class="form-group">
 													<input class="input" name="name" type="text" placeholder="Your Name" />
 												</div>
@@ -235,6 +237,7 @@
 													</div>
 												</div>
 												<button class="primary-btn" id="reviewsend">Submit</button>
+												
 											</form>
 										</div>
 									</div>

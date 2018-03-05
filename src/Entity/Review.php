@@ -5,7 +5,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use App\Entity\Product;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReviewRepository")
@@ -50,9 +51,38 @@ class Review
     
     private $note;
     
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="Review",cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $Product;
+    
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
+    
+    
         use TechnicalField;
         
     /**
+         * @return mixed
+         */
+        public function getProduct()
+        {
+            return $this->Product;
+        }
+    
+        /**
+         * @param mixed $Product
+         */
+        public function setProduct($Product)
+        {
+            $this->Product = $Product;
+        }
+    
+        /**
          * @return mixed
          */
         public function getNote()
