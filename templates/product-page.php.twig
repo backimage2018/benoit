@@ -1,0 +1,297 @@
+{%extends"base.html.twig"%}
+
+
+{% block bread %}
+
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="#">Home</a></li>
+				<li><a href="#">Products</a></li>
+				<li><a href="#">Category</a></li>
+				<li class="active">Product Name Goes Here</li>
+			</ul>
+		</div>
+	</div>
+	
+
+
+<div class="">²</div>
+
+	<!-- section -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<!--  Product Details -->
+				
+				
+				
+				<div class="product product-details clearfix">
+					<div class="col-md-6">
+						<div id="product-main-view">
+							<div class="product-view">
+								<img src={{ asset("./img/main-product01.jpg")}} alt="">
+							</div>
+							<div class="product-view">
+								<img src={{ asset("./img/main-product02.jpg")}} alt="">
+							</div>
+							<div class="product-view">
+								<img src=src={{ asset("./img/main-product03.jpg")}} alt="">
+							</div>
+							<div class="product-view">
+								<img src={{ asset("./img/main-product04.jpg")}} alt="">
+							</div>
+						</div>
+						<div id="product-view">
+							<div class="product-view">
+								<img src={{ asset("./img/thumb-product01.jpg")}} alt="">
+							</div>
+							<div class="product-view">
+								<img src= {{ asset("./img/thumb-product02.jpg")}} alt="">
+							</div>
+							<div class="product-view">
+								<img src={{ asset("./img/thumb-product03.jpg")}} alt="">
+							</div>
+							<div class="product-view">
+								<img src={{ asset("./img/thumb-product04.jpg")}} alt="">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-6">
+					
+					
+				            {% if articlesdetail.new is defined or articlesdetail.sold is defined %}
+							<div class="product-label">
+							{% if articledetail.new is defined %}
+								<span>{{ articlesdetail.new }}</span>
+							{% endif %}
+							{% if articledetail.sale is defined %}
+								<span class="sale">{{ articlesdetail.sale }}</span>
+							{% endif %}
+							</div>
+					        {% endif %}
+							
+							<h2 class="product-name">{{ articlesdetail.nom }}</h2>
+							<h3 class="product-price">{{ articlesdetail.prix }} € <del class="product-old-price">{{ articlesdetail.ancienprix }} €</del></h3>
+							<div>
+								<div class="product-rating">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star-o empty"></i>
+								</div>
+								<a href="#">{{ commentaires|length }} {{ Review.Review1 }} </a>
+							</div>
+							<p><strong>{{ titredetail.titreavail }}</strong> {{ articlesdetail.disponibilite }}</p>
+							<p><strong>{{ titredetail.titrebrand }}</strong> {{ articlesdetail.marque }} </p>
+							<p>{{ articlesdetail.description }}</p>
+							<div class="product-options">
+								<ul class="size-option">
+								
+									<li><span class="text-uppercase">{{ option_productpage.title1 }}</span></li>
+									{% for option_productpages in option_productpage.list %}
+									<li class="active"><a href="#">{{ option_productpages.name }}</a></li>
+									{% endfor %}	
+								</ul>
+								<ul class="color-option">
+									<li><span class="text-uppercase">{{ option_productpage.title2 }}</span></li>
+									<li class="active"><a href="#" style="background-color:#475984;"></a></li>
+									<li><a href="#" style="background-color:#8A2454;"></a></li>
+									<li><a href="#" style="background-color:#BF6989;"></a></li>
+									<li><a href="#" style="background-color:#9A54D8;"></a></li>
+								</ul>
+							</div>
+
+							<div class="product-btns">
+								<div class="qty-input">
+									<span class="text-uppercase">{{ titredetail.titrequantite }}: </span>
+									<input class="input" type="number">
+								</div>
+								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+								<div class="pull-right">
+									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+									<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+									<button class="main-btn icon-btn"><i class="fa fa-share-alt"></i></button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="product-tab">
+							<ul class="tab-nav">
+								<li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
+								<li><a data-toggle="tab" href="#tab1">Details</a></li>
+								<li><a data-toggle="tab" href="#tab2">Reviews {{ commentaires|length }}</a></li>
+							</ul>
+							<div class="tab-content">
+								<div id="tab1" class="tab-pane fade in active">
+									<p>{{ articlesdetail.description }}</p>
+								</div>
+								<div id="tab2" class="tab-pane fade in">
+							  
+							  
+									<div class="row">
+									
+										<div class="col-md-6">
+										
+											<div class="product-reviews">
+											{% for commentaire in commentaires %}
+												<div class="single-review">
+													<div class="review-heading">
+													 
+													 
+														<div><a href="#"><i class="fa fa-user-o"></i> {{ commentaire.nom }} </a></div>
+														<div><a href="#"><i class="fa fa-clock-o"></i></a></div>
+														<div class="review-rating pull-right">
+														
+														{%  if commentaire.note == 0  %}
+														
+														<i class="fa fa-star-o empty"></i>
+														<i class="fa fa-star-o empty"></i>
+														<i class="fa fa-star-o empty"></i>
+														<i class="fa fa-star-o empty"></i>
+														<i class="fa fa-star-o empty"></i>
+														
+														{%  elseif commentaire.note == 1 %}
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star-o empty"></i>
+														<i class="fa fa-star-o empty"></i>
+														<i class="fa fa-star-o empty"></i>
+														<i class="fa fa-star-o empty"></i>
+														
+															{%  elseif commentaire.note == 2 %}
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star-o empty"></i>
+														<i class="fa fa-star-o empty"></i>
+														<i class="fa fa-star-o empty"></i>
+															{%  elseif commentaire.note == 3 %}
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star-o empty"></i>
+														<i class="fa fa-star-o empty"></i>
+															{%  elseif commentaire.note == 4 %}
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star-o empty"></i>
+														{%  else%}
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														{% endif %}
+															
+																								
+															
+														</div>
+													</div>
+													<div class="review-body">
+														<p>{{ commentaire.review }}</p>
+													</div>
+												</div>
+									   {% endfor %}
+												
+												</div>	
+												<ul class="reviews-pages">
+													<li class="active">1</li>
+													<li><a href="#">2</a></li>
+													<li><a href="#">3</a></li>
+													<li><a href="#"><i class="fa fa-caret-right"></i></a></li>
+												</ul>
+											</div>
+										
+										<div class="col-md-6">
+											<h4 class="text-uppercase">Write Your Review</h4>
+											<p>Your email address will not be published.</p>
+											<form class="review-form" id="formulaire">
+												<div class="form-group">
+													<input class="input" name="name" type="text" placeholder="Your Name" />
+												</div>
+												<div class="form-group">
+													<input class="input" name="email"  type="email" placeholder="Email Address" />
+												</div>
+												<div class="form-group">
+													<textarea class="input" name="review"  placeholder="Your review"></textarea>
+												</div>
+												<div class="form-group">
+													<div class="input-rating">
+														<strong class="text-uppercase">Your Rating: </strong>
+														<div class="stars">
+															<input type="radio" id="star5" name="rating" value="5" /><label for="star5"></label>
+															<input type="radio" id="star4" name="rating" value="4" /><label for="star4"></label>
+															<input type="radio" id="star3" name="rating" value="3" /><label for="star3"></label>
+															<input type="radio" id="star2" name="rating" value="2" /><label for="star2"></label>
+															<input type="radio" id="star1" name="rating" value="1" /><label for="star1"></label>
+														</div>
+													</div>
+												</div>
+												<button class="primary-btn" id="reviewsend">Submit</button>
+											</form>
+										</div>
+									</div>
+                             
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- /Product Details -->
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /section -->
+
+	<!-- section -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<!-- section title -->
+				<div class="col-md-12">
+					<div class="section-title">
+						<h2 class="title">Picked For You</h2>
+					</div>
+				</div>
+				<!-- section title -->
+				<!-- Product Single -->
+			
+                      {% for articles in articles %}
+					       
+					        {% if loop.index < 5 %}
+							
+							{% include 'productsingle.php.twig' %}
+							
+								{%  endif %}
+								
+							{% endfor %}	
+				<!-- /Product Single -->
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /section -->
+	
+
+
+{% endblock %}
+
+
+
+
+

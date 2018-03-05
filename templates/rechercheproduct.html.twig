@@ -1,0 +1,58 @@
+{%extends"base.html.twig"%}
+
+
+{% block stylesheets %}
+	<!-- Bootstrap -->
+	<link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css" />
+
+	<!-- Slick -->
+	<link type="text/css" rel="stylesheet" href="../css/slick.css" />
+	<link type="text/css" rel="stylesheet" href="../css/slick-theme.css" />
+
+	<!-- nouislider -->
+	<link type="text/css" rel="stylesheet" href="../css/nouislider.min.css" />
+
+	<!-- Font Awesome Icon -->
+	<link rel="stylesheet" href="../css/font-awesome.min.css">
+
+	<!-- Custom stlylesheet -->
+	<link type="text/css" rel="stylesheet" href="../css/style.css" /> 
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+       {% endblock %}
+       
+{% block bread %}
+
+<div class="container">
+
+
+{% if  article.nom is defined  %}
+
+<p> Il y a {{ article|length }} {% if article|length ==1  %} article {% else %} articles {% endif %}
+dans le catalogue </p>
+
+
+{% if article|length ==1  %} <p>Voici le Nom de l'article<p> {% else %} <p>Voici les Noms des articles<p> {% endif %}
+
+
+<ul>
+{% for articles in article  %}
+
+	<li>{{ articles.nom }}</li>
+
+
+{% endfor %}
+{% else %}
+
+<p> Il n'y a aucun article </p>
+
+{% endif %}
+</ul>
+
+</div>
+	{% endblock %}

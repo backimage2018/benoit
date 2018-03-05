@@ -1,0 +1,59 @@
+{%extends"base.html.twig"%}
+
+{% block bread %}
+
+	
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="#">Home</a></li>
+				<li class="active">Registred</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /BREADCRUMB -->
+
+	<!-- section -->
+<div id="formulaire " >
+     <div class="form-group container">
+     	{% if not form.vars.valid  %}
+     		{% for child in form.chlidren %}
+     			{% for error in child.vars.errors %}
+     				<p> {{ error.message }}</p>
+     			{% endfor %}	
+     			{% endfor %}	
+     			{% endif %}	
+     	</div>			
+     
+  <div class="form-group container ">
+	{% form_theme form 'bootstrap_3_layout.html.twig' %}
+{{ form_start(form,{'attr':{'class':'clearfix','id':'checkout-form'}}) }}
+
+            <div class="form-group">
+                {{ form_widget(form.username,{'attr':{'class':'input','placeholder':'Entrer votre nom'}}) }}
+                {{ form_errors(form.username) }}
+               
+            </div>
+   			<div class="form-group">
+              	{{ form_widget(form.email,{'attr':{'class':'input','placeholder':'Entrer votre mail'}}) }}
+                {{ form_errors(form.email) }}
+               
+            </div>
+  			<div class="form-group">
+             
+                {{ form_errors(form.plainPassword.first) }}
+                {{ form_widget(form.plainPassword.first,{'attr':{'class':'input','placeholder':'Entrer votre mdp'}})}}
+            </div>
+   			<div class="form-group">
+               
+                {{ form_errors(form.plainPassword.second) }}
+                 {{ form_widget(form.plainPassword.second,{'attr':{'class':'input','placeholder':'Entrer votre mdp'}})}}
+            </div>
+  
+
+    <button type="submit" class="btn primary-btn ">Envoyer</button>
+{{ form_end(form) }}
+</div>
+</div>
+	{% endblock %}

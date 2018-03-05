@@ -1,0 +1,44 @@
+
+
+				<!-- Product Single -->
+				<div class="col-md-3 col-sm-6 col-xs-6">
+					<div class="product product-single">
+					
+						<div class="product-thumb">
+							{% if articles.new is not empty or articles.reduction is not empty %}
+							<div class="product-label">
+							{% if articles.new is not empty %}
+								<span>New</span>
+							{% endif %}
+							{% if articles.reduction is not empty %}
+								<span class="sale">{{ articles.reduction }}</span>
+							
+								
+							{% endif %}
+							</div>
+					        {% endif %}
+					   
+							<a href="/product-page/{{ articles.id }}" class="main-btn quick-view" ><i class="fa fa-search-plus"></i> Quick view</a>
+							<img src={{asset("uploads/image/" ~ articles.image.lien) }} alt="">
+						</div>
+						<div class="product-body">
+							<h3 class="product-price">{{ articles.prix }} €</h3>
+							<div class="product-rating">
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star-o empty"></i>
+							</div>
+							<h2 class="product-name"><a href="/product-page/{{ articles.id }}">{{ articles.nom }}</a></h2>
+							<div class="product-btns">
+								<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+								<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+	
+		<!-- /Product Single -->

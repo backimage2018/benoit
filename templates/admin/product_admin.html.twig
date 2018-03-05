@@ -1,0 +1,74 @@
+{%extends"base.html.twig"%}
+
+{% block bread %}
+
+
+   <div class="form-group container ">
+{{ form_start(form,{'attr':{'class':'clearfix','id':'checkout-form'}}) }}
+
+ <div class="col-md-4">
+ 
+{{ form_widget(form.nom,{'attr':{'class':'input','placeholder':'Entrer le nom du produit'}}) }}
+{{ form_errors(form.nom) }}
+
+
+{{ form_widget(form.prix,{'attr':{'class':'input','placeholder':'Entrer le prix du produit'}}) }}
+{{ form_errors(form.prix) }}
+
+{{ form_widget(form.ancienprix,{'attr':{'class':'input','placeholder':'Entrer l ancien prix du produit'}}) }}
+{{ form_errors(form.ancienprix) }}
+
+{{ form_widget(form.taille,{'attr':{'class':'input','placeholder':'Entrer la taille du produit'}}) }}
+{{ form_errors(form.taille) }}
+
+{{ form_widget(form.couleur,{'attr':{'class':'input','placeholder':'Entrer la couleur du produit'}}) }}
+{{ form_errors(form.couleur) }}
+
+{{ form_widget(form.collection,{'attr':{'class':'input','placeholder':'Entrer la collection du produit'}}) }}
+{{ form_errors(form.collection) }}
+
+{{ form_widget(form.description,{'attr':{'class':'input','placeholder':'Entrer la description du produit'}}) }}
+{{ form_errors(form.description) }}
+
+{{ form_widget(form.disponibilite,{'attr':{'class':'input','placeholder':'Entrer la disponibilite du produit'}}) }}
+{{ form_errors(form.disponibilite) }}
+
+{{ form_widget(form.marque,{'attr':{'class':'input','placeholder':'Entrer la marque du produit'}}) }}
+{{ form_errors(form.marque) }}
+
+
+{{ form_widget(form.detail,{'attr':{'class':'input','placeholder':'Entrer le detail du produit'}}) }}
+{{ form_errors(form.detail) }}
+</div>
+
+ <div class="col-md-4 col-md-offset-1">
+
+ {{ form_widget(form.categorie,{'attr':{'class':'input','placeholder':'Entrer la categorie du produit'}}) }}
+{{ form_errors(form.categorie) }}
+
+
+{{ form_widget(form.sexe,{'attr':{'class':'input','placeholder':'Entrer le sexe du produit'}}) }}
+{{ form_errors(form.sexe) }}
+
+{{ form_widget(form.reduction,{'attr':{'class':'input','placeholder':'Entrer la reduction du produit'}}) }}
+{{ form_errors(form.reduction) }}
+
+{{ form_widget(form.new,{'attr':{'class':'input','placeholder':'Signaler le produit nouveau?'}}) }}
+{{ form_errors(form.new) }}
+
+{{ form_widget(form.display,{'attr':{'class':'input','placeholder':'Afficher le produit sur le site?'}}) }}
+{{ form_errors(form.display) }}
+
+{{ form_widget(form.description,{'attr':{'class':'input','placeholder':'Entrer la description du produit'}}) }}
+{{ form_errors(form.description) }}
+
+{{ form_widget(form.image) }}
+
+ 
+ </div>
+<div class="col-md-5 col-md-offset-4">
+<button type="submit" class="btn primary-btn ">Envoyer</button>
+</div>
+{{ form_end(form) }}
+	</div>
+	{% endblock %}
