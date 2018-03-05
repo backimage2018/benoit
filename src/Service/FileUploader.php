@@ -19,7 +19,7 @@ class FileUploader
         
         $file->move($this->getTargetDir(), $fileName);
         
-        return $fileName;
+        return $ileName;
     }
     
   
