@@ -1,0 +1,18 @@
+{%extends"base.html.twig"%}
+
+{% block bread %}
+
+
+<div class="container">
+<h2>Cliquer sur un produit pour le modifier</h2>
+
+{%   for article in articles  %}
+
+<p><a href ={{ path('edit_product',{'id':article.id })}}>{{ article.nom }} {{ article.prix }}</a></p>
+
+
+{% endfor %}
+
+
+</div>
+{% endblock %}
