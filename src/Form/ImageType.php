@@ -23,6 +23,8 @@ class ImageType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => Image::class,
+                'attr'=>array('novalidate'=>'novalidate'),
+           
         ));
     }
 }

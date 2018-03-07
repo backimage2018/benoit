@@ -4,7 +4,7 @@
 
 
    <div class="form-group container ">
-{{ form_start(form,{'attr':{'class':'clearfix','id':'checkout-form'}}) }}
+{{ form_start(form,{'attr':{'class':'clearfix','id':'checkout-form','novalidate': 'novalidate'}}) }}
 
  <div class="col-md-4">
  
@@ -62,9 +62,15 @@
 {{ form_widget(form.description,{'attr':{'class':'input','placeholder':'Entrer la description du produit'}}) }}
 {{ form_errors(form.description) }}
 
-{{ form_widget(form.image) }}
+{{ form_widget(form.image,{'attr': {'novalidate': 'novalidate'}}) }}
+
+
+{% if image is null %}
 
  
+{% else %}
+<img src={{asset("uploads/image/" ~ image) }} alt="">
+ {% endif %}
  </div>
 <div class="col-md-5 col-md-offset-4">
 <button type="submit" class="btn primary-btn ">Envoyer</button>

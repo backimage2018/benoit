@@ -31,12 +31,7 @@ class ProductType extends AbstractType
         ->add('new', TextType::class)
         ->add('display', TextType::class)
         ->add('image', ImageType::class);
-
-        
-        
-      
-            
-            
+    
     }
 
     
