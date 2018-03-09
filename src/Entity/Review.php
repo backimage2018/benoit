@@ -53,19 +53,13 @@ class Review
     
     
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="Review",cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="Reviews")
      * @ORM\JoinColumn(nullable=true)
      */
     private $Product;
     
-    public function __construct()
-    {
-        $this->products = new ArrayCollection();
-    }
-    
-    
-        use TechnicalField;
-        
+
+                 
     /**
          * @return mixed
          */
@@ -75,12 +69,14 @@ class Review
         }
     
         /**
-         * @param mixed $Product
+         * @param mixed $Products
          */
         public function setProduct($Product)
         {
             $this->Product = $Product;
         }
+    
+    
     
         /**
          * @return mixed

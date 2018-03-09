@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\Review;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -106,36 +107,37 @@ class Product
      *
      */
     private $date_fin_promo;
-    
-    
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist"})
      */
     private $image;
     
-    
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="Product",cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="Product", cascade={"persist"})
      */
+    private $Reviews;
     
-    private $Review;
-    
+
+    public function __construct()
+    {
+        $this->Reviews = new ArrayCollection();
+    }
   
     
     /**
      * @return mixed
      */
-    public function getReview()
+    public function getReviews()
     {
-        return $this->Review;
+        return $this->Reviews;
     }
 
     /**
-     * @param mixed $Review
+     * @param mixed $Reviews
      */
-    public function setReview($Review)
+    public function setReviews($Reviews)
     {
-        $this->Review = $Review;
+        $this->Reviews = $Reviews;
     }
 
     /**

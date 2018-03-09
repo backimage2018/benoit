@@ -63,8 +63,9 @@
 					
 					<div class="col-md-6">
 					
-					
+							
 				            {% if articlesdetail.new is defined or articlesdetail.sold is defined %}
+				            
 							<div class="product-label">
 							{% if articledetail.new is defined %}
 								<span>{{ articlesdetail.new }}</span>
@@ -85,6 +86,7 @@
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star-o empty"></i>
 								</div>
+							
 								<a href="#">{{ commentaires|length }} {{ Review.Review1 }} </a>
 							</div>
 							<p><strong>{{ titredetail.titreavail }}</strong> {{ articlesdetail.disponibilite }}</p>
@@ -140,7 +142,8 @@
 										<div class="col-md-6">
 										
 											<div class="product-reviews">
-											{% for commentaire in commentaires %}
+											{% for articledetail in articlesdetail.reviews %}
+											{{ dump(articledetail) }}
 												<div class="single-review">
 													<div class="review-heading">
 													 
