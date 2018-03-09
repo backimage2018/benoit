@@ -142,8 +142,9 @@
 										<div class="col-md-6">
 										
 											<div class="product-reviews">
-											{% for articledetail in articlesdetail.reviews %}
-											{{ dump(articledetail) }}
+											
+											{% for commentaire in commentaires %}
+											{{ dump(commentaire.product.id) }}
 												<div class="single-review">
 													<div class="review-heading">
 													 

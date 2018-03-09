@@ -120,7 +120,7 @@ class Product
 
     public function __construct()
     {
-        $this->Reviews = new ArrayCollection()
+        $this->Reviews = new ArrayCollection();
     }
   
     
