@@ -33,6 +33,13 @@ class ReviewController extends Controller
         $Product=$this-> getDoctrine()
         ->getRepository(Product::class)
         ->find($id);
+        
+        $Product=$this-> getDoctrine()
+        ->getRepository(Product::class)
+        ->find($id);
+    
+        
+
        
 //        var_dump($Product);
        $Product->getReviews()[]=$Review;
@@ -43,7 +50,7 @@ class ReviewController extends Controller
          $em->flush();
         
       
-        return new Response("<html><body>Test</body></html>");
+        return new Response("<html><body><p>test</p></body></html>");
       
     }
 

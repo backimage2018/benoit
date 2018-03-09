@@ -480,17 +480,17 @@
   
         	event.preventDefault();
         	 var data_form = $('#formulaire').serialize();
-        	 console.log(data_form);
+        	
         $.ajax({
             url : '/review',
             type : 'POST',
             data: data_form,
-            dataType : 'json',
+            
             
             
 		
             }).done(function(result){
-				
+            	 console.log(data_form);
             	$('#reviewsend').html('merci')})
 
             	
