@@ -31,7 +31,29 @@ class Newsletter
     // add your own fields
 
     
-        use TechnicalField;
+    /**
+     *
+     * @ORM\Column(name="deleted", type="datetime", nullable=true)
+     */
+    private $deleted;
+    
+    
+    /**
+     * @return mixed
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param mixed $deleted
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+    }
+
     /**
      * @return mixed
      */

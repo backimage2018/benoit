@@ -14,6 +14,24 @@ use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\Article;
 
 class NewsletterController extends Controller
 {
+    
+    /**
+     * @Route("/newsletter/delete/{id}", name="Newsletter1")
+     */
+    Public function deleted($id) {
+        
+        $this->container->get("doctrine.orm.default_entity_manager")->getFilters()->disable("deleted");
+        $Newsletter=$this-> getDoctrine()
+        ->getRepository(Newsletter::class)
+        ->findOneBy(array('id' => $id));
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->remove($Newsletter);
+        $em->flush();
+        
+        return New Response ("deleted");
+    }
+    
     /**
      * @Route("/newsletter", name="Newsletter")
      */
@@ -30,6 +48,8 @@ class NewsletterController extends Controller
         return $this->json($Newsletter->getEmail());
         
     }
+    
+
 }
 
 ?>

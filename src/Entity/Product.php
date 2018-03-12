@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\Review;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\DBAL\Types\DateType;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -107,6 +109,7 @@ class Product
      *
      */
     private $date_fin_promo;
+    
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist"})
      */
@@ -117,6 +120,27 @@ class Product
      */
     private $Reviews;
     
+    /**
+     *
+     * @ORM\Column(name="deleted", type="datetime", nullable=true)
+     */
+    private $deleted;
+
+    /**
+     * @return mixed
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param mixed $deleted
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+    }
 
     public function __construct()
     {

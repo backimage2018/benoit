@@ -1,14 +1,14 @@
 <?php
 
-Namespace service\Listener;
+namespace App\Eventlistener;
 
 use Doctrine\ORM\Event\PreFlushEventArgs;
 
-class Listener
-{
+class doctrinelistener
+ {
     public function preFlush(PreFlushEventArgs $event) {
         $em = $event->getEntityManager();
-        foreach ($em->getUnitOfWork()->getScheduledEntityDeletions() as $object) {
+        foreach ($em->getUnitOfWork()->getScheduledEntityDeletions() as $object) {    
             if (method_exists($object, "getdeleted")) {
                 if ($object->getdeleted() instanceof \Datetime) {
                     continue;
@@ -20,6 +20,8 @@ class Listener
             }
         }
     }
-}
+ }
+
+
 
 ?>
