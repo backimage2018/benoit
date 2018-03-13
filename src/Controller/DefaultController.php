@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\Category;
 use Symfony\Component\VarDumper\VarDumper;
 use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\Article;
+use Symfony\Component\Translation\TranslatorInterface;
+use Doctrine\DBAL\Driver\PDOException;
 
 class DefaultController extends Controller{
    
@@ -17,8 +19,8 @@ class DefaultController extends Controller{
      */
     
     
-    Public function recherche(){
-        
+    Public function index(TranslatorInterface $ti){
+
         $article= $this-> getDoctrine()
         ->getRepository(Product::class)
         ->findAll();
@@ -27,7 +29,7 @@ class DefaultController extends Controller{
         ->getRepository(Product::class)
         ->findBynew('new');
         
-     
+  
         return $this->render('index.php.twig',array("index_banner"=>constante::index_banner,
                                                     "index_section_banner"=>constante::index_section_banner,
                                                     "index_deals_banner"=>constante::index_deals_banner,
@@ -38,24 +40,24 @@ class DefaultController extends Controller{
                                                     'articlesnew'=>$articlenew,
                                                     
             ////base
-                                               "welcome"=>constante::welcome,
-                                               "logo"=>constante::logo,
-                                               "menuheader"=>constante::menuheader,
-                                              "langue"=>constante::langue,
-                                              "devise"=>constante::devise,
-                                              "searchcategories"=>constante::searchcategories,
-                                              "custommenus"=>constante::custommenu,
+                                             "welcome"=>constante::welcome,
+                                             "logo"=>constante::logo,
+                                             "menuheader"=>constante::menuheader,
+                                             "langue"=>constante::langue,
+                                             "devise"=>constante::devise,
+                                             "searchcategories"=>constante::searchcategories,
+                                             "custommenus"=>constante::custommenu,
                                              "categorieshead"=>constante::categorieshead,
                                              "ressocial"=>constante::ressocial,
-                                                "Account_login" =>constante::Account_login,
-                                                "Account_join" => constante::Account_join,
+                                             "Account_login" =>constante::Account_login,
+                                             "Account_join" => constante::Account_join,
                                              "footermyaccount"=>constante::footer_my_account,
-                                            "footerCustomer"=>constante::footer_Customer_Service,
+                                             "footerCustomer"=>constante::footer_Customer_Service,
                                              "footer_subscribe_h3"=>constante::footer_subscribe_h3,
                                              "footer_subscribe_p"=>constante::footer_subscribe_p,
                                              "menunav"=>constante::menunav,
                                              "footer_subscribe_button"=>constante::footer_subscribe_button,
-                                              "categories"=>constante::categories));
+                                             "categories"=>constante::categories));
         
     }
 
@@ -231,7 +233,7 @@ class DefaultController extends Controller{
     
     
     /**
-     * @Route("/shipping_guide")
+     * @Route("/shipping_guide",)
      */
     
     
@@ -258,9 +260,7 @@ class DefaultController extends Controller{
             "categories"=>constante::categories));
         
     }
-    /**
-     * @Route("/faq")
-     */
+
     
     
     function  faq(){
@@ -286,7 +286,7 @@ class DefaultController extends Controller{
             "categories"=>constante::categories));
     }
     /**
-     * @Route("/mention_legale")
+     * @Route("/mention_legale", name ="mention legale")
      */
     
     
@@ -341,10 +341,31 @@ class DefaultController extends Controller{
             "categories"=>constante::categories));
         
     }
+
     /**
-     * @Route("/store")
+     * @Route("/exception", name ="exception")
      */
-    
+    function  exception(){
+    return $this->render('Exception/error404.html.twig',array ("welcome"=>constante::welcome,
+        "logo"=>constante::logo,
+        "menuheader"=>constante::menuheader,
+        "langue"=>constante::langue,
+        "devise"=>constante::devise,
+        "searchcategories"=>constante::searchcategories,
+        "custommenus"=>constante::custommenu,
+        "categorieshead"=>constante::categorieshead,
+        "ressocial"=>constante::ressocial,
+        "Account_login" =>constante::Account_login,
+        "Account_join" => constante::Account_join,
+        "footermyaccount"=>constante::footer_my_account,
+        "footerCustomer"=>constante::footer_Customer_Service,
+        "footer_subscribe_h3"=>constante::footer_subscribe_h3,
+        "footer_subscribe_p"=>constante::footer_subscribe_p,
+        "menunav"=>constante::menunav,
+        "footer_subscribe_button"=>constante::footer_subscribe_button,
+        "categories"=>constante::categories));
+    }
 }
+
 
 ?>

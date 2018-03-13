@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block bread %}
+
+<div class=container>
+    <h1>PAGE NON TROUVÉE - ERREUR 404</h1>
+
+	<p>La page ou le produit que vous recherchez n'existe pas (ou plus).</p>
+    <p>
+        Il peut s'agir d'une erreur de lien, ou bien d'un contenu qui n'existe plus ou qui a été supprimé. 
+        
+        
+    </p>
+    <a class="primary-btn" href="{{ path('index') }}">Retour vers l'accueil</a>
+    </div>
+{% endblock %}

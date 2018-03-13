@@ -3,21 +3,10 @@
 
 {% block bread %}
 
-	<!-- BREADCRUMB -->
-	<div id="breadcrumb">
-		<div class="container">
-			<ul class="breadcrumb">
-				<li><a href="#">Home</a></li>
-				<li><a href="#">Products</a></li>
-				<li><a href="#">Category</a></li>
-				<li class="active">Product Name Goes Here</li>
-			</ul>
-		</div>
-	</div>
-	
 
 
-<div class="">²</div>
+
+
 
 	<!-- section -->
 	<div class="section">
@@ -115,6 +104,15 @@
 									<input class="input" type="number">
 								</div>
 								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                                    {% if app.user is not null %}
+                                      {% for role in app.user.roles %} 
+                                      {% if role == 'ROLE_ADMIN'  %} 
+                                          <a href="{{ asset('admin/edit/'~ articlesdetail.id) }}" class="primary-btn"> Modifier</a>
+                                      {%  endif  %}
+                                      {% endfor %}
+                                    {% endif %}
+								
+								
 								<div class="pull-right">
 									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
 									<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
@@ -123,6 +121,7 @@
 							</div>
 						</div>
 					</div>
+						
 					<div class="col-md-12">
 						<div class="product-tab">
 							<ul class="tab-nav">
@@ -287,6 +286,7 @@
 								
 							{% endfor %}	
 				<!-- /Product Single -->
+			
 			</div>
 			<!-- /row -->
 		</div>

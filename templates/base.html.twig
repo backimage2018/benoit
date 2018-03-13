@@ -321,7 +321,17 @@
 		<!-- /container -->
 	</div>
 	<!-- /NAVIGATION -->
-        
+        <div class="ligne"></div>
+        	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="{{ path('index') }}">Home</a></li>
+				<li class="active">{{ app.request.attributes.get('_route') }}</li>
+			</ul>
+		
+	
+	<!-- /BREADCRUMB -->
       {%   block bread  %}
          {% endblock %}
  
@@ -437,67 +447,9 @@
 	<script src={{ asset("js/nouislider.min.js")}}></script>
 	<script src={{ asset("js/jquery.zoom.min.js")}}></script>
 	<script src={{ asset("js/main.js")}}></script>
-		<!-- <script src={{ asset("js/compteur.js")}}></script>-->
+	 <script src={{ asset("js/compteur.js")}}></script>
 	
-    <script>
-    
-    	
-    	   $('#redirection').click(function(event) {
-    		   event.preventDefault();
-    	     $('html,body').animate({scrollTop: $("#newsletter_input").offset().top}, '600');
-    	     $("#newsletter_input").focus();
-    	   });  
-    	   
-    	
-		
-    </script>
- <script>
-
-    
-    $("#newsletterEnvoi").click(function(event){
-   
-        	event.preventDefault();
-        $.ajax({
-            url : '/newsletter',
-            type : 'POST',
-            data: {email:$('#newsletter_input').val()},
-                
-		
-            }).done(function(result){
-				console.log("ok");
-            	$('#newsletterEnvoi').html('merci')})
-				
-                
-               
-            
-        });
-
-</script>
- <script>
-
-    
-    $("#reviewsend").click(function(event){
-  
-        	event.preventDefault();
-        	 var data_form = $('#formulaire').serialize();
-        	
-        $.ajax({
-            url : '/review',
-            type : 'POST',
-            data: data_form,
-            
-            
-            
-		
-            }).done(function(result){
-            	 console.log(data_form);
-            	$('#reviewsend').html('merci')})
-
-            	
-		 
-        });
-
-</script>
+ 
 </html>
   {% endblock %}
   
