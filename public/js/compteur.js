@@ -1,14 +1,13 @@
-// enregistrement de la date de fin dans une variable 
-var date_fin_promo = $('product-countdown').data('datefinpromo');
-
+var datefin =document.getElementById("countdown").tagname.value;
 // mise a jour du compteur en enlevant 1 sec chaque interval
+
 var x = setInterval(function() {
 
   // variable avec la date et lheure du jour 
   var now = new Date().getTime();
 
   // variable intervale des deux date 
-  var intervaldate = date_fin_promo - now;
+  var intervaldate = datefin - now;
 
   // calcul des jours /heures / minutes restantes 
   var days = Math.floor(intervaldate / (1000 * 60 * 60 * 24));
@@ -18,7 +17,7 @@ var x = setInterval(function() {
   var milliseconds = Math.floor(intervaldate % (seconds *1000));
 
   //affichage dans le DOM
-  document.getElementById("countd").innerHTML = days + "d";
+  
   document.getElementById("counth").innerHTML = hours + "h";
   document.getElementById("countm").innerHTML = minutes + "m";
   document.getElementById("counts").innerHTML = seconds + "s";
@@ -30,59 +29,4 @@ var x = setInterval(function() {
   }
 }, 10);
 
-
-
-
-
-
-$('#redirection').click(function(event) {
-	   event.preventDefault();
-  $('html,body').animate({scrollTop: $("#newsletter_input").offset().top}, '600');
-  $("#newsletter_input").focus();
-});  
-
-
-
-
-
-$("#newsletterEnvoi").click(function(event){
-
-	event.preventDefault();
-$.ajax({
- url : '/newsletter',
- type : 'POST',
- data: {email:$('#newsletter_input').val()},
-     
-
- }).done(function(result){
-		console.log("ok");
- 	$('#newsletterEnvoi').html('merci')})
-		
-     
-    
- 
-});
-
-
-
-$("#reviewsend").click(function(event){
-
-	event.preventDefault();
-	 var data_form = $('#formulaire').serialize();
-	
-$.ajax({
- url : '/review',
- type : 'POST',
- data: data_form,
- 
- 
- 
-
- }).done(function(result){
- 	 console.log(data_form);
- 	$('#reviewsend').html('merci')})
-
- 	
-
-});
 

@@ -144,14 +144,23 @@
 							{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 							<p>{{ app.user.username }}</p>
 							{% else %}
+									
 							<a href="/login" class="text-uppercase">{{ Account_login }}</a> / <a href="/join" class="text-uppercase">{{ Account_join }}</a>
-							{% endif %}
+							{% endif %}	
 							<ul class="custom-menu">
-							
+						
 							{% for custommenu in custommenus %}
+								{% if is_granted('IS_AUTHENTICATED_FULLY') and custommenu.name == "Login"  %}
+									
+									<li><a href=/logout><i class="{{custommenu.class}}"></i> logout</a></li>
+									
+								{% elseif custommenu.name != "Login" %}								
 								<li><a href={{ custommenu.URL }}><i class="{{custommenu.class}}"></i> {{ custommenu.name }}</a></li>
-								
+								{% else  %}
+								<li><a href={{ custommenu.URL }}><i class="{{custommenu.class}}"></i> {{ custommenu.name }}</a></li>
+								{%   endif %}
 							{% endfor %}
+						
 							</ul>
 								
 						</li>
@@ -299,6 +308,7 @@
 										<ul class="list-links">
 												<h3 class="list-links-title">{{ categories.title }}</h3></li>
 										{% for categorie in categories.categoriesdetail %}
+									
 											<li><a href={{ categorie.URL }} >{{ categorie.name }} </a></li>
 											{% endfor %}
 										</ul>
@@ -448,7 +458,7 @@
 	<script src={{ asset("js/jquery.zoom.min.js")}}></script>
 	<script src={{ asset("js/main.js")}}></script>
 	 <script src={{ asset("js/compteur.js")}}></script>
-	
+	 <script src={{ asset("js/ajax.js")}}></script>
  
 </html>
   {% endblock %}

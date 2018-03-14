@@ -50,22 +50,22 @@ class constante {
     );
     // class custom-menu
     const custommenu = array('custommenu1'=>['name'=>'My Account',
-                                              'URL'=>'/Myaccount',
+                                              'URL'=>'#',
                                               'class'=>'fa fa-user-o'],
                                             ['name'=>'My Wishlist',
-                                              'URL'=>'/MyWishlist',
+                                              'URL'=>'#',
                                               'class'=>'fa fa-heart-o'],
                                             ['name'=>'Compare',
-                                              'URL'=>'/Compare',
+                                              'URL'=>'#',
                                               'class'=>'fa fa-exchange'],
                                             ['name'=>'Checkout',
-                                                'URL'=>'/Checkout',
+                                                'URL'=>'#',
                                                 'class'=>'fa fa-check'],
                                             ['name'=>'Login',
                                                 'URL'=>'/Login',
                                                 'class'=>'fa fa-unlock-alt'],
                                             ['name'=>'Create An Account',
-                                                    'URL'=>'/Create',
+                                                    'URL'=>'/join',
                                                     'class'=>'fa fa-user-plus'],);
                                         
     
@@ -76,17 +76,17 @@ class constante {
  const categories = array('title'=>'Categories',
                                    'categoriesdetail'=>[
                                              'cat1'=>['name'=>'Clothing',
-                                             'URL'=>'/WomensClothing'],
+                                             'URL'=>'#'],
                                                                
                                                                                                                          
                                                'cat2'=> ['name'=>'Phones & Accessories',
-                                                'URL'=>'/PhonesAccessories'],
+                                                'URL'=>'#'],
                                                                     
                                                  'cat3'=> ['name'=>'Jewelry & Watches',
-                                                  'URL'=>'/Jewelry&Watches'],
+                                                  'URL'=>'#'],
                                                              
                                                   'cat4'=>['name'=>'Bags & Shoes',
-                                                   'URL'=>'/Bags&Shoes']]);
+                                                   'URL'=>'#']]);
                                              
     
         //category-nav category-header
@@ -95,37 +95,37 @@ class constante {
      'categoriesdetail'=>[
          
          'cat1'=>['name'=>'WomensClothing',
-             'URL'=>'/WomensClothing',
+             'URL'=>'#',
               'sousmenu'=>'1'],
          
          'cat2'=> ['name'=>'MensClothing',
-             'URL'=>'/Jewelry&Watches',
+             'URL'=>'#',
              ],
          
          'cat3'=> ['name'=>'Phones & Accessories',
-             'URL'=>'/PhonesAccessories',
+             'URL'=>'#',
              'sousmenu'=>'1']
          ,
          
          'cat4'=> ['name'=>'COMPUTER & OFFICE',
-             'URL'=>'/COMPUTEROFFICE'
+             'URL'=>'#'
              
          ],
          
          'cat5'=> ['name'=>'CONSUMER ELECTRONICS',
-             'URL'=>'/CONSUMERELECTRONICS'
+             'URL'=>'#'
              ],
          
          'cat6'=> ['name'=>'Jewelry & Watches',
-             'URL'=>'/Jewelry&Watches',
+             'URL'=>'#',
              'sousmenu'=>'1'],
          
          'cat7'=>['name'=>'Bags & Shoes',
-             'URL'=>'/Bags&Shoes'
+             'URL'=>'#'
          ],
          
          'cat8'=>['name'=>'View all',
-             'URL'=>'/Viewall',
+             'URL'=>'#',
              'sousmenu'=>'1'
          ]
          ]);
@@ -133,21 +133,20 @@ class constante {
  
  const menunav = array('menudetail'=>[
            'menu1'=>['name'=>'Home',
-             'URL'=>'/Home'],
+             'URL'=>'/'],
          
          'menu2'=> ['name'=>'Shop',
-             'URL'=>'/Shop'],
+             'URL'=>'/products'],
          
           'menu3'=> ['name'=>'Women',
-           'URL'=>'/Women',
+           'URL'=>'#',
            'sousmenu'=>'1'],
      
          'menu4'=> ['name'=>'Men',
-         'URL'=>'/Men',
+         'URL'=>'#',
          'sousmenu'=>'1'],
      
-         'menu5'=> ['name'=>'Sale',
-         'URL'=>'/Sale']     
+  
      ]);
  
  //<!-- menu nav --> custom-menu
@@ -159,19 +158,19 @@ class constante {
  const ressocial = array('reseau'=>[
          
          'facebook'=>['name'=>'fa fa-facebook',
-                      'URL'=>'/facebook'],
+                      'URL'=>'#'],
          
          'twitter'=> ['name'=>'fa fa-twitter',
-                       'URL'=>'/twitter'],
+                       'URL'=>'#'],
          
          'instagram'=> ['name'=>'fa fa-instagram',
-                       'URL'=>'/instagram'],
+                       'URL'=>'#'],
          
          'google-plus'=>['name'=>'fa fa-google-plus',
-             'URL'=>'/goolgeplus'],
+             'URL'=>'#'],
          
          'pinterest'=>['name'=>'fa fa-pinterest',
-             'URL'=>'/pinterest']
+             'URL'=>'#']
      ]);
  
  //class footer my account
@@ -180,16 +179,16 @@ class constante {
      'account'=>[
      
                  'lien1'=>['name'=>'my account',
-                            'URL'=>'/MYACCOUNT'],
+                            'URL'=>'#'],
                  
                  'lien2'=> ['name'=>'MYWISHLIST',
-                            'URL'=>'/MYWISHLIST'],
+                            'URL'=>'#'],
                  
                  'lien3'=> ['name'=>'COMPARE',
-                            'URL'=>'/COMPARE'],
+                            'URL'=>'#'],
                  
                  'lien4'=>['name'=>'CHECKOUT',
-                     'URL'=>'/CHECKOUT'],
+                     'URL'=>'#'],
                  
                  'lien5'=>['name'=>'LOGIN',
                      'URL'=>'/login']
@@ -200,16 +199,16 @@ class constante {
      'account'=>[
          
          'lien1'=>['name'=>'ABOUT US',
-             'URL'=>'/ABOUTUS'],
+             'URL'=>'#'],
          
          'lien2'=> ['name'=>'SHIPING & RETURN',
-             'URL'=>'/SHIPING'],
+             'URL'=>'#'],
          
          'lien3'=> ['name'=>'SHIPING GUIDE',
-             'URL'=>'/SHIPINGGUIDE'],
+             'URL'=>'#'],
          
          'lien4'=>['name'=>'FAQ',
-             'URL'=>'/FAQ'],
+             'URL'=>'#'],
          
        
      ]);

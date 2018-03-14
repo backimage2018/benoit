@@ -11,6 +11,7 @@ use Symfony\Component\VarDumper\VarDumper;
 use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\Article;
 use Symfony\Component\Translation\TranslatorInterface;
 use Doctrine\DBAL\Driver\PDOException;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller{
    
@@ -365,7 +366,17 @@ class DefaultController extends Controller{
         "footer_subscribe_button"=>constante::footer_subscribe_button,
         "categories"=>constante::categories));
     }
-}
+    
+    /**
+     * @Route("/lazy", name ="lazy")
+     */
+    function  lazy(Request $request){
+        
+        $rep=$this-> getDoctrine()->getRepository(Product::class);
+        $deal=$rep->find(1);
+        return new Response('done');
 
+}
+}
 
 ?>

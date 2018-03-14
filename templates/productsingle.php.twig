@@ -17,9 +17,13 @@
 							{% endif %}
 							</div>
 					        {% endif %}
-					   
+					        
+					   		
+                                    
 							<a href="/product-page/{{ articles.id }}" class="main-btn quick-view" ><i class="fa fa-search-plus"></i> Quick view</a>
 							<img src={{asset("uploads/image/" ~ articles.image.lien) }} alt="">
+
+						
 						</div>
 						<div class="product-body">
 							<h3 class="product-price">{{ articles.prix }} €</h3>
@@ -35,6 +39,15 @@
 								<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
 								<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
 								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+															      {% if app.user is not null %}
+                                      {% for role in app.user.roles %} 
+                                      {% if role == 'ROLE_ADMIN'  %} 
+                                          
+                                     		<a href="{{ asset('admin/edit/'~ articles.id) }}" class="primary-btn fa-trash-alt"> Modifier</a>
+                                      {%  endif  %}
+                                      {% endfor %}
+                                    {% endif %}
+
 							</div>
 						</div>
 					</div>
