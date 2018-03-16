@@ -79,7 +79,7 @@
 							<ul class="custom-menu">
 							{% for langues in langue %}	
 				
-								<li><a href={{ langues.url }}> {{ langues.name }} </a></li>
+								<li><a href="#"> {{ langues.name }} </a></li>
 						{% endfor %}	
 								
 							</ul>
@@ -92,7 +92,7 @@
 							<ul class="custom-menu">
 							{% for devises in devise %}
 							
-								<li><a href={{ devises.url }}>{{ devises.name }}</a></li>
+								<li><a href="#">{{ devises.name }}</a></li>
 									{% endfor %}	
 							</ul>
 					
@@ -109,7 +109,7 @@
 				<div class="pull-left">
 					<!-- Logo -->
 					<div class="header-logo">
-						<a class="logo" href="#">
+						<a class="logo" href="{{ path("index") }}">
 							<img src="{{ logo }}" alt="">
 						</a>
 					</div>
@@ -117,8 +117,8 @@
 
 					<!-- Search -->
 					<div class="header-search">
-						<form>
-							<input class="input search-input" type="text" placeholder="Enter your keyword">
+						<form method ="post" action="/search">
+							<input class="input search-input" name="search" type="text" placeholder="Enter your keyword">
 							
 							<select class="input search-categories">
 							{% for searchcategorie in searchcategories %}
@@ -204,7 +204,7 @@
 									</div>
 									<div class="shopping-cart-btns">
 										<button class="main-btn">View Cart</button>
-										<button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button>
+										<button class="primary-btn"><a href="{{ path('checkout') }}">Checkout </a><i class="fa fa-arrow-circle-right"></i></button>
 									</div>
 								</div>
 							</div>

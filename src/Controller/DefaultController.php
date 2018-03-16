@@ -22,13 +22,18 @@ class DefaultController extends Controller{
     
     Public function index(TranslatorInterface $ti){
 
-        $article= $this-> getDoctrine()
+        $articleforyou= $this-> getDoctrine()
         ->getRepository(Product::class)
-        ->findAll();
+        ->findByAlllimit();
+
         
         $articlenew= $this-> getDoctrine()
         ->getRepository(Product::class)
-        ->findBynew('new');
+        ->findBynew('oui');
+        
+        $articles= $this-> getDoctrine()
+        ->getRepository(Product::class)
+        ->findAll();
         
   
         return $this->render('index.php.twig',array("index_banner"=>constante::index_banner,
@@ -37,8 +42,9 @@ class DefaultController extends Controller{
                                                     "index_sectiongrey_banner"=>constante::index_sectiongrey_banner,
                                                     "index_sectiongrey_banner1"=>constante::index_sectiongrey_banner1,
                                                     "index_latest_product"=>constante::index_latest_product,
-                                                    'article'=>$article,
+                                                    'article'=>$articleforyou,
                                                     'articlesnew'=>$articlenew,
+                                                    'articledeal'=>$articles,
                                                     
             ////base
                                              "welcome"=>constante::welcome,
@@ -64,7 +70,7 @@ class DefaultController extends Controller{
 
    
     /**
-     * @Route("/checkout")
+     * @Route("/checkout" , name="checkout")
      */
     
     function checkout(){
@@ -92,7 +98,7 @@ class DefaultController extends Controller{
         
     }
     /**
-     * @Route("/blank")
+     * @Route("/blank" , name="blank")
      */
     
     function blank(){
@@ -234,7 +240,7 @@ class DefaultController extends Controller{
     
     
     /**
-     * @Route("/shipping_guide",)
+     * @Route("/shipping_guide",name="shipping_guide")
      */
     
     
@@ -262,7 +268,9 @@ class DefaultController extends Controller{
         
     }
 
-    
+    /**
+     * @Route("/FAQ",name="FAQ")
+     */
     
     function  faq(){
         
@@ -374,6 +382,7 @@ class DefaultController extends Controller{
         
         $rep=$this-> getDoctrine()->getRepository(Product::class);
         $deal=$rep->find(1);
+       
         return new Response('done');
 
 }

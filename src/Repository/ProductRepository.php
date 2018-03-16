@@ -39,6 +39,32 @@ public function customcorbeilleproduct(): array
     
     return $qb->execute();
 }
+public function productnew(): array
+{
+    $qb = $this->createQueryBuilder('p')
+    ->andWhere('p.new = "oui"')
+    ->getQuery();
+    return $qb->execute();
+}
+
+public function findByAlllimit()
+{
+    $qb = $this->createQueryBuilder('p')
+    ->orderBy('p.id', 'ASC')
+    ->setMaxResults(5)
+    ->getQuery();
+    return $qb->execute();
+    ;
+}
+public function search($value)
+{
+    $qb = $this->createQueryBuilder('p')
+    ->Where('p.nom like :valeur')
+    ->setParameter('valeur', $value)
+    ->getQuery();
+    return $qb->execute();
+    ;
+}
     }
     
     ?>

@@ -186,9 +186,17 @@
 						<!-- row -->
 						<div class="row">
 							<!-- Product Single -->
+							{% if article is empty %}
+							<p> Aucun article disponible </p>
+							{% else %}
 							{% for articles in article %}
+							
+							
+							
 							{% include 'productsingle.php.twig' %}
+							
 								{% endfor %}
+								{% endif %}
 							<!-- /Product Single -->
 
 

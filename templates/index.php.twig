@@ -121,7 +121,7 @@
 						<div id="product-slick-1" class="product-slick">
 							<!-- Product Single -->
 							
-							{% for articles in article %}
+							{% for articles in articledeal %}
 							
 						
 				
@@ -131,7 +131,7 @@
 						<div class="product-thumb">
 							{% if articles.new is not empty or articles.reduction is not empty %}
 							<div class="product-label">
-							{% if articles.new is not empty %}
+                            {% if articles.new == "oui" %}
 								<span>New</span>
 							{% endif %}
 							{% if articles.reduction is not empty %}
@@ -245,7 +245,7 @@
 
 				<!-- Product Single -->
 							
-                            {% for articles in article %}
+                            {% for articles in articlesnew %}
                            
 							{% if loop.index == 5 %}
 							<div class="row">
