@@ -125,6 +125,11 @@ class Product
      * @ORM\Column(name="deleted", type="datetime", nullable=true)
      */
     private $deleted;
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Panier", inversedBy="products")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $Panier;
 
     /**
      * @return mixed

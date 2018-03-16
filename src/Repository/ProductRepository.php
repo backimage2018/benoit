@@ -63,7 +63,7 @@ public function search($value)
     ->setParameter('valeur', $value)
     ->getQuery();
     return $qb->execute();
-    ;
+    
 }
     }
     

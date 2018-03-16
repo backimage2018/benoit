@@ -17,11 +17,7 @@ class ReviewController extends Controller
     public function Review(Request $request)
    
     {
-        // 1) build the form
-        
-
-      
-        
+        // 1) build the form 
         $Review = new Review();
         $Review->setMail($request->get('email'));
         $Review->setNom($request->get('name'));
@@ -37,23 +33,16 @@ class ReviewController extends Controller
         $Product=$this-> getDoctrine()
         ->getRepository(Product::class)
         ->find($id);
-    
-        
 
-       
-//        var_dump($Product);
        $Product->getReviews()[]=$Review;
        $Review->setProduct($Product);
        
          $em = $this->getDoctrine()->getManager();
          $em->persist($Review);
          $em->flush();
-        
-      
+         
         return new Response("<html><body><p>test</p></body></html>");
       
     }
-
-
 }
 ?>
