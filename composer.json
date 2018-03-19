@@ -14,7 +14,9 @@
         "symfony/maker-bundle": "^1.1",
         "symfony/orm-pack": "^1.0",
         "symfony/profiler-pack": "^1.0",
+        "symfony/requirements-checker": "^1.0",
         "symfony/security-bundle": "^4.0",
+        "symfony/serializer": "^4.0",
         "symfony/translation": "^4.0",
         "symfony/twig-bundle": "^4.0",
         "symfony/validator": "^4.0",
@@ -50,7 +52,8 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd",
+            "requirements-checker": "script"
         },
         "post-install-cmd": [
             "@auto-scripts"

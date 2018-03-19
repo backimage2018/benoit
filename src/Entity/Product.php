@@ -108,7 +108,7 @@ class Product
      * @ORM\Column(type="datetime",nullable=true)
      *
      */
-    private $date_fin_promo;
+    private $datefinpromo;
     
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist"})
@@ -130,6 +130,38 @@ class Product
      * @ORM\JoinColumn(nullable=true)
      */
     private $Panier;
+
+    /**
+     * @return mixed
+     */
+    public function getDatefinpromo()
+    {
+        return $this->datefinpromo;
+    }
+
+    /**
+     * @param mixed $datefinpromo
+     */
+    public function setDatefinpromo($datefinpromo)
+    {
+        $this->datefinpromo = $datefinpromo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPanier()
+    {
+        return $this->Panier;
+    }
+
+    /**
+     * @param mixed $Panier
+     */
+    public function setPanier($Panier)
+    {
+        $this->Panier = $Panier;
+    }
 
     /**
      * @return mixed
@@ -169,21 +201,7 @@ class Product
         $this->Reviews = $Reviews;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDate_fin_promo()
-    {
-        return $this->date_fin_promo;
-    }
 
-    /**
-     * @param mixed $date_fin_promo
-     */
-    public function setDate_fin_promo($date_fin_promo)
-    {
-        $this->date_fin_promo = $date_fin_promo;
-    }
 
     /**
      * @return mixed

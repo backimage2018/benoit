@@ -26,7 +26,7 @@ class Panier
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $NomPanier;
+    private $Nom;
     
     /**
      * @ORM\Column(type="string", length=255)
@@ -35,7 +35,7 @@ class Panier
     private $Quantite;
     
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="Panier", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="Paniers", cascade={"persist"}))
      * @ORM\JoinColumn(nullable=true)
      */
     Private $Product;
@@ -46,17 +46,40 @@ class Panier
      */
     public function getProduct()
     {
-        return $this->product;
+        return $this->Product;
     }
 
     /**
-     * @param mixed $product
+     * @return mixed
      */
-    public function setProduct($product)
+    public function getNom()
     {
-        $this->product = $product;
+        return $this->Nom;
     }
 
+    /**
+     * @param mixed $Nom
+     */
+    public function setNom($Nom)
+    {
+        $this->Nom = $Nom;
+    }
+
+    /**
+     * @param mixed $Product
+     */
+    public function setProduct($Product)
+    {
+        $this->Product = $Product;
+    }
+
+
+
+
+    /**
+     * @return mixed
+     */
+    
     // add your own fields
 
     /**
@@ -67,13 +90,7 @@ class Panier
         return $this->id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getNomPanier()
-    {
-        return $this->NomPanier;
-    }
+ 
 
     /**
      * @return mixed
@@ -83,13 +100,7 @@ class Panier
         return $this->Quantite;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getProduit()
-    {
-        return $this->produit;
-    }
+    
 
     /**
      * @param mixed $id
@@ -99,13 +110,7 @@ class Panier
         $this->id = $id;
     }
 
-    /**
-     * @param mixed $NomPanier
-     */
-    public function setNomPanier($NomPanier)
-    {
-        $this->NomPanier = $NomPanier;
-    }
+ 
 
     /**
      * @param mixed $Quantite
@@ -115,11 +120,4 @@ class Panier
         $this->Quantite = $Quantite;
     }
 
-    /**
-     * @param mixed $produit
-     */
-    public function setProduit($produit)
-    {
-        $this->produit = $produit;
-    }
 }

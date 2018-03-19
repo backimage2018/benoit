@@ -19,16 +19,14 @@ class PanierRepository extends ServiceEntityRepository
         parent::__construct($registry, Panier::class);
     }
 
-    /*
+   
     public function findBySomething($value)
     {
         return $this->createQueryBuilder('p')
-            ->where('p.something = :value')->setParameter('value', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+            ->where('p.Nom = :value')->setParameter('value', $value)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 }

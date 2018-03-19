@@ -191,6 +191,15 @@
     "symfony/property-access": {
         "version": "v4.0.4"
     },
+    "symfony/requirements-checker": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "93d0ec48679f5e240d265088305c1ad775723f93"
+        }
+    },
     "symfony/routing": {
         "version": "4.0",
         "recipe": {
@@ -211,6 +220,9 @@
             "version": "3.3",
             "ref": "f8a63faa0d9521526499c0a8f403c9964ecb0527"
         }
+    },
+    "symfony/serializer": {
+        "version": "v4.0.6"
     },
     "symfony/stopwatch": {
         "version": "v4.0.4"
