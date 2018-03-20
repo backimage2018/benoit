@@ -62,9 +62,20 @@ public function search($value)
     ->Where('p.nom like :valeur')
     ->setParameter('valeur', $value)
     ->getQuery();
+    
+    return ($qb->execute());
+    
+}
+public function produitPanier($value)
+{
+    $qb = $this->createQueryBuilder('p')
+    ->select('p.nom','p.prix')
+    ->Where('p.id =:valeur')
+    ->setParameter('valeur', $value)
+    ->getQuery();
     return $qb->execute();
     
 }
-    }
+ }
     
     ?>

@@ -23,6 +23,7 @@ class PanierRepository extends ServiceEntityRepository
     public function findBySomething($value)
     {
         return $this->createQueryBuilder('p')
+         
             ->where('p.Nom = :value')->setParameter('value', $value)
             ->getQuery()
             ->getResult()

@@ -14,7 +14,7 @@ use Doctrine\DBAL\Types\DateType;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  */
-class Product
+class Product implements \Serializable
 {
     /**
      * @ORM\Id
@@ -480,7 +480,21 @@ class Product
     {
         $this->display = $display;
     }
+    public function serialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getNom()
+        ];
+        
+        
+    }
 
+    public function unserialize($serialized)
+    {}
+
+    
+    
    
     
 }

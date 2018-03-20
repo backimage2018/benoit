@@ -181,26 +181,20 @@
 							<div class="custom-menu">
 								<div id="shopping-cart">
 									<div class="shopping-cart-list">
+									{% for paniers in panier %}
+								
+									
 										<div class="product product-widget">
 											<div class="product-thumb">
 												<img src="./img/thumb-product01.jpg" alt="">
 											</div>
 											<div class="product-body">
-												<h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-												<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+												<h3 id ="Pricecart" class="product-price"> {{ paniers.Product.prix }} € <span id="qtycart" class="qty">x{{ paniers. Quantite }}</span></h3>
+												<h2 id ="namecart" class="product-name">{{ paniers.Product.nom }}<a href="#"></a></h2>
 											</div>
 											<button class="cancel-btn"><i class="fa fa-trash"></i></button>
 										</div>
-										<div class="product product-widget">
-											<div class="product-thumb">
-												<img src="./img/thumb-product01.jpg" alt="">
-											</div>
-											<div class="product-body">
-												<h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-												<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-											</div>
-											<button class="cancel-btn"><i class="fa fa-trash"></i></button>
-										</div>
+										{% endfor %}
 									</div>
 									<div class="shopping-cart-btns">
 										<button class="main-btn">View Cart</button>

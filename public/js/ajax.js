@@ -38,10 +38,6 @@ $.ajax({
  url : '/review',
  type : 'POST',
  data: data_form,
- 
- 
- 
-
  }).done(function(result){
  
  	$('#reviewsend').html('merci')})
@@ -60,13 +56,14 @@ $.ajax({
  url : '/panier',
  type : 'POST',
  data: data_form,
- 
- 
- 
-
- }).done(function(result){
- 	 console.log(data_form);
- 	$('#reviewsend').html('merci')})
+ dataType : "json",
+ success : function(reponse,statut,xx){
+    var resultat_Ajax = reponse[0];
+   
+    
+    }
+	
+  });
 
  	
 

@@ -29,12 +29,14 @@ class PanierController extends Controller
     public function Review(Request $request){
      
       
-//         $id =$request->get('idproduct');
-        $id ="13";
+      //  $id =$request->get('idproduct');
+        $id ="12";
+        
         $Product=$this-> getDoctrine()
         ->getRepository(Product::class)
-        ->find($id);
-      
+        ->produitPanier($id);
+        
+        dump($Product);
         
         $Panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
@@ -70,17 +72,42 @@ class PanierController extends Controller
            
              }
          }
+         $Panier=$this-> getDoctrine()
+         ->getRepository(Panier::class)
+         ->findBySomething("tt");
          
-         $encoder = new JsonEncoder();
-         $normalizer = new ObjectNormalizer();
-         
+         $total = total($Panier);
+       dump($total);
+       
+          $encoder = new JsonEncoder();
+          $normalizer = new ObjectNormalizer();
          $normalizer->setCircularReferenceHandler(function ($object) {
-             return $object->getNom();
-         });
-             
+              return $object;
+          });
              $serializer = new Serializer(array($normalizer), array($encoder));
-             var_dump($serializer->serialize($Panier, 'json'));
-         return ;
+            $panier= $serializer->serialize($Panier, 'json');
+        //     return new Response( $serializer->serialize($panierrow, 'json'));
+             return $this->render('base.html.twig',array (
+                 "panier"=>json_decode($panier),
+                 "welcome"=>constante::welcome,
+                 "logo"=>constante::logo,
+                 "menuheader"=>constante::menuheader,
+                 "langue"=>constante::langue,
+                 "devise"=>constante::devise,
+                 "searchcategories"=>constante::searchcategories,
+                 "custommenus"=>constante::custommenu,
+                 "categorieshead"=>constante::categorieshead,
+                 "ressocial"=>constante::ressocial,
+                 "Account_login" =>constante::Account_login,
+                 "Account_join" => constante::Account_join,
+                 "footermyaccount"=>constante::footer_my_account,
+                 "footerCustomer"=>constante::footer_Customer_Service,
+                 "footer_subscribe_h3"=>constante::footer_subscribe_h3,
+                 "footer_subscribe_p"=>constante::footer_subscribe_p,
+                 "menunav"=>constante::menunav,
+                 "footer_subscribe_button"=>constante::footer_subscribe_button,
+                 "categories"=>constante::categories));
+     
         
     }
 }

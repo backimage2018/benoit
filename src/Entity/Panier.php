@@ -13,7 +13,7 @@ use Doctrine\DBAL\Types\DateType;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PanierRepository")
  */
-class Panier
+class Panier implements \Serializable
 {
     /**
      * @ORM\Id
@@ -40,6 +40,16 @@ class Panier
      */
     Private $Product;
     
+    public function total()
+    {
+        $total = 0;
+        if ($Product != null && count($Products) > 0) {
+            foreach ($Product as $prod) {
+                $total += $prod->getPrix();
+            }
+        }
+        return $total;
+    }
     
     /**
      * @return mixed
@@ -119,5 +129,17 @@ class Panier
     {
         $this->Quantite = $Quantite;
     }
+    public function serialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'nom' => $this->getNom()
+        ];
+        
+    }
+
+    public function unserialize($serialized)
+    {}
+
 
 }
