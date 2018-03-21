@@ -41,11 +41,27 @@ class Panier implements \Serializable
     Private $Product;
     
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\panier")
+     * @ORM\OneToOne(targetEntity="App\Entity\user")
      */
     
     private $user;
     
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
     public function total($Product)
     {
         $total = 0;

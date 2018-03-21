@@ -16,7 +16,6 @@ $.ajax({
  url : '/newsletter',
  type : 'POST',
  data: {email:$('#newsletter_input').val()},
-     
 
  }).done(function(result){
 
@@ -47,24 +46,20 @@ $.ajax({
 });
 
 //ajax pour envoie panier
-$(".add-to-cart").click(function(event){
+$(".add-to-cart").click(function(){
 
-	event.preventDefault();
-	 var data_form = 'idproduct=' + $(this).attr('id');
+	
+	var data_form =$(this).attr('id');
 	
 $.ajax({
  url : '/panier',
- type : 'POST',
- data: data_form,
- dataType : "json",
- success : function(reponse,statut,xx){
-    var resultat_Ajax = reponse[0];
-   
-    
-    }
-	
+ type: 'POST',
+ data: {id:$(this).attr('id')},
+ }).done(function(result){
+ 
+ 	$('.add-to-cart').html('merci')})
+ 
   });
 
- 	
 
-});
+

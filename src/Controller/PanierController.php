@@ -18,6 +18,7 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use App\Entity\User;
 
 
 class PanierController extends Controller
@@ -27,54 +28,59 @@ class PanierController extends Controller
      */
 
     public function panier(Request $request){
-        dump($request->getRequestUri());
-    
-        dump($id);
-       $user= $this->getUser();
-       dump($user);
+  
+        $id=$request->request->get('id');
+        
+        
+    $iduser= $this->getUser()->getid();
+   
         $Product=$this-> getDoctrine()
         ->getRepository(Product::class)
         ->find($id);
         
-       // dump($Product);
+         $user=$this-> getDoctrine()
+         ->getRepository(User::class)
+         ->find($iduser);
+         var_dump($user);
         
         $Panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
-        ->findBySomething("tt");
-       
-         if (empty($Panier)) {
+        ->cherchepanier($iduser,$id);
+        dump($Panier);
+     
                         
-                     $panierrow=new Panier();
-                     $panierrow->setNom("tt");
-                     $panierrow->setQuantite("1");
-                     $panierrow->setProduct($Product);
+                     $panier=new Panier();
+                     $panier->setQuantite("1");
+                     $panier->setProduct($Product);
+                     $panier->setNom("test");
+                     $panier->setUser($user);
+                     
                      $em = $this->getDoctrine()->getManager();
-                     $em->persist($panierrow);
+                     $em->persist($panier);
                      $em->flush();
             
-         }else{
-             $i=0;
-             foreach ($Panier as $panierrow){
-                $i=$i++;
+//          }else{
+         
+//              foreach ($Panier as $panierrow){
+              
                  
-                 dump($panierrow);
-                 if ($panierrow->getProduct()->getid() == $id){
-                     $panierrow->setQuantite(($panierrow->getQuantite())+1);
-                     $em = $this->getDoctrine()->getManager();
-                     $em->persist($panierrow);
-                     $em->flush();
-                 }elseif ($i > (count($Panier))){
-                     $panierrow=new Panier();
-                     $panierrow->setNom("tt");
-                     $panierrow->setQuantite("1");
-                     $panierrow->setProduct($Product);
-                     $em = $this->getDoctrine()->getManager();
-                     $em->persist($panierrow);
-                     $em->flush();
-                 }
+//                  if ($panierrow->getProduct()->getid() == $id){
+//                      $panierrow->setQuantite(($panierrow->getQuantite())+1);
+//                      $em = $this->getDoctrine()->getManager();
+//                      $em->persist($panierrow);
+//                      $em->flush();
+//                  }else{
+//                      $panierrow=new Panier();
+//                      $panierrow->setNom("tt");
+//                      $panierrow->setQuantite("1");
+//                      $panierrow->setProduct($Product);
+//                      $em = $this->getDoctrine()->getManager();
+//                      $em->persist($panierrow);
+//                      $em->flush();
+//                  }
            
-             }
-         }
+//              }
+      
          
          $Panier=$this-> getDoctrine()
          ->getRepository(Panier::class)

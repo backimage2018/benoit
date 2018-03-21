@@ -20,11 +20,13 @@ class PanierRepository extends ServiceEntityRepository
     }
 
    
-    public function findBySomething($value)
+    public function findBySomething($iduser,$id)
     {
         return $this->createQueryBuilder('p')
          
-            ->where('p.Nom = :value')->setParameter('value', $value)
+            ->where('p.user = :iduser and p.product= :id') 
+            ->setParameter('iduser', $iduser)
+            ->setParameter('id', $id)
             ->getQuery()
             ->getResult()
         ;

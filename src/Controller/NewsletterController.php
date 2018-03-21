@@ -38,7 +38,9 @@ class NewsletterController extends Controller
     public function newsletter(Request $request)
     {
         // 1) build the form
+        dump($request);
         $email = $request->request->get('email');
+        dump($email);
         $Newsletter = new Newsletter();
         $Newsletter->setEmail($email);
         
