@@ -29,8 +29,8 @@ class PanierController extends Controller
 
     public function panier(Request $request){
   
-        $id=$request->request->get('id');
-        
+      //  $id=$request->request->get('id');
+        $id=13;
         
     $iduser= $this->getUser()->getid();
    
@@ -41,11 +41,11 @@ class PanierController extends Controller
          $user=$this-> getDoctrine()
          ->getRepository(User::class)
          ->find($iduser);
-         var_dump($user);
+       
         
         $Panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
-        ->cherchepanier($iduser,$id);
+        ->findBySomething($iduser);
         dump($Panier);
      
                         

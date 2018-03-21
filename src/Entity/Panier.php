@@ -41,7 +41,7 @@ class Panier implements \Serializable
     Private $Product;
     
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\user")
+     * @ORM\ManyToOne(targetEntity="App\Entity\user")
      */
     
     private $user;
