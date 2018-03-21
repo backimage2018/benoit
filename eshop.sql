@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 12 Mars 2018 à 15:14
+-- Généré le :  Mer 21 Mars 2018 à 16:15
 -- Version du serveur :  5.7.14-log
 -- Version de PHP :  7.0.10
 
@@ -38,9 +38,11 @@ CREATE TABLE `image` (
 
 INSERT INTO `image` (`id`, `lien`, `product_id`) VALUES
 (11, '3af31d7b1165ae9aa486ae3df14b3976.jpeg', NULL),
-(12, 'e1b4fb84dba3afbc184703ec9e84e2cc.jpeg', 13),
-(13, '639069a8670463e8a2b3b73045d07ab8.jpeg', 14),
-(14, '56ba9e0352e9c5bca9e43d9387468baf.jpeg', 15);
+(12, '2f1273d9df66a329bea5aba97c7f335e.jpeg', 13),
+(13, 'a8c1931aed3e09f8bbeda2f3697f8d4d.jpeg', 14),
+(14, '56ba9e0352e9c5bca9e43d9387468baf.jpeg', 15),
+(15, 'd114f3a2320454ac289fce080d17b271.jpeg', 16),
+(16, 'cf1624bbfcbcf820951d695ac0c7fcff.jpeg', 17);
 
 -- --------------------------------------------------------
 
@@ -119,7 +121,17 @@ INSERT INTO `migration_versions` (`version`) VALUES
 ('20180312082916'),
 ('20180312131132'),
 ('20180312131216'),
-('20180312131252');
+('20180312131252'),
+('20180316103521'),
+('20180316103747'),
+('20180316123900'),
+('20180316124516'),
+('20180319082159'),
+('20180319115845'),
+('20180321120742'),
+('20180321122709'),
+('20180321154228'),
+('20180321160842');
 
 -- --------------------------------------------------------
 
@@ -143,7 +155,36 @@ INSERT INTO `newsletter` (`id`, `email`, `deleted`) VALUES
 (7, 'drd@aol.com', NULL),
 (8, 'lll@aol.com', NULL),
 (9, 'mar@aol.om', NULL),
-(10, 'hfhf', NULL);
+(10, 'hfhf', NULL),
+(11, 'fgdgd@aol.com', NULL),
+(12, 'ma@aol.com', NULL),
+(13, 'gfhfh', NULL),
+(14, 'ghghjg', NULL),
+(19, 'ghghjg@aol.com', NULL),
+(23, 'ghghj@aol.com', NULL),
+(25, 'lalal@aol.com', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `panier`
+--
+
+CREATE TABLE `panier` (
+  `id` int(11) NOT NULL,
+  `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `quantite` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Contenu de la table `panier`
+--
+
+INSERT INTO `panier` (`id`, `nom`, `quantite`, `product_id`, `user_id`) VALUES
+(107, 'test', '1', 14, 8),
+(115, 'test', '1', 13, 8);
 
 -- --------------------------------------------------------
 
@@ -168,20 +209,23 @@ CREATE TABLE `product` (
   `new` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `display` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `ancienprix` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `date_fin_promo` datetime DEFAULT NULL,
+  `datefinpromo` datetime DEFAULT NULL,
   `image_id` int(11) DEFAULT NULL,
-  `deleted` datetime DEFAULT NULL
+  `deleted` datetime DEFAULT NULL,
+  `panier_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Contenu de la table `product`
 --
 
-INSERT INTO `product` (`id`, `nom`, `prix`, `taille`, `couleur`, `collection`, `description`, `disponibilite`, `marque`, `detail`, `categorie`, `sexe`, `reduction`, `new`, `display`, `ancienprix`, `date_fin_promo`, `image_id`, `deleted`) VALUES
-(12, 'Botte', '50', 'L', 'bleu', 'Vetements', 'Joli', 'En stock', 'Levis', 'Très joli', 'ddd', 'Homme', '20', 'oui', 'oui', '500', NULL, 11, '2018-03-12 10:03:30'),
-(13, 'Sac', '50', 'L', 'bleu', 'Vetements', 'Joli', 'En stock', 'Levis', 'Très joli', 'ddd', 'Homme', '20', 'oui', 'oui', '40', NULL, 12, NULL),
-(14, 'Montre', '35', 'L', 'bleu', 'Vetements', 'Joli', 'En stock', 'Levis', 'Très joli', 'ddd', 'Homme', '20', 'oui', 'oui', '45', NULL, 13, NULL),
-(15, 'basket', '20', 'L', 'bleu', 'Vetements', 'Joli', 'En stock', 'Levis', 'Très joli', 'ddd', 'Homme', '20', 'oui', 'oui', '45', NULL, 14, NULL);
+INSERT INTO `product` (`id`, `nom`, `prix`, `taille`, `couleur`, `collection`, `description`, `disponibilite`, `marque`, `detail`, `categorie`, `sexe`, `reduction`, `new`, `display`, `ancienprix`, `datefinpromo`, `image_id`, `deleted`, `panier_id`) VALUES
+(12, 'Botte noir', '50', 'L', 'bleu', 'Vetements', 'Joli', 'En stock', 'Levis', 'Très joli', 'ddd', 'Men', '20%', 'non', 'oui', '500', '2021-09-02 00:00:00', 11, NULL, NULL),
+(13, 'Montre en or', '50', 'L', 'bleu', 'Watches', 'Joli', 'En stock', 'Levis', 'Très joli', 'ddd', 'Women', '20%', 'oui', 'oui', '40', '2021-09-02 00:00:00', 12, NULL, NULL),
+(14, 'Ceinture', '35', 'L', 'bleu', 'Accessories', 'Joli', 'En stock', 'Levis', 'Très joli', 'ddd', 'Mixte', '20%', 'oui', 'oui', '45', '2021-09-02 00:00:00', 13, NULL, NULL),
+(15, 'basket', '20', 'L', 'bleu', 'Shoes', 'Joli', 'En stock', 'Levis', 'Très joli', 'ddd', 'Women', '20%', 'oui', 'oui', '45', '2021-09-02 00:00:00', 14, NULL, NULL),
+(16, 'portefeuille', '500', 'L', 'bleu', 'Accessories', 'Joli', 'En stock', 'Levis', 'Très joli', 'ddd', 'Men', '20%', 'oui', 'oui', '45', NULL, 15, NULL, NULL),
+(17, 'Sac noir', '500', 'L', 'bleu', 'Bag', 'Joli', 'En stock', 'Levis', 'Très joli', 'ddd', 'Women', '20%', 'oui', 'oui', '45', NULL, 16, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -220,7 +264,11 @@ INSERT INTO `review` (`id`, `nom`, `mail`, `review`, `note`, `product_id`) VALUE
 (57, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'fdgdgdgdgdgdsfgds', 4, 12),
 (58, 'dqdq', 'ddsqqd', 'dqqdq', 1, 12),
 (60, 'sdfsf', 'fsdsfs', 'fdssdfsfsd', 4, 12),
-(61, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'dgdgdg', 2, 13);
+(61, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'dgdgdg', 2, 13),
+(62, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'joli', 2, 13),
+(63, 'ban', 'sfsf@aol.com', 'sfsfsf', 1, 13),
+(64, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'bon portefeuille', 5, 16),
+(66, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'fhfhfhfghgfh', 1, 12);
 
 -- --------------------------------------------------------
 
@@ -242,11 +290,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `email`, `role`, `is_active`) VALUES
-(1, 'jean', '$2y$13$CDqEH8lHUnF5h2z8rXh5q.NoCe1zieuSRceRFjgoZ2e9wB9B4OFk2', 'benoit@aol.com', 'ROLE_USER', 1),
-(2, 'benoit', '$2y$13$QJvVC2OhzUF9jgkCqr1tl.sWCr7Xb2ftgnv9/ZHOQ1Sy36zxMaqpS', 'benoit@gmail.com', 'ROLE_ADMIN', 1),
-(3, 'lllOOOO', '$2y$13$5U4VWiVKxnJmk1cXq/gT7.MjmZGdFqgtjCwwC6N2AXUWCkB75zucy', 'benoit@aol.comllllll', 'ROLE_USER', 1),
-(4, 'jean44', '$2y$13$lG4o0G5hztFB.WOLQgTfQ.pifXTG5I3Q/R8y1KeRML5FOej0U8rzO', 'jean44@aol.com', 'ROLE_USER', 1),
-(5, 'fab', '$2y$13$h/c1QHDNM1KeFwrJs5ES2uv2v2x82G4wHlXJVZVEf5aynOXJv9oEG', 'fab@mail.com', 'ROLE_USER', 1);
+(8, 'benoit', '$2y$13$nYvzBFVDnSC/3GA00a6LF.5dkn9VtpzwI/i6zUWw7dtM.uxabzXGO', 'marseillais13800@gmail.com', 'ROLE_ADMIN', 1);
 
 --
 -- Index pour les tables exportées
@@ -273,11 +317,20 @@ ALTER TABLE `newsletter`
   ADD UNIQUE KEY `UNIQ_7E8585C8E7927C74` (`email`);
 
 --
+-- Index pour la table `panier`
+--
+ALTER TABLE `panier`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_24CC0DF24584665A` (`product_id`),
+  ADD KEY `IDX_24CC0DF2A76ED395` (`user_id`);
+
+--
 -- Index pour la table `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `UNIQ_D34A04AD3DA5256D` (`image_id`);
+  ADD UNIQUE KEY `UNIQ_D34A04AD3DA5256D` (`image_id`),
+  ADD KEY `IDX_D34A04ADF77D927C` (`panier_id`);
 
 --
 -- Index pour la table `review`
@@ -303,27 +356,32 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT pour la table `newsletter`
 --
 ALTER TABLE `newsletter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+--
+-- AUTO_INCREMENT pour la table `panier`
+--
+ALTER TABLE `panier`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 --
 -- AUTO_INCREMENT pour la table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT pour la table `review`
 --
 ALTER TABLE `review`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 --
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- Contraintes pour les tables exportées
 --
@@ -335,10 +393,18 @@ ALTER TABLE `image`
   ADD CONSTRAINT `FK_C53D045F4584665A` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
 
 --
+-- Contraintes pour la table `panier`
+--
+ALTER TABLE `panier`
+  ADD CONSTRAINT `FK_24CC0DF24584665A` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `FK_24CC0DF2A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
 -- Contraintes pour la table `product`
 --
 ALTER TABLE `product`
-  ADD CONSTRAINT `FK_D34A04AD3DA5256D` FOREIGN KEY (`image_id`) REFERENCES `image` (`id`);
+  ADD CONSTRAINT `FK_D34A04AD3DA5256D` FOREIGN KEY (`image_id`) REFERENCES `image` (`id`),
+  ADD CONSTRAINT `FK_D34A04ADF77D927C` FOREIGN KEY (`panier_id`) REFERENCES `panier` (`id`);
 
 --
 -- Contraintes pour la table `review`
