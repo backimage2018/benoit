@@ -40,7 +40,13 @@ class Panier implements \Serializable
      */
     Private $Product;
     
-    public function total()
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\panier")
+     */
+    
+    private $user;
+    
+    public function total($Product)
     {
         $total = 0;
         if ($Product != null && count($Products) > 0) {

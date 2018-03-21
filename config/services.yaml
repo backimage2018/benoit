@@ -3,6 +3,7 @@
 parameters:
     locale: 'en'
     image_directory: '%kernel.project_dir%/public/uploads/image'
+    PanierService: 'App\Service\PanierService'
 
 services:
     # default configuration for services in *this* file
@@ -35,3 +36,5 @@ services:
         tags:
             - { name: doctrine.event_listener, event: preFlush, method: preFlush }
             
+    App\Service\PanierService:
+        public: true

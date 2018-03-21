@@ -66,6 +66,42 @@ public function search($value)
     return ($qb->execute());
     
 }
+
+public function categorie($value)
+{
+    $qb = $this->createQueryBuilder('p')
+    ->Where('p.sexe like :valeur or p.sexe = :valeur2 ')
+    ->setParameter('valeur', $value)
+    ->setParameter('valeur2', "Mixte")
+    ->getQuery();
+    
+    return ($qb->execute());
+    
+}
+
+public function categorie2($value,$value2)
+{
+    $qb = $this->createQueryBuilder('p')
+    ->Where('p.sexe like :valeur AND p.collection = :valeur2 ')
+    ->setParameter('valeur', $value)
+    ->setParameter('valeur2',$value2)
+    ->getQuery();
+    
+    return ($qb->execute());
+    
+}
+public function categorie3($value,$value2)
+{
+    $qb = $this->createQueryBuilder('p')
+    ->Where('p.collection = :valeur OR p.collection = :valeur2 ')
+    ->setParameter('valeur', $value)
+    ->setParameter('valeur2',$value2)
+    ->getQuery();
+    
+    return ($qb->execute());
+    
+}
+
 public function produitPanier($value)
 {
     $qb = $this->createQueryBuilder('p')

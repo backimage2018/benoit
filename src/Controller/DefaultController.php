@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Panier;
 use App\Entity\Product;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,8 +36,14 @@ class DefaultController extends Controller{
         ->getRepository(Product::class)
         ->findAll();
         
+        $Panier=$this-> getDoctrine()
+        ->getRepository(Panier::class)
+        ->findBySomething("tt");
+        
   
-        return $this->render('index.php.twig',array("index_banner"=>constante::index_banner,
+        return $this->render('index.php.twig',array(
+            "panier"=>$Panier,
+            "index_banner"=>constante::index_banner,
                                                     "index_section_banner"=>constante::index_section_banner,
                                                     "index_deals_banner"=>constante::index_deals_banner,
                                                     "index_sectiongrey_banner"=>constante::index_sectiongrey_banner,

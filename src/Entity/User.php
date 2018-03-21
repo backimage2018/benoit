@@ -60,7 +60,7 @@ class User implements UserInterface, \Serializable
      */
     private $isActive;
     
-
+ 
 
     /**
      * @return mixed

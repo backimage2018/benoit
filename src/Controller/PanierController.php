@@ -26,17 +26,17 @@ class PanierController extends Controller
      * @Route("/panier", name="Panier")
      */
 
-    public function Review(Request $request){
-     
-      
-      //  $id =$request->get('idproduct');
-        $id ="12";
-        
+    public function panier(Request $request){
+        dump($request->getRequestUri());
+    
+        dump($id);
+       $user= $this->getUser();
+       dump($user);
         $Product=$this-> getDoctrine()
         ->getRepository(Product::class)
-        ->produitPanier($id);
+        ->find($id);
         
-        dump($Product);
+       // dump($Product);
         
         $Panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
@@ -53,14 +53,17 @@ class PanierController extends Controller
                      $em->flush();
             
          }else{
+             $i=0;
              foreach ($Panier as $panierrow){
+                $i=$i++;
                  
+                 dump($panierrow);
                  if ($panierrow->getProduct()->getid() == $id){
                      $panierrow->setQuantite(($panierrow->getQuantite())+1);
                      $em = $this->getDoctrine()->getManager();
                      $em->persist($panierrow);
                      $em->flush();
-                 }else{
+                 }elseif ($i > (count($Panier))){
                      $panierrow=new Panier();
                      $panierrow->setNom("tt");
                      $panierrow->setQuantite("1");
@@ -72,19 +75,20 @@ class PanierController extends Controller
            
              }
          }
+         
          $Panier=$this-> getDoctrine()
          ->getRepository(Panier::class)
          ->findBySomething("tt");
          
-         $total = total($Panier);
-       dump($total);
+//          $total = total($Panier);
+//          dump($total);
        
           $encoder = new JsonEncoder();
           $normalizer = new ObjectNormalizer();
-         $normalizer->setCircularReferenceHandler(function ($object) {
-              return $object;
+          $normalizer->setCircularReferenceHandler(function ($object) {
+          return $object;
           });
-             $serializer = new Serializer(array($normalizer), array($encoder));
+            $serializer = new Serializer(array($normalizer), array($encoder));
             $panier= $serializer->serialize($Panier, 'json');
         //     return new Response( $serializer->serialize($panierrow, 'json'));
              return $this->render('base.html.twig',array (

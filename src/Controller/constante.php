@@ -75,17 +75,23 @@ class constante {
     
  const categories = array('title'=>'Categories',
                                    'categoriesdetail'=>[
-                                             'cat1'=>['name'=>'Clothing',
-                                             'URL'=>'#'],
-                                                               
-                                                                                                                         
-                                               'cat2'=> ['name'=>'Phones & Accessories',
+                                       
+                                           
+                                           'cat1'=>['name'=>'WomensClothing',
+                                               'URL'=>'',
+                                           ],
+                                           
+                                           'cat2'=> ['name'=>'MensClothing',
+                                               'URL'=>'/menclothing',
+                                           ],
+                                                
+                                               'cat3'=> ['name'=>'Phones & Accessories',
                                                 'URL'=>'#'],
                                                                     
-                                                 'cat3'=> ['name'=>'Jewelry & Watches',
+                                                 'cat4'=> ['name'=>'Jewelry & Watches',
                                                   'URL'=>'#'],
                                                              
-                                                  'cat4'=>['name'=>'Bags & Shoes',
+                                                  'cat5'=>['name'=>'Bags & Shoes',
                                                    'URL'=>'#']]);
                                              
     
@@ -95,38 +101,38 @@ class constante {
      'categoriesdetail'=>[
          
          'cat1'=>['name'=>'WomensClothing',
-             'URL'=>'#',
-              'sousmenu'=>'1'],
+             'URL'=>'/womenclothing',
+              ],
          
          'cat2'=> ['name'=>'MensClothing',
-             'URL'=>'#',
+             'URL'=>'/menclothing',
              ],
          
          'cat3'=> ['name'=>'Phones & Accessories',
-             'URL'=>'#',
-             'sousmenu'=>'1']
+             'URL'=>'/PhonesandAccessories',
+             ]
          ,
          
          'cat4'=> ['name'=>'COMPUTER & OFFICE',
-             'URL'=>'#'
+             'URL'=>'/COMPUTERANDOFFICE'
              
          ],
          
          'cat5'=> ['name'=>'CONSUMER ELECTRONICS',
-             'URL'=>'#'
+             'URL'=>'/CONSUMERELECTRONICS'
              ],
          
          'cat6'=> ['name'=>'Jewelry & Watches',
-             'URL'=>'#',
-             'sousmenu'=>'1'],
+             'URL'=>'/JewelryWatches',
+            ],
          
          'cat7'=>['name'=>'Bags & Shoes',
-             'URL'=>'#'
+             'URL'=>'/BagsShoes'
          ],
          
          'cat8'=>['name'=>'View all',
-             'URL'=>'#',
-             'sousmenu'=>'1'
+             'URL'=>'/products',
+             
          ]
          ]);
  //<!-- menu nav --> menu-header
@@ -139,12 +145,12 @@ class constante {
              'URL'=>'/products'],
          
           'menu3'=> ['name'=>'Women',
-           'URL'=>'#',
-           'sousmenu'=>'1'],
+           'URL'=>'/women',
+           ],
      
          'menu4'=> ['name'=>'Men',
-         'URL'=>'#',
-         'sousmenu'=>'1'],
+         'URL'=>'/men',
+        ],
      
   
      ]);
