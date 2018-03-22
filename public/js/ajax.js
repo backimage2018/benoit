@@ -55,9 +55,21 @@ $.ajax({
  url : '/panier',
  type: 'POST',
  data: {id:$(this).attr('id')},
+ dataType: 'json',
  }).done(function(result){
- 
- 	$('.add-to-cart').html('merci')})
+	
+	 $html='';
+		 $html=$html+"<span class=qty>"+result.length+"</span></div><strong class='text-uppercase'>My Cart:</strong><br><span>35.20$</span></a><div class='custom-menu'><div id='shopping-cart'><div class='shopping-cart-list'>"
+		 		
+	 for (var i=0; i<result.length; i++) {
+		
+		 		$html=$html+"<div class='product product-widget'><div class='product-thumb'><img src= /uploads/image/" + result[i].Product.image.lien +"></div><div class='product-body'><h3  class='product-price'>"+result[i].Product.prix +"  € <span class='qty'>x"+result[i].Quantite+"</span></h3><h2  class='product-name'>"+result[i].Product.nom+"<a href='#'></a></h2></div><button class='cancel-btn'><i class='fa fa-trash'></i></button></div>";
+			
+			
+		}
+		 $('.header-btns-icon').replaceWith($html);
+		 console.log($html);
+ })
  
   });
 

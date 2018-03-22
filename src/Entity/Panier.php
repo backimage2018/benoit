@@ -29,10 +29,15 @@ class Panier implements \Serializable
     private $Nom;
     
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      * @Assert\NotBlank()
      */
     private $Quantite;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $Prixligne;
     
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="Paniers", cascade={"persist"}))
@@ -49,6 +54,22 @@ class Panier implements \Serializable
     /**
      * @return mixed
      */
+    public function getPrixligne()
+    {
+        return $this->Prixligne;
+    }
+
+    /**
+     * @param mixed $Prixligne
+     */
+    public function setPrixligne($Prixligne)
+    {
+        $this->Prixligne = $Prixligne;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getUser()
     {
         return $this->user;
@@ -61,7 +82,8 @@ class Panier implements \Serializable
     {
         $this->user = $user;
     }
-
+    
+    
     public function total($Product)
     {
         $total = 0;

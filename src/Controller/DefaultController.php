@@ -36,13 +36,14 @@ class DefaultController extends Controller{
         ->getRepository(Product::class)
         ->findAll();
         
-        $Panier=$this-> getDoctrine()
+        $iduser= $this->getUser()->getid();
+        $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
-        ->findBySomething("tt");
+        ->findBy(array('user'=>$iduser));
         
   
         return $this->render('index.php.twig',array(
-            "panier"=>$Panier,
+            "panier"=>$panier,
             "index_banner"=>constante::index_banner,
                                                     "index_section_banner"=>constante::index_section_banner,
                                                     "index_deals_banner"=>constante::index_deals_banner,
