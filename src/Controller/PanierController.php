@@ -9,14 +9,13 @@ namespace App\Controller;
 use App\Entity\Panier;
 use App\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Bundle\FrameworkBundle\Tests\Functional\SerializerTest;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\IsNull;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
+
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use App\Entity\User;
 use App\Service\PanierService;
@@ -84,7 +83,7 @@ class PanierController extends Controller
             $panier= $serializer->serialize($panier,'json');
         
             
-            return new Response( $panier );
+            return new Response($panier);
             
 //             // return $this->render('base.html.twig',array (
 //                  "panier"=>json_decode($panier),
