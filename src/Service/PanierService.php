@@ -3,26 +3,26 @@
 
 namespace App\Service;
 
-use App\Entity\Panier;
 
 
 
 class PanierService{
     
 
-    public function _construct()
-    {}
+ 
     
-    public function Panier(){
-        
-        $Panierall=$this-> getDoctrine()
-        ->getRepository(Panier::class)
-        ->findBySomething("tt");
-        dump($Panierall);
-        return $Panierall;
+    public function total($panier){
+        $total = 0;
+        if ($panier != null ) {
+            foreach ($panier as $paniers) {
+                $total += $paniers->getPrixligne();
+                
+            }
+        }
        
+        return $total;
+        
     }
     
 }
-
 ?>

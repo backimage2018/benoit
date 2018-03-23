@@ -51,6 +51,10 @@ class Panier implements \Serializable
     
     private $user;
     
+    
+ 
+    
+
     /**
      * @return mixed
      */
@@ -84,17 +88,7 @@ class Panier implements \Serializable
     }
     
     
-    public function total($panier){
-    $total = 0;
-    if ($panier != null ) {
-        foreach ($panier as $paniers) {
-            $total += $paniers->getPrixligne();
-            
-        }
-    }
-        dump($total);
-    }
-    
+
     
     /**
      * @return mixed

@@ -19,6 +19,7 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use App\Entity\User;
+use App\Service\PanierService;
 
 
 class PanierController extends Controller
@@ -27,10 +28,10 @@ class PanierController extends Controller
      * @Route("/panier", name="Panier")
      */
 
-    public function panier(Request $request){
+    public function panier(Request $request, PanierService $PanierService){
   
      $id_product=$request->request->get('id');
-    // $id_product="12";
+     //$id_product="12";
     $iduser= $this->getUser()->getid();
   
         $Product=$this-> getDoctrine()
@@ -52,38 +53,39 @@ class PanierController extends Controller
                      $panier->setProduct($Product);
                      $panier->setNom("test");
                      $panier->setUser($user);
+                    
                  
          }else{
                       $panier->setQuantite(($panier->getQuantite())+1);
              }
             $totalligne=($Product->getprix()*$panier->getQuantite());
             $panier->setPrixligne($totalligne);
+          
              $em = $this->getDoctrine()->getManager();
              $em->persist($panier);
              $em->flush();
              
-            
-             
-            // $total=$panier->total($panier);
-            // dump($total);
-       
              $panier=$this-> getDoctrine()
              ->getRepository(Panier::class)
              ->findBy(array('user'=>$iduser));
-           
+          
              
             
+             $total=$PanierService->total($panier);
+             $total=($total);
             
-             
+         
           $encoder = new JsonEncoder();
           $normalizer = new ObjectNormalizer();
           $normalizer->setCircularReferenceHandler(function ($object) {
           return $object;
           });
             $serializer = new Serializer(array($normalizer), array($encoder));
-            $panier= $serializer->serialize($panier, 'json');
-           
+            $panier= $serializer->serialize($panier,'json');
+        
+            
             return new Response( $panier );
+            
 //             // return $this->render('base.html.twig',array (
 //                  "panier"=>json_decode($panier),
 //                  "welcome"=>constante::welcome,
@@ -107,5 +109,34 @@ class PanierController extends Controller
      
         
     }
+    /**
+     * @Route("/panier/delete", name="Panierdelete")
+     */
+    Public function panierdeleted(Request $request) {
+   
+    $id_panier=$request->request->get('id');
+
+    $panier=$this-> getDoctrine()
+    ->getRepository(Panier::class)
+    ->findOneBy(array('id' => $id_panier));
+    
+    $em = $this->getDoctrine()->getEntityManager();
+    $em->remove($panier);
+    $em->flush();
+    
+    $iduser= $this->getUser()->getid();
+    $panier=$this-> getDoctrine()
+    ->getRepository(Panier::class)
+    ->findBy(array('user'=>$iduser));
+    
+    $encoder = new JsonEncoder();
+    $normalizer = new ObjectNormalizer();
+    $normalizer->setCircularReferenceHandler(function ($object) {
+        return $object;
+    });
+        $serializer = new Serializer(array($normalizer), array($encoder));
+        $panier= $serializer->serialize($panier, 'json');
+    return new Response( $panier );
+}
 }
 ?>

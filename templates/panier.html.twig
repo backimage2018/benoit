@@ -8,7 +8,7 @@
 								</div>
 								<strong class="text-uppercase">My Cart:</strong>
 								<br>
-								<span>35.20$</span>
+								<span>{{ total }} €</span>
 							</a>
 							<div class="custom-menu">
 								<div id="shopping-cart">
@@ -25,14 +25,14 @@
 												<h3  class="product-price"> {{ paniers.Product.prix }} € <span class="qty">x{{ paniers. Quantite }}</span></h3>
 												<h2  class="product-name">{{ paniers.Product.nom }}<a href="#"></a></h2>
 											</div>
-											<button class="cancel-btn"><i class="fa fa-trash"></i></button>
+											<button id="{{ paniers.id }}"class="cancel-btn"><i class="fa fa-trash"></i></button>
 																
 										</div>
 										{% endfor %}
 									</div>
 									
 									<div class="shopping-cart-btns">
-										<button class='main-btn'>View Cart</button>
+										<button class='main-btn'><a href='{{ path('viewcard') }}'>Viewcard </a></button>
 										<button class='primary-btn'><a href='{{ path('checkout') }}'>Checkout </a><i class='fa fa-arrow-circle-right'></i></button>
 									</div>
 								</div>

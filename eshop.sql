@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 21 Mars 2018 à 16:15
+-- Généré le :  Ven 23 Mars 2018 à 15:40
 -- Version du serveur :  5.7.14-log
 -- Version de PHP :  7.0.10
 
@@ -131,7 +131,13 @@ INSERT INTO `migration_versions` (`version`) VALUES
 ('20180321120742'),
 ('20180321122709'),
 ('20180321154228'),
-('20180321160842');
+('20180321160842'),
+('20180322095813'),
+('20180322150146'),
+('20180322150442'),
+('20180323102718'),
+('20180323102754'),
+('20180323103158');
 
 -- --------------------------------------------------------
 
@@ -173,18 +179,19 @@ INSERT INTO `newsletter` (`id`, `email`, `deleted`) VALUES
 CREATE TABLE `panier` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `quantite` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `quantite` int(11) NOT NULL,
   `product_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL
+  `user_id` int(11) DEFAULT NULL,
+  `prixligne` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Contenu de la table `panier`
 --
 
-INSERT INTO `panier` (`id`, `nom`, `quantite`, `product_id`, `user_id`) VALUES
-(107, 'test', '1', 14, 8),
-(115, 'test', '1', 13, 8);
+INSERT INTO `panier` (`id`, `nom`, `quantite`, `product_id`, `user_id`, `prixligne`) VALUES
+(151, 'test', 1, 13, 9, 50),
+(153, 'test', 1, 15, 9, 20);
 
 -- --------------------------------------------------------
 
@@ -247,28 +254,28 @@ CREATE TABLE `review` (
 --
 
 INSERT INTO `review` (`id`, `nom`, `mail`, `review`, `note`, `product_id`) VALUES
-(35, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'dsffssf', 1, 12),
-(36, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'hjgjg', 5, 13),
-(37, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'dssdsdsd', 2, 12),
-(38, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'gfhfhf', 3, 13),
-(39, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'dsfsfsf', 1, 13),
-(40, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'wxwxwxwq', 4, 13),
-(42, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'qsdqdqsddq', 5, 13),
-(44, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'dfsdfsf', 1, 12),
-(46, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'sdsdq', 1, 12),
-(49, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'sdqdqd', 1, 12),
-(51, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'hfhfh', 5, 12),
-(53, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'hf', 5, 12),
-(54, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'fdgdgd', 4, 12),
-(56, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'fdgdgdgdgd', 4, 12),
-(57, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'fdgdgdgdgdgdsfgds', 4, 12),
-(58, 'dqdq', 'ddsqqd', 'dqqdq', 1, 12),
-(60, 'sdfsf', 'fsdsfs', 'fdssdfsfsd', 4, 12),
-(61, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'dgdgdg', 2, 13),
-(62, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'joli', 2, 13),
-(63, 'ban', 'sfsf@aol.com', 'sfsfsf', 1, 13),
-(64, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'bon portefeuille', 5, 16),
-(66, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'fhfhfhfghgfh', 1, 12);
+(35, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'dsffssf', 1, NULL),
+(36, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'hjgjg', 5, NULL),
+(37, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'dssdsdsd', 2, NULL),
+(38, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'gfhfhf', 3, NULL),
+(39, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'dsfsfsf', 1, NULL),
+(40, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'wxwxwxwq', 4, NULL),
+(42, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'qsdqdqsddq', 5, NULL),
+(44, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'dfsdfsf', 1, NULL),
+(46, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'sdsdq', 1, NULL),
+(49, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'sdqdqd', 1, NULL),
+(51, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'hfhfh', 5, NULL),
+(53, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'hf', 5, NULL),
+(54, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'fdgdgd', 4, NULL),
+(56, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'fdgdgdgdgd', 4, NULL),
+(57, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'fdgdgdgdgdgdsfgds', 4, NULL),
+(58, 'dqdq', 'ddsqqd', 'dqqdq', 1, NULL),
+(60, 'sdfsf', 'fsdsfs', 'fdssdfsfsd', 4, NULL),
+(61, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'dgdgdg', 2, NULL),
+(62, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'joli', 2, NULL),
+(63, 'ban', 'sfsf@aol.com', 'sfsfsf', 1, NULL),
+(64, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'bon portefeuille', 5, NULL),
+(66, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'fhfhfhfghgfh', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -290,7 +297,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `email`, `role`, `is_active`) VALUES
-(8, 'benoit', '$2y$13$nYvzBFVDnSC/3GA00a6LF.5dkn9VtpzwI/i6zUWw7dtM.uxabzXGO', 'marseillais13800@gmail.com', 'ROLE_ADMIN', 1);
+(8, 'benoit', '$2y$13$nYvzBFVDnSC/3GA00a6LF.5dkn9VtpzwI/i6zUWw7dtM.uxabzXGO', 'marseillais13800@gmail.com', 'ROLE_ADMIN', 1),
+(9, 'jean', '$2y$13$An1q.Uzu.f5GdtwGjIgJOO.hhEhzdVQIL8LXd9z43ug9IPZKHzQnu', 'marseillais1380011@gmail.com', 'ROLE_USER', 1);
 
 --
 -- Index pour les tables exportées
@@ -361,12 +369,12 @@ ALTER TABLE `image`
 -- AUTO_INCREMENT pour la table `newsletter`
 --
 ALTER TABLE `newsletter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT pour la table `panier`
 --
 ALTER TABLE `panier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
 --
 -- AUTO_INCREMENT pour la table `product`
 --
@@ -381,7 +389,7 @@ ALTER TABLE `review`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- Contraintes pour les tables exportées
 --

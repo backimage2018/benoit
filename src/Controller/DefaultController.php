@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Panier;
 use App\Entity\Product;
+use App\Service\PanierService;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -21,7 +22,7 @@ class DefaultController extends Controller{
      */
     
     
-    Public function index(TranslatorInterface $ti){
+    Public function index(TranslatorInterface $ti,PanierService $PanierService){
 
         $articleforyou= $this-> getDoctrine()
         ->getRepository(Product::class)
@@ -40,10 +41,11 @@ class DefaultController extends Controller{
         $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
         ->findBy(array('user'=>$iduser));
-        
+        $total=$PanierService->total($panier);
   
         return $this->render('index.php.twig',array(
             "panier"=>$panier,
+            "total"=>$total,
             "index_banner"=>constante::index_banner,
                                                     "index_section_banner"=>constante::index_section_banner,
                                                     "index_deals_banner"=>constante::index_deals_banner,
@@ -139,14 +141,25 @@ class DefaultController extends Controller{
         
     }
     /**
-     * @Route("/viewcard")
+     * @Route("/viewcard" ,name="viewcard")
      */
     
-    
-    function viewcard(){
+    function viewcard(PanierService $PanierService){
         
-        
-        return $this->render('viewcard.html.twig',array ("welcome"=>constante::welcome,
+      
+            
+            $iduser= $this->getUser()->getid();
+            $panier=$this-> getDoctrine()
+            ->getRepository(Panier::class)
+            ->findBy(array('user'=>$iduser));
+            
+            $total=$PanierService->total($panier);
+            
+        return $this->render(
+            'viewcard.html.twig',array (
+            "total"=>$total,
+            "panier"=>$panier,
+            "welcome"=>constante::welcome,
             "logo"=>constante::logo,
             "menuheader"=>constante::menuheader,
             "langue"=>constante::langue,
