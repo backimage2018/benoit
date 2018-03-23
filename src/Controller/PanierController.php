@@ -30,7 +30,7 @@ class PanierController extends Controller
     public function panier(Request $request){
   
      $id_product=$request->request->get('id');
-    
+    // $id_product="12";
     $iduser= $this->getUser()->getid();
   
         $Product=$this-> getDoctrine()
@@ -62,13 +62,18 @@ class PanierController extends Controller
              $em->persist($panier);
              $em->flush();
              
-//          $total = total($Panier);
-//          dump($total);
-
+            
+             
+            // $total=$panier->total($panier);
+            // dump($total);
+       
              $panier=$this-> getDoctrine()
              ->getRepository(Panier::class)
              ->findBy(array('user'=>$iduser));
+           
              
+            
+            
              
           $encoder = new JsonEncoder();
           $normalizer = new ObjectNormalizer();

@@ -35,7 +35,7 @@ class Panier implements \Serializable
     private $Quantite;
     
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $Prixligne;
     
@@ -84,16 +84,17 @@ class Panier implements \Serializable
     }
     
     
-    public function total($Product)
-    {
-        $total = 0;
-        if ($Product != null && count($Products) > 0) {
-            foreach ($Product as $prod) {
-                $total += $prod->getPrix();
-            }
+    public function total($panier){
+    $total = 0;
+    if ($panier != null ) {
+        foreach ($panier as $paniers) {
+            $total += $paniers->getPrixligne();
+            
         }
-        return $total;
     }
+        dump($total);
+    }
+    
     
     /**
      * @return mixed

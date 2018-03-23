@@ -83,8 +83,14 @@ class DefaultController extends Controller{
     
     function checkout(){
         
+        $iduser= $this->getUser()->getid();
+        $panier=$this-> getDoctrine()
+        ->getRepository(Panier::class)
+        ->findBy(array('user'=>$iduser));
         
-        return $this->render('checkout.php.twig',array ("welcome"=>constante::welcome,
+        
+        return $this->render('checkout.php.twig',array ("panier"=>$panier,
+             "welcome"=>constante::welcome,
             "logo"=>constante::logo,
             "menuheader"=>constante::menuheader,
             "langue"=>constante::langue,
