@@ -27,9 +27,9 @@
 											</ul>
 										</td>
 										<td class="price text-center"><strong>{{ paniers.Product.prix }} €</strong><br><del class="font-weak"><small>{{ paniers.Product.ancienprix }} €</small></del></td>
-										<td class="qty text-center"><input class="input" type="number" value="{{ paniers. Quantite}}"></td>
-										<td class="total text-center"><strong class="primary-color">{{ paniers.prixligne }} €</strong></td>
-										<td class="text-right"><button class="main-btn icon-btn"><i class="fa fa-close"></i></button></td>
+										<td class="qty text-center"><input id ="{{ paniers.Product.id }}"class="inputqty" type="number" value="{{ paniers. Quantite}}"></td>
+										<td class="total text-center"><strong class="primary-color {{paniers.Product.id}}">{{ paniers.prixligne }} €</strong></td>
+										<td class="text-right"><button class="main-btn icon-btn"><i class="fa fa-trash"></i></button></td>
 									</tr>
 																		
 								</tbody>
@@ -38,7 +38,7 @@
 									<tr>
 										<th class="empty" colspan="3"></th>
 										<th>SUBTOTAL</th>
-										<th colspan="2" class="sub-total">{{ total }} €</th>
+										<th colspan="2" class="sub-total totalall">{{ total }} €</th>
 									</tr>
 									<tr>
 										<th class="empty" colspan="3"></th>
@@ -48,7 +48,7 @@
 									<tr>
 										<th class="empty" colspan="3"></th>
 										<th>TOTAL</th>
-										<th colspan="2" class="total">{{ total }} €</th>
+										<th colspan="2" class="total totalall">{{ total }} €</th>
 									</tr>
 								</tfoot>
 							</table>

@@ -28,11 +28,16 @@ class PanierController extends Controller
      */
 
     public function panier(Request $request, PanierService $PanierService){
-  
+        $quantite="";
      $id_product=$request->request->get('id');
      //$id_product="12";
     $iduser= $this->getUser()->getid();
-  
+    
+    $quantite=$request->request->get('quantite');
+        
+    $quantites=$request->request->get('qty');
+    
+ 
         $Product=$this-> getDoctrine()
         ->getRepository(Product::class)
         ->find($id_product);
@@ -55,7 +60,17 @@ class PanierController extends Controller
                     
                  
          }else{
+             if (is_null($quantite)AND is_null($quantites)){
                       $panier->setQuantite(($panier->getQuantite())+1);
+             }
+             else if (!is_null($quantites)){
+                 
+                 $panier->setQuantite(($panier->getQuantite())+$quantites);
+             }
+             else{
+                 
+                 $panier->setQuantite($quantite);
+             }
              }
             $totalligne=($Product->getprix()*$panier->getQuantite());
             $panier->setPrixligne($totalligne);
@@ -63,50 +78,33 @@ class PanierController extends Controller
              $em = $this->getDoctrine()->getManager();
              $em->persist($panier);
              $em->flush();
+             $panier=$this-> getDoctrine()
+             ->getRepository(Panier::class)
+             ->findBy(array('user'=>$iduser));
+             $total=$PanierService->total($panier);
+             if (is_null($quantite)|| !is_null($quantites)){
              
              $panier=$this-> getDoctrine()
              ->getRepository(Panier::class)
              ->findBy(array('user'=>$iduser));
-          
-             
-            
              $total=$PanierService->total($panier);
-             $total=($total);
             
-         
+             }else{
+                 $panier=$this-> getDoctrine()
+                 ->getRepository(Panier::class)
+                 ->findBy(array('Product' => $id_product,'user'=>$iduser));
+                 }
+                
+          $panier["total"]=$total;
+          
           $encoder = new JsonEncoder();
           $normalizer = new ObjectNormalizer();
           $normalizer->setCircularReferenceHandler(function ($object) {
           return $object;
           });
             $serializer = new Serializer(array($normalizer), array($encoder));
-            $panier= $serializer->serialize($panier,'json');
-        
-            
-            return new Response($panier);
-            
-//             // return $this->render('base.html.twig',array (
-//                  "panier"=>json_decode($panier),
-//                  "welcome"=>constante::welcome,
-//                  "logo"=>constante::logo,
-//                  "menuheader"=>constante::menuheader,
-//                  "langue"=>constante::langue,
-//                  "devise"=>constante::devise,
-//                  "searchcategories"=>constante::searchcategories,
-//                  "custommenus"=>constante::custommenu,
-//                  "categorieshead"=>constante::categorieshead,
-//                  "ressocial"=>constante::ressocial,
-//                  "Account_login" =>constante::Account_login,
-//                  "Account_join" => constante::Account_join,
-//                  "footermyaccount"=>constante::footer_my_account,
-//                  "footerCustomer"=>constante::footer_Customer_Service,
-//                  "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-//                  "footer_subscribe_p"=>constante::footer_subscribe_p,
-//                  "menunav"=>constante::menunav,
-//                  "footer_subscribe_button"=>constante::footer_subscribe_button,
-//                  "categories"=>constante::categories));
-     
-        
+             $panier= $serializer->serialize($panier,'json');
+              return new Response ($panier);
     }
     /**
      * @Route("/panier/delete", name="Panierdelete")
@@ -123,6 +121,7 @@ class PanierController extends Controller
     $em->remove($panier);
     $em->flush();
     
+   
     $iduser= $this->getUser()->getid();
     $panier=$this-> getDoctrine()
     ->getRepository(Panier::class)

@@ -101,9 +101,9 @@
 							<div class="product-btns">
 								<div class="qty-input">
 									<span class="text-uppercase">{{ titredetail.titrequantite }}: </span>
-									<input class="input" type="number">
+									<input class="input qty1" type="number">
 								</div>
-								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+								<button id="{{ articlesdetail.id}}"class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
                                     {% if app.user is not null %}
                                       {% for role in app.user.roles %} 
                                       {% if role == 'ROLE_ADMIN'  %} 
