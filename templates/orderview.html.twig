@@ -29,7 +29,7 @@
 										<td class="price text-center"><strong>{{ paniers.Product.prix }} €</strong><br><del class="font-weak"><small>{{ paniers.Product.ancienprix }} €</small></del></td>
 										<td class="qty text-center"><input id ="{{ paniers.Product.id }}"class="inputqty" type="number" value="{{ paniers. Quantite}}"></td>
 										<td class="total text-center"><strong class="primary-color {{paniers.Product.id}}">{{ paniers.prixligne }} €</strong></td>
-										<td class="text-right"><button class="main-btn icon-btn"><i class="fa fa-trash"></i></button></td>
+										<td  class="text-right"><button class="main-btn icon-btn"><i id ="{{ paniers.id }}" class="fa fa-trash cancel-btn"></i></button></td>
 									</tr>
 																		
 								</tbody>

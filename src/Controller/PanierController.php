@@ -109,7 +109,7 @@ class PanierController extends Controller
     /**
      * @Route("/panier/delete", name="Panierdelete")
      */
-    Public function panierdeleted(Request $request) {
+    Public function panierdeleted(Request $request,PanierService $PanierService) {
    
     $id_panier=$request->request->get('id');
 
@@ -126,6 +126,8 @@ class PanierController extends Controller
     $panier=$this-> getDoctrine()
     ->getRepository(Panier::class)
     ->findBy(array('user'=>$iduser));
+    $total=$PanierService->total($panier);
+    $panier["total"]=$total;
     
     $encoder = new JsonEncoder();
     $normalizer = new ObjectNormalizer();

@@ -83,15 +83,17 @@ class DefaultController extends Controller{
      * @Route("/checkout" , name="checkout")
      */
     
-    function checkout(){
+    function checkout(PanierService $PanierService){
         
         $iduser= $this->getUser()->getid();
         $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
         ->findBy(array('user'=>$iduser));
+        $total=$PanierService->total($panier);
         
-        
-        return $this->render('checkout.php.twig',array ("panier"=>$panier,
+        return $this->render('checkout.php.twig',array (
+            "panier"=>$panier,
+            "total"=>$total,
              "welcome"=>constante::welcome,
             "logo"=>constante::logo,
             "menuheader"=>constante::menuheader,
