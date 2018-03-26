@@ -90,8 +90,6 @@ $.ajax({
 //ajax pour supression panier 
 $(document).ready(function(){
 $(".cancel-btn").click(function(){
-
-	
 	var data_form =$(this).attr('id');
 	
 $.ajax({
@@ -100,10 +98,7 @@ $.ajax({
 	 data: {id:$(this).attr('id')},
 	
 }).done(function(result){
-	
-	
 	location.reload();
-		
  })
 });
 
