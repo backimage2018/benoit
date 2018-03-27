@@ -7,6 +7,7 @@ use App\Entity\Panier;
 use App\Entity\Product;
 use App\Entity\Review;
 use App\Service\FileUploader;
+use App\Service\PanierService;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,15 +24,22 @@ class CategoriesController extends Controller
 /**
  * @Route("/women", name="women")
  */
-Public function catWomen(){
+    Public function catWomen(PanierService $PanierService){
     
-   
+        $iduser= $this->getUser()->getid();
+        $panier=$this-> getDoctrine()
+        ->getRepository(Panier::class)
+        ->findBy(array('user'=>$iduser));
+        $total=$PanierService->total($panier);
+        
     $articles= $this->getDoctrine()
     ->getRepository(Product::class)
     ->categorie("women");
     
     
     return $this->render('products.php.twig',array(
+        "panier"=>$panier,
+        "total"=>$total,
         'article'=>$articles,
         ////base
         "welcome"=>constante::welcome,
@@ -56,9 +64,13 @@ Public function catWomen(){
 /**
  * @Route("/men", name="men")
  */
-Public function catMen(){
+Public function catMen(PanierService $PanierService){
     
-    
+    $iduser= $this->getUser()->getid();
+    $panier=$this-> getDoctrine()
+    ->getRepository(Panier::class)
+    ->findBy(array('user'=>$iduser));
+    $total=$PanierService->total($panier);
     
     $articles= $this->getDoctrine()
     ->getRepository(Product::class)
@@ -66,6 +78,8 @@ Public function catMen(){
     
     
     return $this->render('products.php.twig',array(
+        "panier"=>$panier,
+        "total"=>$total,
         'article'=>$articles,
         ////base
         "welcome"=>constante::welcome,
@@ -91,16 +105,22 @@ Public function catMen(){
 /**
  * @Route("/menclothing", name="menclothing")
  */
-Public function catmenclothing(){
+Public function catmenclothing(PanierService $PanierService){
     
     
     
     $articles= $this->getDoctrine()
     ->getRepository(Product::class)
     ->categorie2("men","Vetements");
-    
+    $iduser= $this->getUser()->getid();
+    $panier=$this-> getDoctrine()
+    ->getRepository(Panier::class)
+    ->findBy(array('user'=>$iduser));
+    $total=$PanierService->total($panier);
     
     return $this->render('products.php.twig',array(
+        "panier"=>$panier,
+        "total"=>$total,
         'article'=>$articles,
         ////base
         "welcome"=>constante::welcome,
@@ -125,16 +145,22 @@ Public function catmenclothing(){
 /**
  * @Route("/womenclothing", name="womenclothing")
  */
-Public function catwomenclothing(){
+Public function catwomenclothing(PanierService $PanierService){
     
     
     
     $articles= $this->getDoctrine()
     ->getRepository(Product::class)
     ->categorie2("women","Vetements");
-    
+    $iduser= $this->getUser()->getid();
+    $panier=$this-> getDoctrine()
+    ->getRepository(Panier::class)
+    ->findBy(array('user'=>$iduser));
+    $total=$PanierService->total($panier);
     
     return $this->render('products.php.twig',array(
+        "panier"=>$panier,
+        "total"=>$total,
         'article'=>$articles,
         ////base
         "welcome"=>constante::welcome,
@@ -159,16 +185,22 @@ Public function catwomenclothing(){
 /**
  * @Route("/PhonesandAccessories", name="PhonesandAccessories")
  */
-Public function catPhonesandAccessories(){
+Public function catPhonesandAccessories(PanierService $PanierService){
     
     
     
     $articles= $this->getDoctrine()
     ->getRepository(Product::class)
     ->categorie3("phone","Accessories");
-    
+    $iduser= $this->getUser()->getid();
+    $panier=$this-> getDoctrine()
+    ->getRepository(Panier::class)
+    ->findBy(array('user'=>$iduser));
+    $total=$PanierService->total($panier);
     
     return $this->render('products.php.twig',array(
+        "panier"=>$panier,
+        "total"=>$total,
         'article'=>$articles,
         ////base
         "welcome"=>constante::welcome,
@@ -193,7 +225,7 @@ Public function catPhonesandAccessories(){
 /**
  * @Route("/COMPUTERANDOFFICE", name="COMPUTERANDOFFICE")
  */
-Public function catCOMPUTERANDOFFICE(){
+Public function catCOMPUTERANDOFFICE(PanierService $PanierService){
     
     
     
@@ -201,8 +233,15 @@ Public function catCOMPUTERANDOFFICE(){
     ->getRepository(Product::class)
     ->categorie3("COMPUTER","OFFICE");
     
+    $iduser= $this->getUser()->getid();
+    $panier=$this-> getDoctrine()
+    ->getRepository(Panier::class)
+    ->findBy(array('user'=>$iduser));
+    $total=$PanierService->total($panier);
     
     return $this->render('products.php.twig',array(
+        "panier"=>$panier,
+        "total"=>$total,
         'article'=>$articles,
         ////base
         "welcome"=>constante::welcome,
@@ -227,16 +266,22 @@ Public function catCOMPUTERANDOFFICE(){
 /**
  * @Route("/CONSUMERELECTRONICS", name="CONSUMERELECTRONICS")
  */
-Public function catCONSUMERELECTRONICS(){
+Public function catCONSUMERELECTRONICS(PanierService $PanierService){
     
     
     
     $articles= $this->getDoctrine()
     ->getRepository(Product::class)
     ->categorie3("CONSUMERELECTRONICS","");
-    
+    $iduser= $this->getUser()->getid();
+    $panier=$this-> getDoctrine()
+    ->getRepository(Panier::class)
+    ->findBy(array('user'=>$iduser));
+    $total=$PanierService->total($panier);
     
     return $this->render('products.php.twig',array(
+        "panier"=>$panier,
+        "total"=>$total,
         'article'=>$articles,
         ////base
         "welcome"=>constante::welcome,
