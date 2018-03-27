@@ -78,6 +78,7 @@ class PanierController extends Controller
              $em = $this->getDoctrine()->getManager();
              $em->persist($panier);
              $em->flush();
+             
              $panier=$this-> getDoctrine()
              ->getRepository(Panier::class)
              ->findBy(array('user'=>$iduser));

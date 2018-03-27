@@ -57,7 +57,7 @@ $.ajax({
  data: {id:$(this).attr('id'),qty:$('.qty1').val()},
 
  }).done(function(result){
-	console.log(typeof(result));
+	
 	
 	$result=JSON.parse(result);
 
