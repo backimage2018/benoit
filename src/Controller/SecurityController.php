@@ -1,5 +1,8 @@
 <?php
-
+/* Controlleur pour le panier avec les routes :
+ -login
+ 
+ */
 
 namespace App\Controller;
 
@@ -25,27 +28,14 @@ public function login(Request $request, AuthenticationUtils $authUtils)
     // last username entered by the user
     $lastUsername = $authUtils->getLastUsername();
     
-    return $this->render('security/login.html.twig', array(
-        'last_username' => $lastUsername,
-        'error'         => $error,
-        "welcome"=>constante::welcome,
-        "logo"=>constante::logo,
-        "menuheader"=>constante::menuheader,
-        "langue"=>constante::langue,
-        "devise"=>constante::devise,
-        "searchcategories"=>constante::searchcategories,
-        "custommenus"=>constante::custommenu,
-        "categorieshead"=>constante::categorieshead,
-        "ressocial"=>constante::ressocial,
-        "Account_login" =>constante::Account_login,
-        "Account_join" => constante::Account_join,
-        "footermyaccount"=>constante::footer_my_account,
-        "footerCustomer"=>constante::footer_Customer_Service,
-        "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-        "footer_subscribe_p"=>constante::footer_subscribe_p,
-        "menunav"=>constante::menunav,
-        "footer_subscribe_button"=>constante::footer_subscribe_button,
-        "categories"=>constante::categories));
+    //variable commune
+    $param = [];
+    $param = constante::variable($param);
+    //variable dans la page
+    $param['last_username']=$lastUsername;
+    $param['error']=$error;
+    
+    return $this->render('security/login.html.twig', $param);
   
 }
 }

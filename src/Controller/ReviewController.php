@@ -1,4 +1,8 @@
 <?php
+/* Controlleur pour le panier avec les routes :
+ -review
+ 
+ */
 
 namespace App\Controller;
 

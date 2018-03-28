@@ -1,8 +1,9 @@
 <?php
 
-// Controlleur pour le panier avec les routes : 
-//     - Panier
-
+/* Controlleur pour le panier avec les routes : 
+    - Panier
+     -delete panier
+*/
 
 namespace App\Controller;
 
@@ -28,29 +29,32 @@ class PanierController extends Controller
      */
 
     public function panier(Request $request, PanierService $PanierService){
-        $quantite="";
-     $id_product=$request->request->get('id');
-     //$id_product="12";
-    $iduser= $this->getUser()->getid();
-    
-    $quantite=$request->request->get('quantite');
         
+     $quantite=1;
+     
+// recuperation des id produit user et les quantite (product_page et viewcart)
+     $id_product=$request->request->get('id');
+     $iduser= $this->getUser()->getid();
+//quantite de viewcart 
+    $quantite=$request->request->get('quantite');
+//quantite de product_page
     $quantites=$request->request->get('qty');
     
- 
+// requete base de donnees pour ressortir le produit $Product a modifier ou creer, 
         $Product=$this-> getDoctrine()
         ->getRepository(Product::class)
         ->find($id_product);
-        
+//  le user du panier $user
          $user=$this-> getDoctrine()
          ->getRepository(User::class)
          ->find($iduser);
        
-        
+//verification si le produit est deja dans la panier de l'user 
         $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
         ->findOneBy(array('Product' => $id_product,'user'=>$iduser));
 
+//test pour mettre la quantite 
         if (empty ($panier)){
                      $panier=new Panier();
                      $panier->setQuantite("1");
@@ -72,30 +76,26 @@ class PanierController extends Controller
                  $panier->setQuantite($quantite);
              }
              }
+//calcul des totaux des lignes
             $totalligne=($Product->getprix()*$panier->getQuantite());
             $panier->setPrixligne($totalligne);
-          
+//mise a jour de la bdd
              $em = $this->getDoctrine()->getManager();
              $em->persist($panier);
              $em->flush();
-             
+//requete du panier mis a jour             
              $panier=$this-> getDoctrine()
              ->getRepository(Panier::class)
              ->findBy(array('user'=>$iduser));
+             //calcul du total
              $total=$PanierService->total($panier);
-             if (is_null($quantite)|| !is_null($quantites)){
              
-             $panier=$this-> getDoctrine()
-             ->getRepository(Panier::class)
-             ->findBy(array('user'=>$iduser));
-             $total=$PanierService->total($panier);
-            
-             }else{
+             if (!is_null($quantite)){
                  $panier=$this-> getDoctrine()
                  ->getRepository(Panier::class)
                  ->findBy(array('Product' => $id_product,'user'=>$iduser));
-                 }
-                
+             }
+         
           $panier["total"]=$total;
           
           $encoder = new JsonEncoder();
@@ -104,9 +104,13 @@ class PanierController extends Controller
           return $object;
           });
             $serializer = new Serializer(array($normalizer), array($encoder));
-             $panier= $serializer->serialize($panier,'json');
-              return new Response ($panier);
+            $panier= $serializer->serialize($panier,'json');
+            return new Response ($panier);
     }
+    
+    
+    
+    
     /**
      * @Route("/panier/delete", name="Panierdelete")
      */
@@ -139,5 +143,7 @@ class PanierController extends Controller
         $panier= $serializer->serialize($panier, 'json');
     return new Response( $panier );
 }
+
+
 }
 ?>

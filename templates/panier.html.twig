@@ -1,5 +1,5 @@
 <!-- Cart -->
-						
+	
 						<li id ='cart' class='header-cart dropdown default-dropdown'>
 							<a class='dropdown-toggle' data-toggle='dropdown' aria-expanded='true'>
 								<div class='header-btns-icon'>
@@ -10,6 +10,7 @@
 								<br>
 								<span id="totalpanier">{{ total }} €</span>
 							</a>
+						{%  block panierviewcart %}	
 							<div class="custom-menu">
 								<div id="shopping-cart">
 									<div class="shopping-cart-list">
@@ -36,7 +37,7 @@
 										<button class='primary-btn'><a href='{{ path('checkout') }}'>Checkout </a><i class='fa fa-arrow-circle-right'></i></button>
 									</div>
 								</div>
-						
+						{%  endblock %}
 							</li>
 						
 						<!-- /Cart -->

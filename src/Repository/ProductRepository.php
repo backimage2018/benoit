@@ -18,7 +18,7 @@ class ProductRepository extends ServiceEntityRepository
      * @param $price
      * @return Product[]
      */
-    public function customdeletedproduct(): array
+    public function customdeletedproduct()
     {
         // automatically knows to select Products
         // the "p" is an alias you'll use in the rest of the query
@@ -29,7 +29,7 @@ class ProductRepository extends ServiceEntityRepository
         return $qb->execute();
 }
 
-public function customcorbeilleproduct(): array
+public function customcorbeilleproduct()
 {
     // automatically knows to select Products
     // the "p" is an alias you'll use in the rest of the query
@@ -39,7 +39,7 @@ public function customcorbeilleproduct(): array
     
     return $qb->execute();
 }
-public function productnew(): array
+public function productnew()
 {
     $qb = $this->createQueryBuilder('p')
     ->andWhere('p.new = "oui"')
@@ -70,32 +70,32 @@ public function search($value)
 public function categorie($value)
 {
     $qb = $this->createQueryBuilder('p')
-    ->Where('p.sexe like :valeur or p.sexe = :valeur2 ')
+    ->Where('p.categorie like :valeur')
     ->setParameter('valeur', $value)
-    ->setParameter('valeur2', "Mixte")
+   
     ->getQuery();
     
     return ($qb->execute());
     
 }
 
-public function categorie2($value,$value2)
+public function categoriegenre($value)
 {
     $qb = $this->createQueryBuilder('p')
-    ->Where('p.sexe like :valeur AND p.collection = :valeur2 ')
+    ->Where('p.sexe like :valeur OR p.sexe = :valeur2 ')
     ->setParameter('valeur', $value)
-    ->setParameter('valeur2',$value2)
+    ->setParameter('valeur2','mixte')
     ->getQuery();
     
     return ($qb->execute());
     
 }
-public function categorie3($value,$value2)
+public function categoriegenrevetement($value)
 {
     $qb = $this->createQueryBuilder('p')
-    ->Where('p.collection = :valeur OR p.collection = :valeur2 ')
+    ->Where('p.sexe = :valeur AND p.categorie = :valeur2 ')
     ->setParameter('valeur', $value)
-    ->setParameter('valeur2',$value2)
+    ->setParameter('valeur2','clothing')
     ->getQuery();
     
     return ($qb->execute());

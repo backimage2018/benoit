@@ -1,5 +1,19 @@
 <?php
 
+/* Controlleur pour le panier avec les routes :
+                -index
+                -checkout
+                -blank
+                -viewcard
+                -profil
+                -about
+                -shippingandreturn
+                -shipping_guide
+                -faq
+                -store
+                -mention_legale
+                -exception
+*/
 namespace App\Controller;
 
 use App\Entity\Panier;
@@ -24,6 +38,20 @@ class DefaultController extends Controller{
     
     Public function index(TranslatorInterface $ti,PanierService $PanierService){
 
+        $iduser= $this->getUser()->getid();
+        $panier=$this-> getDoctrine()
+        ->getRepository(Panier::class)
+        ->findBy(array('user'=>$iduser));
+        $total=$PanierService->total($panier);
+   //variable commune     
+        $param = [];
+       
+        $param = constante::variable($param);
+        $param['panier']=$panier;
+        $param['total']=$total;
+        $param=constante::variableindex($param);
+        
+        
         $articleforyou= $this-> getDoctrine()
         ->getRepository(Product::class)
         ->findByAlllimit();
@@ -33,48 +61,21 @@ class DefaultController extends Controller{
         ->getRepository(Product::class)
         ->findBynew('oui');
         
-        $articles= $this-> getDoctrine()
+        $articledeal= $this-> getDoctrine()
         ->getRepository(Product::class)
         ->findAll();
-        
-        $iduser= $this->getUser()->getid();
-        $panier=$this-> getDoctrine()
-        ->getRepository(Panier::class)
-        ->findBy(array('user'=>$iduser));
-        $total=$PanierService->total($panier);
+        $param['article']=$articleforyou;
+        $param['articlesnew']=$articlenew;
+        $param['articledeal']=$articledeal;
+    
   
-        return $this->render('index.php.twig',array(
-            "panier"=>$panier,
-            "total"=>$total,
-            "index_banner"=>constante::index_banner,
-                                                    "index_section_banner"=>constante::index_section_banner,
-                                                    "index_deals_banner"=>constante::index_deals_banner,
-                                                    "index_sectiongrey_banner"=>constante::index_sectiongrey_banner,
-                                                    "index_sectiongrey_banner1"=>constante::index_sectiongrey_banner1,
-                                                    "index_latest_product"=>constante::index_latest_product,
-                                                    'article'=>$articleforyou,
-                                                    'articlesnew'=>$articlenew,
-                                                    'articledeal'=>$articles,
-                                                    
-            ////base
-                                             "welcome"=>constante::welcome,
-                                             "logo"=>constante::logo,
-                                             "menuheader"=>constante::menuheader,
-                                             "langue"=>constante::langue,
-                                             "devise"=>constante::devise,
-                                             "searchcategories"=>constante::searchcategories,
-                                             "custommenus"=>constante::custommenu,
-                                             "categorieshead"=>constante::categorieshead,
-                                             "ressocial"=>constante::ressocial,
-                                             "Account_login" =>constante::Account_login,
-                                             "Account_join" => constante::Account_join,
-                                             "footermyaccount"=>constante::footer_my_account,
-                                             "footerCustomer"=>constante::footer_Customer_Service,
-                                             "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-                                             "footer_subscribe_p"=>constante::footer_subscribe_p,
-                                             "menunav"=>constante::menunav,
-                                             "footer_subscribe_button"=>constante::footer_subscribe_button,
-                                             "categories"=>constante::categories));
+        return $this->render('index.php.twig',$param 
+//             array(
+//                 "panier"=>$panier,
+//                 "total"=>$total,
+
+
+    );
         
     }
 
@@ -91,27 +92,17 @@ class DefaultController extends Controller{
         ->findBy(array('user'=>$iduser));
         $total=$PanierService->total($panier);
         
-        return $this->render('checkout.php.twig',array (
-            "panier"=>$panier,
-            "total"=>$total,
-             "welcome"=>constante::welcome,
-            "logo"=>constante::logo,
-            "menuheader"=>constante::menuheader,
-            "langue"=>constante::langue,
-            "devise"=>constante::devise,
-            "searchcategories"=>constante::searchcategories,
-            "custommenus"=>constante::custommenu,
-            "categorieshead"=>constante::categorieshead,
-            "ressocial"=>constante::ressocial,
-            "Account_login" =>constante::Account_login,
-            "Account_join" => constante::Account_join,
-            "footermyaccount"=>constante::footer_my_account,
-            "footerCustomer"=>constante::footer_Customer_Service,
-            "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-            "footer_subscribe_p"=>constante::footer_subscribe_p,
-            "menunav"=>constante::menunav,
-            "footer_subscribe_button"=>constante::footer_subscribe_button,
-            "categories"=>constante::categories));
+        //         variable commune
+        $param = [];
+        
+        $param = constante::variable($param);
+        $param['panier']=$panier;
+        $param['total']=$total;
+        $param=constante::variableindex($param);
+        
+
+        
+        return $this->render('checkout.php.twig',$param);
   
         
     }
@@ -119,27 +110,22 @@ class DefaultController extends Controller{
      * @Route("/blank" , name="blank")
      */
     
-    function blank(){
+    function blank(PanierService $PanierService){
         
+        $iduser= $this->getUser()->getid();
+        $panier=$this-> getDoctrine()
+        ->getRepository(Panier::class)
+        ->findBy(array('user'=>$iduser));
+        $total=$PanierService->total($panier);
         
-        return $this->render('blank.php.twig',array ("welcome"=>constante::welcome,
-            "logo"=>constante::logo,
-            "menuheader"=>constante::menuheader,
-            "langue"=>constante::langue,
-            "devise"=>constante::devise,
-            "searchcategories"=>constante::searchcategories,
-            "custommenus"=>constante::custommenu,
-            "categorieshead"=>constante::categorieshead,
-            "ressocial"=>constante::ressocial,
-            "Account_login" =>constante::Account_login,
-            "Account_join" => constante::Account_join,
-            "footermyaccount"=>constante::footer_my_account,
-            "footerCustomer"=>constante::footer_Customer_Service,
-            "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-            "footer_subscribe_p"=>constante::footer_subscribe_p,
-            "menunav"=>constante::menunav,
-            "footer_subscribe_button"=>constante::footer_subscribe_button,
-            "categories"=>constante::categories));
+        $param = [];
+        /* data for header */
+        $param = constante::variable($param);
+        $param['panier']=$panier;
+        $param['total']=$total;
+        $param=constante::variableindex($param);
+        
+        return $this->render('blank.php.twig',$param);
         
     }
     /**
@@ -148,122 +134,90 @@ class DefaultController extends Controller{
     
     function viewcard(PanierService $PanierService){
         
-      
-            
-            $iduser= $this->getUser()->getid();
-            $panier=$this-> getDoctrine()
-            ->getRepository(Panier::class)
-            ->findBy(array('user'=>$iduser));
-            
-            $total=$PanierService->total($panier);
+        $iduser= $this->getUser()->getid();
+        $panier=$this-> getDoctrine()
+        ->getRepository(Panier::class)
+        ->findBy(array('user'=>$iduser));
+        $total=$PanierService->total($panier);
+        //         variable commune
+        $param = [];
+        
+        $param = constante::variable($param);
+        $param['panier']=$panier;
+        $param['total']=$total;
+        $param=constante::variableindex($param);
             
         return $this->render(
-            'viewcard.html.twig',array (
-            "total"=>$total,
-            "panier"=>$panier,
-            "welcome"=>constante::welcome,
-            "logo"=>constante::logo,
-            "menuheader"=>constante::menuheader,
-            "langue"=>constante::langue,
-            "devise"=>constante::devise,
-            "searchcategories"=>constante::searchcategories,
-            "custommenus"=>constante::custommenu,
-            "categorieshead"=>constante::categorieshead,
-            "ressocial"=>constante::ressocial,
-            "Account_login" =>constante::Account_login,
-            "Account_join" => constante::Account_join,
-            "footermyaccount"=>constante::footer_my_account,
-            "footerCustomer"=>constante::footer_Customer_Service,
-            "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-            "footer_subscribe_p"=>constante::footer_subscribe_p,
-            "menunav"=>constante::menunav,
-            "footer_subscribe_button"=>constante::footer_subscribe_button,
-            "categories"=>constante::categories));
+            'viewcard.html.twig',$param);
         
     }
 
     /**
-     * @Route("/profil")
+     * @Route("/profil" ,name="profil")
      */
     
     
-    function profil(){
+    function profil(PanierService $PanierService){
         
+        $iduser= $this->getUser()->getid();
+        $panier=$this-> getDoctrine()
+        ->getRepository(Panier::class)
+        ->findBy(array('user'=>$iduser));
+        $total=$PanierService->total($panier);
+        //         variable commune
+        $param = [];
+  
+        $param = constante::variable($param);
+        $param['panier']=$panier;
+        $param['total']=$total;
+        $param=constante::variableindex($param);
         
-        return $this->render('profil.html.twig',array ("welcome"=>constante::welcome,
-            "logo"=>constante::logo,
-            "menuheader"=>constante::menuheader,
-            "langue"=>constante::langue,
-            "devise"=>constante::devise,
-            "searchcategories"=>constante::searchcategories,
-            "custommenus"=>constante::custommenu,
-            "categorieshead"=>constante::categorieshead,
-            "ressocial"=>constante::ressocial,
-            "Account_login" =>constante::Account_login,
-            "Account_join" => constante::Account_join,
-            "footermyaccount"=>constante::footer_my_account,
-            "footerCustomer"=>constante::footer_Customer_Service,
-            "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-            "footer_subscribe_p"=>constante::footer_subscribe_p,
-            "menunav"=>constante::menunav,
-            "footer_subscribe_button"=>constante::footer_subscribe_button,
-            "categories"=>constante::categories));
+        return $this->render('profil.html.twig',$param);
         
     }
     /**
-     * @Route("/about")
+     * @Route("/about" ,name="about")
      */
     
-    
-    function about(){
+
+    function about(PanierService $PanierService){
+        $iduser= $this->getUser()->getid();
+        $panier=$this-> getDoctrine()
+        ->getRepository(Panier::class)
+        ->findBy(array('user'=>$iduser));
+        $total=$PanierService->total($panier);
+//         variable commune
+        $param = [];
         
+        $param = constante::variable($param);
+        $param['panier']=$panier;
+        $param['total']=$total;
+        $param=constante::variableindex($param);
         
-        return $this->render('about.html.twig',array ("welcome"=>constante::welcome,
-            "logo"=>constante::logo,
-            "menuheader"=>constante::menuheader,
-            "langue"=>constante::langue,
-            "devise"=>constante::devise,
-            "searchcategories"=>constante::searchcategories,
-            "custommenus"=>constante::custommenu,
-            "categorieshead"=>constante::categorieshead,
-            "ressocial"=>constante::ressocial,
-            "Account_login" =>constante::Account_login,
-            "Account_join" => constante::Account_join,
-            "footermyaccount"=>constante::footer_my_account,
-            "footerCustomer"=>constante::footer_Customer_Service,
-            "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-            "footer_subscribe_p"=>constante::footer_subscribe_p,
-            "menunav"=>constante::menunav,
-            "footer_subscribe_button"=>constante::footer_subscribe_button,
-            "categories"=>constante::categories));
+        return $this->render('about.html.twig',$param);
     }
     
     /**
-     * @Route("/shippingandreturn")
+     * @Route("/shippingandreturn",name="shippingandreturn")
      */
     
     
-    function shippingandreturn(){
+    function shippingandreturn(PanierService $PanierService){
         
+        $iduser= $this->getUser()->getid();
+        $panier=$this-> getDoctrine()
+        ->getRepository(Panier::class)
+        ->findBy(array('user'=>$iduser));
+        $total=$PanierService->total($panier);
+        //         variable commune
+        $param = [];
         
-        return $this->render('shippingandreturn.html.twig',array ("welcome"=>constante::welcome,
-            "logo"=>constante::logo,
-            "menuheader"=>constante::menuheader,
-            "langue"=>constante::langue,
-            "devise"=>constante::devise,
-            "searchcategories"=>constante::searchcategories,
-            "custommenus"=>constante::custommenu,
-            "categorieshead"=>constante::categorieshead,
-            "ressocial"=>constante::ressocial,
-            "Account_login" =>constante::Account_login,
-            "Account_join" => constante::Account_join,
-            "footermyaccount"=>constante::footer_my_account,
-            "footerCustomer"=>constante::footer_Customer_Service,
-            "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-            "footer_subscribe_p"=>constante::footer_subscribe_p,
-            "menunav"=>constante::menunav,
-            "footer_subscribe_button"=>constante::footer_subscribe_button,
-            "categories"=>constante::categories));
+        $param = constante::variable($param);
+        $param['panier']=$panier;
+        $param['total']=$total;
+        $param=constante::variableindex($param);
+        
+        return $this->render('shippingandreturn.html.twig',$param);
         
     }
     
@@ -273,135 +227,110 @@ class DefaultController extends Controller{
      */
     
     
-    function  shipping_guide(){
+    function  shipping_guide(panierService $PanierService){
+        $iduser= $this->getUser()->getid();
+        $panier=$this-> getDoctrine()
+        ->getRepository(Panier::class)
+        ->findBy(array('user'=>$iduser));
+        $total=$PanierService->total($panier);
+        //         variable commune
+        $param = [];
         
+        $param = constante::variable($param);
+        $param['panier']=$panier;
+        $param['total']=$total;
+        $param=constante::variableindex($param);
         
-        return $this->render('shipping_guide.html.twig',array ("welcome"=>constante::welcome,
-            "logo"=>constante::logo,
-            "menuheader"=>constante::menuheader,
-            "langue"=>constante::langue,
-            "devise"=>constante::devise,
-            "searchcategories"=>constante::searchcategories,
-            "custommenus"=>constante::custommenu,
-            "categorieshead"=>constante::categorieshead,
-            "ressocial"=>constante::ressocial,
-            "Account_login" =>constante::Account_login,
-            "Account_join" => constante::Account_join,
-            "footermyaccount"=>constante::footer_my_account,
-            "footerCustomer"=>constante::footer_Customer_Service,
-            "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-            "footer_subscribe_p"=>constante::footer_subscribe_p,
-            "menunav"=>constante::menunav,
-            "footer_subscribe_button"=>constante::footer_subscribe_button,
-            "categories"=>constante::categories));
+        return $this->render('shipping_guide.html.twig',$param);
         
     }
 
     /**
-     * @Route("/FAQ",name="FAQ")
+     * @Route("/faq",name="FAQ")
      */
     
-    function  faq(){
+    function  faq(panierService $PanierService){
         
+        $iduser= $this->getUser()->getid();
+        $panier=$this-> getDoctrine()
+        ->getRepository(Panier::class)
+        ->findBy(array('user'=>$iduser));
+        $total=$PanierService->total($panier);
+        //         variable commune
+        $param = [];
         
-        return $this->render('faq.html.twig',array ("welcome"=>constante::welcome,
-            "logo"=>constante::logo,
-            "menuheader"=>constante::menuheader,
-            "langue"=>constante::langue,
-            "devise"=>constante::devise,
-            "searchcategories"=>constante::searchcategories,
-            "custommenus"=>constante::custommenu,
-            "categorieshead"=>constante::categorieshead,
-            "ressocial"=>constante::ressocial,
-            "Account_login" =>constante::Account_login,
-            "Account_join" => constante::Account_join,
-            "footermyaccount"=>constante::footer_my_account,
-            "footerCustomer"=>constante::footer_Customer_Service,
-            "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-            "footer_subscribe_p"=>constante::footer_subscribe_p,
-            "menunav"=>constante::menunav,
-            "footer_subscribe_button"=>constante::footer_subscribe_button,
-            "categories"=>constante::categories));
+        $param = constante::variable($param);
+        $param['panier']=$panier;
+        $param['total']=$total;
+        $param=constante::variableindex($param);
+        
+        return $this->render('faq.html.twig',$param);
     }
     /**
-     * @Route("/mention_legale", name ="mention legale")
+     * @Route("/mention_legale", name ="mention_legale")
      */
     
     
-    function  mention_legale(){
+    function  mention_legale(panierService $PanierService){
         
+        $iduser= $this->getUser()->getid();
+        $panier=$this-> getDoctrine()
+        ->getRepository(Panier::class)
+        ->findBy(array('user'=>$iduser));
+        $total=$PanierService->total($panier);
+        //         variable commune
+        $param = [];
         
-        return $this->render('mention_legale.html.twig',array ("welcome"=>constante::welcome,
-            "logo"=>constante::logo,
-            "menuheader"=>constante::menuheader,
-            "langue"=>constante::langue,
-            "devise"=>constante::devise,
-            "searchcategories"=>constante::searchcategories,
-            "custommenus"=>constante::custommenu,
-            "categorieshead"=>constante::categorieshead,
-            "ressocial"=>constante::ressocial,
-            "Account_login" =>constante::Account_login,
-            "Account_join" => constante::Account_join,
-            "footermyaccount"=>constante::footer_my_account,
-            "footerCustomer"=>constante::footer_Customer_Service,
-            "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-            "footer_subscribe_p"=>constante::footer_subscribe_p,
-            "menunav"=>constante::menunav,
-            "footer_subscribe_button"=>constante::footer_subscribe_button,
-            "categories"=>constante::categories));
+        $param = constante::variable($param);
+        $param['panier']=$panier;
+        $param['total']=$total;
+        $param=constante::variableindex($param);
+        
+        return $this->render('mention_legale.html.twig',$param);
         
     }
     /**
-     * @Route("/store")
+     * @Route("/store", name="store")
      */
     
     
-    function  store(){
+    function  store(panierService $PanierService){
         
+        $iduser= $this->getUser()->getid();
+        $panier=$this-> getDoctrine()
+        ->getRepository(Panier::class)
+        ->findBy(array('user'=>$iduser));
+        $total=$PanierService->total($panier);
+        //         variable commune
+        $param = [];
         
-        return $this->render('store.html.twig',array ("welcome"=>constante::welcome,
-            "logo"=>constante::logo,
-            "menuheader"=>constante::menuheader,
-            "langue"=>constante::langue,
-            "devise"=>constante::devise,
-            "searchcategories"=>constante::searchcategories,
-            "custommenus"=>constante::custommenu,
-            "categorieshead"=>constante::categorieshead,
-            "ressocial"=>constante::ressocial,
-            "Account_login" =>constante::Account_login,
-            "Account_join" => constante::Account_join,
-            "footermyaccount"=>constante::footer_my_account,
-            "footerCustomer"=>constante::footer_Customer_Service,
-            "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-            "footer_subscribe_p"=>constante::footer_subscribe_p,
-            "menunav"=>constante::menunav,
-            "footer_subscribe_button"=>constante::footer_subscribe_button,
-            "categories"=>constante::categories));
+        $param = constante::variable($param);
+        $param['panier']=$panier;
+        $param['total']=$total;
+        $param=constante::variableindex($param);
+        
+        return $this->render('store.html.twig',$param);
         
     }
 
     /**
      * @Route("/exception", name ="exception")
      */
-    function  exception(){
-    return $this->render('Exception/error404.html.twig',array ("welcome"=>constante::welcome,
-        "logo"=>constante::logo,
-        "menuheader"=>constante::menuheader,
-        "langue"=>constante::langue,
-        "devise"=>constante::devise,
-        "searchcategories"=>constante::searchcategories,
-        "custommenus"=>constante::custommenu,
-        "categorieshead"=>constante::categorieshead,
-        "ressocial"=>constante::ressocial,
-        "Account_login" =>constante::Account_login,
-        "Account_join" => constante::Account_join,
-        "footermyaccount"=>constante::footer_my_account,
-        "footerCustomer"=>constante::footer_Customer_Service,
-        "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-        "footer_subscribe_p"=>constante::footer_subscribe_p,
-        "menunav"=>constante::menunav,
-        "footer_subscribe_button"=>constante::footer_subscribe_button,
-        "categories"=>constante::categories));
+    function  exception(panierService $PanierService){
+        
+        $iduser= $this->getUser()->getid();
+        $panier=$this-> getDoctrine()
+        ->getRepository(Panier::class)
+        ->findBy(array('user'=>$iduser));
+        $total=$PanierService->total($panier);
+        //         variable commune
+        $param = [];
+        
+        $param = constante::variable($param);
+        $param['panier']=$panier;
+        $param['total']=$total;
+        $param=constante::variableindex($param);
+    return $this->render('Exception/error404.html.twig',$param);
     }
     
     /**

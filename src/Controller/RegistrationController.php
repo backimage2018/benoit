@@ -1,9 +1,12 @@
 <?php
+/* Controlleur pour le panier avec les routes :
+ -join
+ 
+ */
 namespace App\Controller;
 
-use App\Entity\Newsletter;
+
 use App\Entity\User;
-use App\Form\NewsletterType;
 use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,28 +43,15 @@ class RegistrationController extends Controller
             
             return $this->redirectToRoute('index');
         }
-        
+        //variable commune
+        $param = [];
+        $param = constante::variable($param);
+        $param=constante::variableindex($param);
+        //variable de la page 
+        $param['form']=$form->createView();
         return $this->render(
             'registration/register.html.twig',
-            array('form' => $form->createView(),
-                "welcome"=>constante::welcome,
-                "logo"=>constante::logo,
-                "menuheader"=>constante::menuheader,
-                "langue"=>constante::langue,
-                "devise"=>constante::devise,
-                "searchcategories"=>constante::searchcategories,
-                "custommenus"=>constante::custommenu,
-                "categorieshead"=>constante::categorieshead,
-                "ressocial"=>constante::ressocial,
-                "Account_login" =>constante::Account_login,
-                "Account_join" => constante::Account_join,
-                "footermyaccount"=>constante::footer_my_account,
-                "footerCustomer"=>constante::footer_Customer_Service,
-                "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-                "footer_subscribe_p"=>constante::footer_subscribe_p,
-                "menunav"=>constante::menunav,
-                "footer_subscribe_button"=>constante::footer_subscribe_button,
-                "categories"=>constante::categories));
+            $param);
     }
 }
 

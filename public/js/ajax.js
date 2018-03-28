@@ -1,56 +1,5 @@
-
-//Redirection newsletter
-$('#redirection').click(function(event) {
-	   event.preventDefault();
-  $('html,body').animate({scrollTop: $("#newsletter_input").offset().top}, '600');
-  $("#newsletter_input").focus();
-});  
-
-//module ajax pour site Eshop @Benoît//
-//ajax pour envoie newsletter
-
-$("#newsletterEnvoi").click(function(event){
-
-	event.preventDefault();
-$.ajax({
- url : '/newsletter',
- type : 'POST',
- data: {email:$('#newsletter_input').val()},
-
- }).done(function(result){
-
- 	$('#newsletterEnvoi').html('merci')})
-		
-     
-    
- 
-});
-
-
-//ajax pour envoie review
-$("#reviewsend").click(function(event){
-
-	event.preventDefault();
-	 var data_form = $('#formulaire').serialize();
-	 
-	
-$.ajax({
- url : '/review',
- type : 'POST',
- data: data_form,
- }).done(function(result){
- 
- 	$('#reviewsend').html('merci')})
-
- 	
-
-});
-
 //ajax pour envoie panier
 $(".add-to-cart").click(function(){
-
-
-	
 $.ajax({
  url : '/panier',
  type: 'POST',
@@ -102,6 +51,9 @@ $.ajax({
  })
 });
 
+
+//ajax pour viewcard
+
 $(".inputqty").blur(function(){
 	$id=$(this).attr('id');
 	
@@ -113,12 +65,11 @@ $.ajax({
 }).done(function(result){
 	
 	$result=JSON.parse(result);
-	console.log($result);
-	console.log($result[0].Prixligne);
-	console.log($result.total);
+
 	
 		 $('.'+$id+'').html("<td class='total text-center tl'><strong class='primary-color'>"+$result[0].Prixligne +" €</strong></td>");
 	 	$('.totalall').html("<th colspan='2' class='total'>" + ($result.total)+" €</th>")
+	 	$('#totalpanier').html("<span id='totalpanier'>" + ($result.total)+" €</span>")
  })
 });
 })

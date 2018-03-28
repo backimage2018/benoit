@@ -3,6 +3,8 @@
 
 namespace App\Service;
 
+use App\Entity\Panier;
+
 
 
 
@@ -24,5 +26,12 @@ class PanierService{
         
     }
     
+    public function panier(){
+        $iduser= $this->getUser()->getid();
+        $panier=$this-> getDoctrine()
+        ->getRepository(Panier::class)
+        ->findBy(array('user'=>$iduser));
+        return $panier;
+    }
 }
 ?>

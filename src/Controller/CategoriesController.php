@@ -1,6 +1,11 @@
 <?php
 namespace App\Controller;
 
+// Controlleur pour le panier avec les routes :
+//     - categorie
+//      -genre
+//      -categorygenresexe
+
 
 use App\Entity\Image;
 use App\Entity\Panier;
@@ -20,360 +25,100 @@ use Doctrine\ORM\Mapping\Id;
 
 class CategoriesController extends Controller
 {
+    /**
+     * @Route("products/category/{cat}", name="Produits_categorie")
+     */
     
-/**
- * @Route("/women", name="women")
- */
-    Public function catWomen(PanierService $PanierService){
-    
+    function category(Request $request,$cat,PanierService $PanierService)
+    {
+        
+        
         $iduser= $this->getUser()->getid();
         $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
         ->findBy(array('user'=>$iduser));
         $total=$PanierService->total($panier);
         
-    $articles= $this->getDoctrine()
-    ->getRepository(Product::class)
-    ->categorie("women");
+        //variable commune
+        $param = [];
+        $param = constante::variable($param);
+        $param=constante::variableindex($param);
+        $param['panier']=$panier;
+        $param['total']=$total;
+        
+        
+        $articles= $this->getDoctrine()
+        ->getRepository(Product::class)
+        ->categorie($cat);
+        //variable de la page 
+        $param['article']=$articles;
+        
+        return $this->render('products.php.twig',$param);
+        
+    }
+    /**
+     * @Route("products/{sexe}", name="Produits_genre")
+     */
     
+    function categorygenre(Request $request,$sexe,PanierService $PanierService)
+    {
+        
+        
+        $iduser= $this->getUser()->getid();
+        $panier=$this-> getDoctrine()
+        ->getRepository(Panier::class)
+        ->findBy(array('user'=>$iduser));
+        $total=$PanierService->total($panier);
+        
+        //variable commune
+        $param = [];
+        $param = constante::variable($param);
+        $param=constante::variableindex($param);
+        $param['panier']=$panier;
+        $param['total']=$total;
+        
+        
+        $articles= $this->getDoctrine()
+        ->getRepository(Product::class)
+        ->categoriegenre($sexe);
+        //variable de la page
+        $param['article']=$articles;
+        
+        return $this->render('products.php.twig',$param);
+        
+    }
+    /**
+     * @Route("products/clothing/{sexe}", name="Produits_clothing_genre")
+     */
     
-    return $this->render('products.php.twig',array(
-        "panier"=>$panier,
-        "total"=>$total,
-        'article'=>$articles,
-        ////base
-        "welcome"=>constante::welcome,
-        "logo"=>constante::logo,
-        "menuheader"=>constante::menuheader,
-        "langue"=>constante::langue,
-        "devise"=>constante::devise,
-        "searchcategories"=>constante::searchcategories,
-        "custommenus"=>constante::custommenu,
-        "categorieshead"=>constante::categorieshead,
-        "ressocial"=>constante::ressocial,
-        "Account_login" =>constante::Account_login,
-        "Account_join" => constante::Account_join,
-        "footermyaccount"=>constante::footer_my_account,
-        "footerCustomer"=>constante::footer_Customer_Service,
-        "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-        "footer_subscribe_p"=>constante::footer_subscribe_p,
-        "menunav"=>constante::menunav,
-        "footer_subscribe_button"=>constante::footer_subscribe_button,
-        "categories"=>constante::categories));
-}
-/**
- * @Route("/men", name="men")
- */
-Public function catMen(PanierService $PanierService){
+    function categorygenresexe(Request $request,$sexe,PanierService $PanierService)
+    {
+        
+        
+        $iduser= $this->getUser()->getid();
+        $panier=$this-> getDoctrine()
+        ->getRepository(Panier::class)
+        ->findBy(array('user'=>$iduser));
+        $total=$PanierService->total($panier);
+        
+        //variable commune
+        $param = [];
+        $param = constante::variable($param);
+        $param=constante::variableindex($param);
+        $param['panier']=$panier;
+        $param['total']=$total;
+        
+        
+        $articles= $this->getDoctrine()
+        ->getRepository(Product::class)
+        ->categoriegenrevetement($sexe);
+        //variable de la page
+        $param['article']=$articles;
+        
+        return $this->render('products.php.twig',$param);
+        
+    }
     
-    $iduser= $this->getUser()->getid();
-    $panier=$this-> getDoctrine()
-    ->getRepository(Panier::class)
-    ->findBy(array('user'=>$iduser));
-    $total=$PanierService->total($panier);
-    
-    $articles= $this->getDoctrine()
-    ->getRepository(Product::class)
-    ->categorie("men");
-    
-    
-    return $this->render('products.php.twig',array(
-        "panier"=>$panier,
-        "total"=>$total,
-        'article'=>$articles,
-        ////base
-        "welcome"=>constante::welcome,
-        "logo"=>constante::logo,
-        "menuheader"=>constante::menuheader,
-        "langue"=>constante::langue,
-        "devise"=>constante::devise,
-        "searchcategories"=>constante::searchcategories,
-        "custommenus"=>constante::custommenu,
-        "categorieshead"=>constante::categorieshead,
-        "ressocial"=>constante::ressocial,
-        "Account_login" =>constante::Account_login,
-        "Account_join" => constante::Account_join,
-        "footermyaccount"=>constante::footer_my_account,
-        "footerCustomer"=>constante::footer_Customer_Service,
-        "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-        "footer_subscribe_p"=>constante::footer_subscribe_p,
-        "menunav"=>constante::menunav,
-        "footer_subscribe_button"=>constante::footer_subscribe_button,
-        "categories"=>constante::categories));
-}
+    }
 
-/**
- * @Route("/menclothing", name="menclothing")
- */
-Public function catmenclothing(PanierService $PanierService){
-    
-    
-    
-    $articles= $this->getDoctrine()
-    ->getRepository(Product::class)
-    ->categorie2("men","Vetements");
-    $iduser= $this->getUser()->getid();
-    $panier=$this-> getDoctrine()
-    ->getRepository(Panier::class)
-    ->findBy(array('user'=>$iduser));
-    $total=$PanierService->total($panier);
-    
-    return $this->render('products.php.twig',array(
-        "panier"=>$panier,
-        "total"=>$total,
-        'article'=>$articles,
-        ////base
-        "welcome"=>constante::welcome,
-        "logo"=>constante::logo,
-        "menuheader"=>constante::menuheader,
-        "langue"=>constante::langue,
-        "devise"=>constante::devise,
-        "searchcategories"=>constante::searchcategories,
-        "custommenus"=>constante::custommenu,
-        "categorieshead"=>constante::categorieshead,
-        "ressocial"=>constante::ressocial,
-        "Account_login" =>constante::Account_login,
-        "Account_join" => constante::Account_join,
-        "footermyaccount"=>constante::footer_my_account,
-        "footerCustomer"=>constante::footer_Customer_Service,
-        "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-        "footer_subscribe_p"=>constante::footer_subscribe_p,
-        "menunav"=>constante::menunav,
-        "footer_subscribe_button"=>constante::footer_subscribe_button,
-        "categories"=>constante::categories));
-}
-/**
- * @Route("/womenclothing", name="womenclothing")
- */
-Public function catwomenclothing(PanierService $PanierService){
-    
-    
-    
-    $articles= $this->getDoctrine()
-    ->getRepository(Product::class)
-    ->categorie2("women","Vetements");
-    $iduser= $this->getUser()->getid();
-    $panier=$this-> getDoctrine()
-    ->getRepository(Panier::class)
-    ->findBy(array('user'=>$iduser));
-    $total=$PanierService->total($panier);
-    
-    return $this->render('products.php.twig',array(
-        "panier"=>$panier,
-        "total"=>$total,
-        'article'=>$articles,
-        ////base
-        "welcome"=>constante::welcome,
-        "logo"=>constante::logo,
-        "menuheader"=>constante::menuheader,
-        "langue"=>constante::langue,
-        "devise"=>constante::devise,
-        "searchcategories"=>constante::searchcategories,
-        "custommenus"=>constante::custommenu,
-        "categorieshead"=>constante::categorieshead,
-        "ressocial"=>constante::ressocial,
-        "Account_login" =>constante::Account_login,
-        "Account_join" => constante::Account_join,
-        "footermyaccount"=>constante::footer_my_account,
-        "footerCustomer"=>constante::footer_Customer_Service,
-        "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-        "footer_subscribe_p"=>constante::footer_subscribe_p,
-        "menunav"=>constante::menunav,
-        "footer_subscribe_button"=>constante::footer_subscribe_button,
-        "categories"=>constante::categories));
-}
-/**
- * @Route("/PhonesandAccessories", name="PhonesandAccessories")
- */
-Public function catPhonesandAccessories(PanierService $PanierService){
-    
-    
-    
-    $articles= $this->getDoctrine()
-    ->getRepository(Product::class)
-    ->categorie3("phone","Accessories");
-    $iduser= $this->getUser()->getid();
-    $panier=$this-> getDoctrine()
-    ->getRepository(Panier::class)
-    ->findBy(array('user'=>$iduser));
-    $total=$PanierService->total($panier);
-    
-    return $this->render('products.php.twig',array(
-        "panier"=>$panier,
-        "total"=>$total,
-        'article'=>$articles,
-        ////base
-        "welcome"=>constante::welcome,
-        "logo"=>constante::logo,
-        "menuheader"=>constante::menuheader,
-        "langue"=>constante::langue,
-        "devise"=>constante::devise,
-        "searchcategories"=>constante::searchcategories,
-        "custommenus"=>constante::custommenu,
-        "categorieshead"=>constante::categorieshead,
-        "ressocial"=>constante::ressocial,
-        "Account_login" =>constante::Account_login,
-        "Account_join" => constante::Account_join,
-        "footermyaccount"=>constante::footer_my_account,
-        "footerCustomer"=>constante::footer_Customer_Service,
-        "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-        "footer_subscribe_p"=>constante::footer_subscribe_p,
-        "menunav"=>constante::menunav,
-        "footer_subscribe_button"=>constante::footer_subscribe_button,
-        "categories"=>constante::categories));
-}
-/**
- * @Route("/COMPUTERANDOFFICE", name="COMPUTERANDOFFICE")
- */
-Public function catCOMPUTERANDOFFICE(PanierService $PanierService){
-    
-    
-    
-    $articles= $this->getDoctrine()
-    ->getRepository(Product::class)
-    ->categorie3("COMPUTER","OFFICE");
-    
-    $iduser= $this->getUser()->getid();
-    $panier=$this-> getDoctrine()
-    ->getRepository(Panier::class)
-    ->findBy(array('user'=>$iduser));
-    $total=$PanierService->total($panier);
-    
-    return $this->render('products.php.twig',array(
-        "panier"=>$panier,
-        "total"=>$total,
-        'article'=>$articles,
-        ////base
-        "welcome"=>constante::welcome,
-        "logo"=>constante::logo,
-        "menuheader"=>constante::menuheader,
-        "langue"=>constante::langue,
-        "devise"=>constante::devise,
-        "searchcategories"=>constante::searchcategories,
-        "custommenus"=>constante::custommenu,
-        "categorieshead"=>constante::categorieshead,
-        "ressocial"=>constante::ressocial,
-        "Account_login" =>constante::Account_login,
-        "Account_join" => constante::Account_join,
-        "footermyaccount"=>constante::footer_my_account,
-        "footerCustomer"=>constante::footer_Customer_Service,
-        "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-        "footer_subscribe_p"=>constante::footer_subscribe_p,
-        "menunav"=>constante::menunav,
-        "footer_subscribe_button"=>constante::footer_subscribe_button,
-        "categories"=>constante::categories));
-}
-/**
- * @Route("/CONSUMERELECTRONICS", name="CONSUMERELECTRONICS")
- */
-Public function catCONSUMERELECTRONICS(PanierService $PanierService){
-    
-    
-    
-    $articles= $this->getDoctrine()
-    ->getRepository(Product::class)
-    ->categorie3("CONSUMERELECTRONICS","");
-    $iduser= $this->getUser()->getid();
-    $panier=$this-> getDoctrine()
-    ->getRepository(Panier::class)
-    ->findBy(array('user'=>$iduser));
-    $total=$PanierService->total($panier);
-    
-    return $this->render('products.php.twig',array(
-        "panier"=>$panier,
-        "total"=>$total,
-        'article'=>$articles,
-        ////base
-        "welcome"=>constante::welcome,
-        "logo"=>constante::logo,
-        "menuheader"=>constante::menuheader,
-        "langue"=>constante::langue,
-        "devise"=>constante::devise,
-        "searchcategories"=>constante::searchcategories,
-        "custommenus"=>constante::custommenu,
-        "categorieshead"=>constante::categorieshead,
-        "ressocial"=>constante::ressocial,
-        "Account_login" =>constante::Account_login,
-        "Account_join" => constante::Account_join,
-        "footermyaccount"=>constante::footer_my_account,
-        "footerCustomer"=>constante::footer_Customer_Service,
-        "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-        "footer_subscribe_p"=>constante::footer_subscribe_p,
-        "menunav"=>constante::menunav,
-        "footer_subscribe_button"=>constante::footer_subscribe_button,
-        "categories"=>constante::categories));
-}
-/**
- * @Route("/JewelryWatches", name="JewelryWatches")
- */
-Public function catJewelryWatches(){
-    
-    
-    
-    $articles= $this->getDoctrine()
-    ->getRepository(Product::class)
-    ->categorie3("Jewelry","Watches");
-    
-    
-    return $this->render('products.php.twig',array(
-        'article'=>$articles,
-        ////base
-        "welcome"=>constante::welcome,
-        "logo"=>constante::logo,
-        "menuheader"=>constante::menuheader,
-        "langue"=>constante::langue,
-        "devise"=>constante::devise,
-        "searchcategories"=>constante::searchcategories,
-        "custommenus"=>constante::custommenu,
-        "categorieshead"=>constante::categorieshead,
-        "ressocial"=>constante::ressocial,
-        "Account_login" =>constante::Account_login,
-        "Account_join" => constante::Account_join,
-        "footermyaccount"=>constante::footer_my_account,
-        "footerCustomer"=>constante::footer_Customer_Service,
-        "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-        "footer_subscribe_p"=>constante::footer_subscribe_p,
-        "menunav"=>constante::menunav,
-        "footer_subscribe_button"=>constante::footer_subscribe_button,
-        "categories"=>constante::categories));
-}
-/**
- * @Route("/BagsShoes", name="BagsShoes")
- */
-Public function catBagsShoes(){
-    
-    
-    $Panier=$this-> getDoctrine()
-    ->getRepository(Panier::class)
-    ->findBySomething("tt");
-    
-    $articles= $this->getDoctrine()
-    ->getRepository(Product::class)
-    ->categorie3("Bags","Shoes");
-    
-    
-    return $this->render('products.php.twig',array(
-        'article'=>$articles,
-        'panier'=>$Panier,
-        ////base
-        "welcome"=>constante::welcome,
-        "logo"=>constante::logo,
-        "menuheader"=>constante::menuheader,
-        "langue"=>constante::langue,
-        "devise"=>constante::devise,
-        "searchcategories"=>constante::searchcategories,
-        "custommenus"=>constante::custommenu,
-        "categorieshead"=>constante::categorieshead,
-        "ressocial"=>constante::ressocial,
-        "Account_login" =>constante::Account_login,
-        "Account_join" => constante::Account_join,
-        "footermyaccount"=>constante::footer_my_account,
-        "footerCustomer"=>constante::footer_Customer_Service,
-        "footer_subscribe_h3"=>constante::footer_subscribe_h3,
-        "footer_subscribe_p"=>constante::footer_subscribe_p,
-        "menunav"=>constante::menunav,
-        "footer_subscribe_button"=>constante::footer_subscribe_button,
-        "categories"=>constante::categories));
-}
-}
 ?>

@@ -1,5 +1,10 @@
 <?php
 
+/* Controlleur pour le panier avec les routes :
+ -newsletter
+ -delete newsletter
+ 
+ */
 namespace App\Controller;
 
 use App\Entity\Newsletter;

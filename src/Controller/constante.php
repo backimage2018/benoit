@@ -1,8 +1,11 @@
 <?php
 namespace App\Controller;
 
+use App\Service\PanierService;
+
 class constante {
 
+    
    //tableaux des constantes 
     // id="top-header"><div class="container">
     
@@ -78,11 +81,11 @@ class constante {
                                        
                                            
                                            'cat1'=>['name'=>'WomensClothing',
-                                               'URL'=>'',
+                                               'URL'=>'products/Women',
                                            ],
                                            
                                            'cat2'=> ['name'=>'MensClothing',
-                                               'URL'=>'/menclothing',
+                                               'URL'=>'products/Men',
                                            ],
                                                 
                                                'cat3'=> ['name'=>'Phones & Accessories',
@@ -101,33 +104,33 @@ class constante {
      'categoriesdetail'=>[
          
          'cat1'=>['name'=>'WomensClothing',
-             'URL'=>'/womenclothing',
+             'URL'=>'/products/clothing/women',
               ],
          
          'cat2'=> ['name'=>'MensClothing',
-             'URL'=>'/menclothing',
+             'URL'=>'/products/clothing/men',
              ],
          
          'cat3'=> ['name'=>'Phones & Accessories',
-             'URL'=>'/PhonesandAccessories',
+             'URL'=>'/products/category/PhonesandAccessories',
              ]
          ,
          
          'cat4'=> ['name'=>'COMPUTER & OFFICE',
-             'URL'=>'/COMPUTERANDOFFICE'
+             'URL'=>'/products/category/COMPUTERANDOFFICE'
              
          ],
          
          'cat5'=> ['name'=>'CONSUMER ELECTRONICS',
-             'URL'=>'/CONSUMERELECTRONICS'
+             'URL'=>'/products/category/CONSUMERELECTRONICS'
              ],
          
          'cat6'=> ['name'=>'Jewelry & Watches',
-             'URL'=>'/JewelryWatches',
+             'URL'=>'/products/category/JewelryWatches',
             ],
          
          'cat7'=>['name'=>'Bags & Shoes',
-             'URL'=>'/BagsShoes'
+             'URL'=>'/products/category/BagsShoes'
          ],
          
          'cat8'=>['name'=>'View all',
@@ -145,11 +148,11 @@ class constante {
              'URL'=>'/products'],
          
           'menu3'=> ['name'=>'Women',
-           'URL'=>'/women',
+           'URL'=>'/products/Women',
            ],
      
          'menu4'=> ['name'=>'Men',
-         'URL'=>'/men',
+         'URL'=>'/products/men',
         ],
      
   
@@ -314,6 +317,37 @@ const index_latest_product = array('title'=> 'Latest Products',
   
     
 ]);
+const cart = [
+    [
+        "title" => "My cart",
+        "quantite" => "3",
+        "total" => "$65.35",
+        "viewbutton" => "View cart",
+        "checkoutbutton" => "Checkout",
+        "content" => [
+            "article0" => [
+                "price" => "$31.50",
+                "name" => "Sac à main tissu",
+                "url" => "./img/product01.jpg",
+                "qty" => "1"
+            ],
+            "article1" => [
+                "price" => "$42.50",
+                "name" => "Montre kikou",
+                "url" => "./img/product02.jpg",
+                "qty" => "2"
+            ],
+            "article2" => [
+                "price" => "$32.50",
+                "name" => "Portefeuille cuir",
+                "url" => "./img/product03.jpg",
+                "qty" => "3"
+            ]
+            
+        ]
+    ]
+];
+
     const deals='[
 {
 "id":"1",
@@ -480,8 +514,51 @@ const option_productpage = array('title1'=>'Size',
         'lien2'=>['name'=>'XL'],
         'lien3'=>['name'=>'SL'],
       ],
-    
+
 );
 
+public static function variable($param)
+{
+    /* all displayed data in header */
+    $param["welcome"] = self::welcome; // mandatory
+    $param["logo"] = self::logo; // mandatory
+    $param["menuheader"] = self::menuheader; // mandatory
+    $param["langue"] = self::langue; // mandatory
+    $param["devise"] = self::devise; // mandatory
+    $param["searchcategories"] = self::searchcategories; // mandatory
+    $param["custommenus"] = self::custommenu; // mandatory
+    $param["categorieshead"] = self::categorieshead; // mandatory
+    $param["ressocial"] = self::ressocial; // mandatory
+    $param["Account_login"] = self::Account_login; // mandatory
+    $param["Account_join"] = self::Account_join; // mandatory
+    $param["footermyaccount"] = self::footer_my_account; // mandatory
+    $param["footerCustomer"] = self::footer_Customer_Service; // mandatory
+    $param["footer_subscribe_h3"] = self::footer_subscribe_h3; // mandatory
+    $param["footer_subscribe_p"] = self::footer_subscribe_p; 
+    $param["menunav"] = self::menunav; 
+    $param["footer_subscribe_button"] = self::footer_subscribe_button; 
+    $param["categories"] = self::categories;
+    $param["cart"] = self::cart;
+    return $param;
+}
+public static function variableindex($param)
+{
+    /* all displayed data in header */
+    $param["index_banner"] = self::index_banner; // mandatory
+    $param["index_section_banner"] = self::index_section_banner; // mandatory
+    $param["index_deals_banner"] = self::index_deals_banner; // mandatory
+    $param["index_sectiongrey_banner"] = self::index_sectiongrey_banner; // mandatory
+    $param["index_sectiongrey_banner1"] = self::index_sectiongrey_banner1; // mandatory
+    $param["index_latest_product"] = self::index_latest_product; // mandatory
+
+    return $param;
+}
+
+//                 "index_banner"=>constante::index_banner,
+//                 "index_section_banner"=>constante::index_section_banner,
+//                 "index_deals_banner"=>constante::index_deals_banner,
+//                 "index_sectiongrey_banner"=>constante::index_sectiongrey_banner,
+//                 "index_sectiongrey_banner1"=>constante::index_sectiongrey_banner1,
+//                 "index_latest_product"=>constante::index_latest_product,
 }
 ?>
