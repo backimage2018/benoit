@@ -130,6 +130,47 @@ class Product implements \Serializable
      * @ORM\JoinColumn(nullable=true)
      */
     private $Panier;
+    
+    /**
+     * @ORM\Column(type="integer",options={"default"=0})
+     */
+    private $quantite;
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Entrepot")
+     */
+    private $entrepot;
+   
+    /**
+     * @return mixed
+     */
+    public function getEntrepot()
+    {
+        return $this->entrepot;
+    }
+
+    /**
+     * @param mixed $entrepot
+     */
+    public function setEntrepot($entrepot)
+    {
+        $this->entrepot = $entrepot;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuantite()
+    {
+        return $this->quantite;
+    }
+
+    /**
+     * @param mixed $quantite
+     */
+    public function setQuantite($quantite)
+    {
+        $this->quantite = $quantite;
+    }
 
     /**
      * @return mixed

@@ -57,7 +57,7 @@
                                             <th>Produit</th>
                                             <th>Prix</th>
                                             <th>Couleurs</th>
-                                            <th>Country</th>
+                                            <th>Sexe</th>
                                             <th>Country</th>
                                             <th>Quantité (Magasin)</th>
                                             <th>Quantité (Entrepot)</th>
@@ -69,10 +69,11 @@
                                                 <td>{{ articles.nom }}</td>
                                                 <td>{{ articles.prix }}</td>
                                                 <td>{{ articles.couleur }}</td>
+                                                <td>{{ articles.sexe }}</td>
                                                 <td>{{ articles.couleur }}</td>
-                                                <td>{{ articles.couleur }}</td>
-                                                <td>{{ articles.couleur }}</td>
-                                                <td>{{ articles.couleur }}</td>
+                                                <td><input id="{{ articles.id }}" value="{{ articles.quantite }} " max="{{ articles.quantite }}"></input></td>
+                                                <td><input id="{{ articles.id }}" value="{{ articles.quantite }}"></input></td>
+                                               <td> <input type="radio" name="article" value="{{ articles.id }}"></td>
                                             </tr>
 
                        					{% endfor %}
@@ -130,6 +131,9 @@
 
 {{ form_widget(form.disponibilite,{'attr':{'class':'input','placeholder':'Entrer la disponibilite du produit'}}) }}
 {{ form_errors(form.disponibilite) }}
+</div>
+
+ <div class="col-md-4 col-md-offset-1">
 
 {{ form_widget(form.marque,{'attr':{'class':'input','placeholder':'Entrer la marque du produit'}}) }}
 {{ form_errors(form.marque) }}
@@ -137,9 +141,6 @@
 
 {{ form_widget(form.detail,{'attr':{'class':'input','placeholder':'Entrer le detail du produit'}}) }}
 {{ form_errors(form.detail) }}
-</div>
-
- <div class="col-md-4 col-md-offset-1">
 
  {{ form_widget(form.categorie,{'attr':{'class':'input','placeholder':'Entrer la categorie du produit'}}) }}
 {{ form_errors(form.categorie) }}
