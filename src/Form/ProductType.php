@@ -3,6 +3,7 @@ namespace App\Form;
 
 
 use App\Entity\Product;
+use App\Form\ImageType;
 use Doctrine\DBAL\Types\IntegerType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -10,6 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 
 
 class ProductType extends AbstractType
@@ -21,7 +23,7 @@ class ProductType extends AbstractType
         ->add('prix',MoneyType::class, array(
             'currency' => ''))
             ->add('ancienprix',MoneyType::class, array(
-                'currency' => '€'))
+                'currency' => 'ï¿½'))
         ->add('taille', TextType::class)
         ->add('couleur', TextType::class)
         ->add('collection', TextType::class)
