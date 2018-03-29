@@ -125,6 +125,7 @@ class Product implements \Serializable
      * @ORM\Column(name="deleted", type="datetime", nullable=true)
      */
     private $deleted;
+    
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Panier", inversedBy="products")
      * @ORM\JoinColumn(nullable=true)
@@ -132,44 +133,26 @@ class Product implements \Serializable
     private $Panier;
     
     /**
-     * @ORM\Column(type="integer",options={"default"=0})
+     * @ORM\OneToOne(targetEntity="App\Entity\Stock", cascade={"persist"})
      */
-    private $quantite;
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Entrepot")
-     */
-    private $entrepot;
-   
-    /**
-     * @return mixed
-     */
-    public function getEntrepot()
-    {
-        return $this->entrepot;
-    }
+    private $stock;
+ 
 
-    /**
-     * @param mixed $entrepot
-     */
-    public function setEntrepot($entrepot)
-    {
-        $this->entrepot = $entrepot;
-    }
 
     /**
      * @return mixed
      */
-    public function getQuantite()
+    public function getStock()
     {
-        return $this->quantite;
+        return $this->stock;
     }
 
-    /**
-     * @param mixed $quantite
+/**
+     * @param mixed $stock
      */
-    public function setQuantite($quantite)
+    public function setStock($stock)
     {
-        $this->quantite = $quantite;
+        $this->stock = $stock;
     }
 
     /**

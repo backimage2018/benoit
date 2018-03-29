@@ -3,7 +3,9 @@
 
 /* Controlleur pour le panier avec les routes :
  -dashboard
-
+-entrepot
+-magasin
+-Stock
  */
 
 
@@ -12,14 +14,17 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Entity\Image;
 use App\Entity\Product;
-use App\Form\ProductType;
+
 use App\Service\FileUploader;
 use Doctrine\Common\Annotations\Annotation;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\Article;
-    
- Class AdminController extends Controller
+use App\Entity\Stock;
+use App\Form\ProductType;
+        
+ Class StockController extends Controller
 {
     
     // Route vers dashboard
@@ -28,14 +33,10 @@ use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\Article;
      */
     Public function dashboard(Request $request,FileUploader $fileUploader){
         
-
-
-
-// requetes pour liste d'articles ($articles)
-        $articles=$this-> getDoctrine()
+        $article=$this-> getDoctrine()
         ->getRepository(Product::class)
         ->findAll();
-        
+ 
  //creation du formulaire ajout d'un produit 
  
         $Product = new Product();
@@ -61,7 +62,9 @@ use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\Article;
        
  //     Variables
     $param=[];
-    $param['article'] = $articles;
+    $param['article'] = $article;
+   
+    
     //variable de la page
     $param['form']=$form->createView();
     $param['image']="";
@@ -78,13 +81,13 @@ use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\Article;
 Public function entrepot(Request $request){
     
     // requetes pour liste d'articles ($articles)
-    $articles=$this-> getDoctrine()
+    $article=$this-> getDoctrine()
     ->getRepository(Product::class)
     ->findAll();
     
     //     Variables
     $param=[];
-    $param['article'] = $articles;
+    $param['$article'] = $article;
     return $this->render('admin/Entrepot.html.twig',$param);
 }
 // Route vers Magasin
@@ -94,14 +97,53 @@ Public function entrepot(Request $request){
 Public function magasin(Request $request){
     
     // requetes pour liste d'articles ($articles)
-    $articles=$this-> getDoctrine()
+    $article=$this-> getDoctrine()
     ->getRepository(Product::class)
-    ->findAll();
+    ->findall();
     
     //     Variables
     $param=[];
-    $param['article'] = $articles;
+    $param['stock'] = $article;
     return $this->render('admin/magasin.html.twig',$param);
+}
+
+/**
+ * @Route("/stock", name="stock")
+ */
+Public function stock(Request $request){
+    
+    $id_stock=$request->request->get('id');
+   // $id_stock="1";
+    $stock=$request->request->get('stock');
+   // $stock="50";
+    $resultat=$this->getDoctrine()->getRepository(Stock::class)->findBy(array('id'=>$id_stock));
+    $objstock=$resultat['0'];
+    if ($stock <= $objstock->getStockentrepot())
+    
+    {
+        $objstock->setStockMagasin($objstock->getStockMagasin()+$stock);
+        $objstock->setStockentrepot($objstock->getStockentrepot()-$stock);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($objstock);
+        $em->flush();
+        
+    }
+    
+    $resultat=$this->getDoctrine()->getRepository(Stock::class)->findBy(array('id'=>$id_stock));
+    $objstock=$resultat['0'];
+
+    
+    $result=[];
+    $result['magasin']=$objstock->getStockMagasin();
+    $result['Entrepot']=$objstock->getStockEntrepot();
+   
+    return new JsonResponse ($result);
+}
+
+function stockmagasin($stock){
+    
+    
+    
 }
 }
 ?>

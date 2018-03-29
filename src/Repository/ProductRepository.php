@@ -112,6 +112,30 @@ public function produitPanier($value)
     return $qb->execute();
     
 }
+ 
+ public function articleenstock()
+ {
+     return $this->createQueryBuilder('e')
+     ->where('e.stock IS NOT NULL')
+     ->getQuery()
+     ->getResult()
+     ;
  }
-    
+ public function articlehorsstock()
+ {
+     return $this->createQueryBuilder('e')
+     ->where('e.stock IS NULL')
+     ->getQuery()
+     ->getResult()
+     ;
+ }
+ public function stockproduit($value)
+ {
+ return  $this->createQueryBuilder('p')
+ ->Where('p.id =:id')
+ ->setParameter('id', $value)
+ ->getQuery()
+ ->getResult();
+ }
+}
     ?>

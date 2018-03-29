@@ -47,7 +47,62 @@
                         <div class="col-lg-8 col-md-8">
                             <div class="card">
                                 <div class="card-header" data-background-color="blue">
-                                    <h4 class="title">Listes des produits</h4>
+                                    <h4 class="title">Listes des produits en stock</h4>
+                                    <p class="category">Listes des produits au  {{ "now"|date("d/m/Y") }} </p>	
+                                </div>
+                                <div class="card-content table-responsive">
+                                    <table id="table_id" class="table table-hover display">
+                                        <thead class="text-warning">
+                                            <th>ID</th>
+                                            <th>Produit</th>
+                                            <th>Prix</th>
+                                            <th>Couleurs</th>
+                                            <th>Sexe</th>
+                                            <th>Country</th>
+                                            <th>Quantité (Magasin)</th>
+                                            <th>Quantité (Entrepot)</th>
+                                        </thead>
+                                        <tbody>
+                                        <p class="erreurstockmag"> <p>
+                                        {% for articles in article %}
+                                            <tr>
+                                                <td>{{ articles.id }}</td>
+                                                <td>{{ articles.nom }}</td>
+                                                <td>{{ articles.prix }}</td>
+                                                <td>{{ articles.couleur }}</td>
+                                                <td>{{ articles.sexe }}</td>
+                                                <td>{{ articles.couleur }}</td>
+                                                 <td><label for="stockmagasin">{{ articles.stock.stockMagasin }}</label>
+                                                 
+                                                 <input type="number" class ="stock stockmagasin" data="{{ articles.id }}" value=" " name="stockmagasin"></input>
+                                                 
+                                                 </td>
+                                           
+                                              <td><label class="labelentrepot" data="{{  articles.stock.stockEntrepot }}" for="stockentrepot">{{  articles.stock.stockEntrepot }}</label>
+                                              <input type="number"   class ="stock stockentrepot" data="{{ articles.id }}" value="" name="stockentrepot"></input></td>
+                                               <td> <input type="radio" name="article" value="{{ articles.id }}"></td>
+                                            </tr>
+									
+                       					{% endfor %}
+                       					
+                       					
+                                        </tbody>
+                                    </table>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                             {% for articles in article %}
+                         {% if articles.id == "13" %}
+                        {% include 'productsingle.php.twig' %}
+                        {% endif %}
+                        {% endfor %}
+                       
+                                             <div class="col-lg-12 col-md-12">
+                            <div class="card">
+                                <div class="card-header" data-background-color="blue">
+                                    <h4 class="title">Listes des produits hors stock</h4>
                                     <p class="category">Listes des produits au  {{ "now"|date("d/m/Y") }} </p>	
                                 </div>
                                 <div class="card-content table-responsive">
@@ -71,9 +126,13 @@
                                                 <td>{{ articles.couleur }}</td>
                                                 <td>{{ articles.sexe }}</td>
                                                 <td>{{ articles.couleur }}</td>
-                                                <td><input id="{{ articles.id }}" value="{{ articles.quantite }} " max="{{ articles.quantite }}"></input></td>
-                                                <td><input id="{{ articles.id }}" value="{{ articles.quantite }}"></input></td>
-                                               <td> <input type="radio" name="article" value="{{ articles.id }}"></td>
+                                                 <td>
+                                                 <input type="number" class ="stock" data="{{ articles.id }}" value=" " name="stockmagasin"></input>
+                                                 </td>
+                                           
+                                              <td>
+                                              <input type="number"   class ="stock" data="{{ articles.id }}" value="" name="stockentrepot"></input></td>
+                                               <td> <button type="submit">Mettre a jour</button></td>
                                             </tr>
 
                        					{% endfor %}
@@ -81,15 +140,13 @@
                        					
                                         </tbody>
                                     </table>
+                                    
+                                    
                                 </div>
                             </div>
                         </div>
-                       
-                         {% for articles in article %}
-                         {% if articles.id == "13" %}
-                        {% include 'productsingle.php.twig' %}
-                        {% endif %}
-                        {% endfor %}
+                        
+                    
                         
                         </div>
                     </div>
@@ -181,4 +238,9 @@
                        </div>       
                 </div>
             </div>
+            <script>
+$(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+</script>
 {% endblock %}
