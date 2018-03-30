@@ -11,6 +11,7 @@ use App\Entity\Panier;
 use App\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -151,6 +152,26 @@ class PanierController extends Controller
     return new Response( $panier );
 }
 
-
+/**
+ * @Route("/testpanier", name="testpanier")
+ */
+Public function testpanier(Request $request) {
+    $id_produit=$request->request->get('id');
+    $quantite=$request->request->get('qty');
+    
+    $resultat=$this->getDoctrine()->getRepository(Product::class)->findBy(array('id'=>$id_produit));
+    $stockmagasin= $resultat['0']->getStock()->getStockmagasin();
+    $message=[];
+    $message['erreur'] ="";
+    $message['succes'] = "";
+    If ($quantite>$stockmagasin){
+      
+        $message['erreur'] = "Quantité trop important merci de choisir au maximum ".$stockmagasin. " de ce produit ";
+    }else{
+        $message['succes'] = 'ok';
+    }
+    
+    return new JsonResponse ($message);
+}
 }
 ?>

@@ -63,7 +63,9 @@ class ProductType extends AbstractType
             )
             ))
         ->add('display', TextType::class)
-        ->add('image', ImageType::class);
+        ->add('image', ImageType::class)
+        ->add('Stock', StockType::class)
+        ;
     
     }
 
