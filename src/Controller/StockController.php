@@ -36,7 +36,14 @@ use App\Form\ProductType;
         $article=$this-> getDoctrine()
         ->getRepository(Product::class)
         ->findAll();
- 
+        $message=[];
+        for ($i = 0; $i < count($article); $i++){
+            $stockentrepot= $article[$i]->getStock()->getStockentrepot();
+            $stockmagasin=$article[$i]->getStock()->getStockmagasin();
+            $nomproduit=$article[$i]->getnom();
+        
+            $message[$i]=$this->alert($stockentrepot,$stockmagasin,$nomproduit);
+        }
  //creation du formulaire ajout d'un produit 
  
         $Product = new Product();
@@ -59,10 +66,17 @@ use App\Form\ProductType;
             
         }
     
-       
+  //alerte 
+  
+        
+ 
+    
+        
+        
  //     Variables
     $param=[];
     $param['article'] = $article;
+    $param['messages'] = $message;
    
     
     //variable de la page
@@ -84,10 +98,20 @@ Public function entrepot(Request $request){
     $article=$this-> getDoctrine()
     ->getRepository(Product::class)
     ->findAll();
+    // requetes pour liste des messages pb de stock ($articles)
+    $message=[];
+    for ($i = 0; $i < count($article); $i++){
+        $stockentrepot= $article[$i]->getStock()->getStockentrepot();
+        $stockmagasin=$article[$i]->getStock()->getStockmagasin();
+        $nomproduit=$article[$i]->getnom();
+        
+        $message[$i]=$this->alert($stockentrepot,$stockmagasin,$nomproduit);
+    }
     
     //     Variables
     $param=[];
-    $param['$article'] = $article;
+    $param['article'] = $article;
+    $param['messages']=$message;
     return $this->render('admin/Entrepot.html.twig',$param);
 }
 // Route vers Magasin
@@ -100,50 +124,127 @@ Public function magasin(Request $request){
     $article=$this-> getDoctrine()
     ->getRepository(Product::class)
     ->findall();
+    // requetes pour liste des messages pb de stock ($message)
+    $message=[];
+    for ($i = 0; $i < count($article); $i++){
+        $stockentrepot= $article[$i]->getStock()->getStockentrepot();
+        $stockmagasin=$article[$i]->getStock()->getStockmagasin();
+        $nomproduit=$article[$i]->getnom();
+        
+        $message[$i]=$this->alert($stockentrepot,$stockmagasin,$nomproduit);
+    }
+    
     
     //     Variables
     $param=[];
-    $param['stock'] = $article;
+    $param['article'] = $article;
+    $param['messages']=$message;
     return $this->render('admin/magasin.html.twig',$param);
 }
 
 /**
- * @Route("/stock", name="stock")
+ * @Route("/stockm", name="stockm")
  */
-Public function stock(Request $request){
+Public function stockm(Request $request){
     
-    $id_stock=$request->request->get('id');
-   // $id_stock="1";
+    //recuperation des stock et de l'id produit 
+    $id_produit=$request->request->get('id_product');
+   // $id_produit="13";
     $stock=$request->request->get('stock');
    // $stock="50";
-    $resultat=$this->getDoctrine()->getRepository(Stock::class)->findBy(array('id'=>$id_stock));
-    $objstock=$resultat['0'];
-    if ($stock <= $objstock->getStockentrepot())
+   //recuperation du produit pouyr avoir le stock 
+    $resultat=$this->getDoctrine()->getRepository(Product::class)->findBy(array('id'=>$id_produit));
+   
+  //declaration des variables   
+    $objproduct=$resultat['0'];
+    $stockentrepot= $objproduct->getStock()->getStockentrepot();
+    $stockmagasin=$objproduct->getStock()->getStockmagasin();
+   
+    if ($stock <= $stockentrepot)
     
     {
-        $objstock->setStockMagasin($objstock->getStockMagasin()+$stock);
-        $objstock->setStockentrepot($objstock->getStockentrepot()-$stock);
+        $objproduct->getStock()->setstockMagasin($stockmagasin+$stock);
+        $objproduct->getStock()->setStockentrepot($stockentrepot-$stock);
         $em = $this->getDoctrine()->getManager();
-        $em->persist($objstock);
+        $em->persist($objproduct);
         $em->flush();
         
     }
     
-    $resultat=$this->getDoctrine()->getRepository(Stock::class)->findBy(array('id'=>$id_stock));
-    $objstock=$resultat['0'];
+    
+    $resultat=$this->getDoctrine()->getRepository(Product::class)->findBy(array('id'=>$id_produit));
+    $nomproduit=$objproduct->getnom();
+    $stockentrepot= $objproduct->getStock()->getStockentrepot();
+    $stockmagasin=$objproduct->getStock()->getStockmagasin();
+    $message=$this->alert($stockentrepot,$stockmagasin,$nomproduit);
+    
 
     
     $result=[];
-    $result['magasin']=$objstock->getStockMagasin();
-    $result['Entrepot']=$objstock->getStockEntrepot();
+    
+    $result['magasin']=$stockmagasin;
+    $result['entrepot']=$stockentrepot;
+    $result['alerte']=$message;
    
+    return new JsonResponse ($result);
+    
+
+    
+}
+/**
+ * @Route("/stocke", name="stocke")
+ */
+Public function stocke(Request $request){
+    //recuperation des stock et de l'id produit
+    $id_produit=$request->request->get('id_product');
+    $stock=$request->request->get('stock');
+    
+    //recuperation du produit pouyr avoir le stock
+    $resultat=$this->getDoctrine()->getRepository(Product::class)->findBy(array('id'=>$id_produit));
+    //declaration des variables
+    $objproduct=$resultat['0'];
+    $stockentrepot= $objproduct->getStock()->getStockentrepot();
+   
+   // ajout du stock au stock entreprise 
+    $objproduct->getStock()->setStockentrepot($stockentrepot+$stock);
+    $em = $this->getDoctrine()->getManager();
+    $em->persist($objproduct);
+    $em->flush();
+    //
+    $resultat=$this->getDoctrine()->getRepository(Product::class)->findBy(array('id'=>$id_produit));
+    $stockentrepot= $objproduct->getStock()->getStockentrepot();
+    $stockmagasin=$objproduct->getStock()->getStockmagasin();
+    $nomproduit=$objproduct->getnom();
+    $message=$this->alert($stockentrepot,$stockmagasin,$nomproduit);
+    
+    //mise en place des resultat dans un tableau 
+    $result=[];
+    $result['entrepot']=$stockentrepot;
+    $result['alert']=$message;
     return new JsonResponse ($result);
 }
 
-function stockmagasin($stock){
+
+public function alert($stockentrepot,$stockmagasin,$nomproduit ){
+    $messagemag="";
+    $messageent="";
+    if ($stockmagasin  < 3){
+        
+        $messagemag="Le stock magasin du produit " .$nomproduit. " est inferieur a 3";
+        
+    }
+    if ($stockentrepot <3) {
+        
+        $messageent="Le stock Entrepot du produit " .$nomproduit. " est inferieur a 3";
+    }
     
+    $message= [];
+    $message['messagemag']=$messagemag;
+    $message['messageent']=$messageent;
     
+    return ($message);
     
 }
-}
+
+ }
 ?>

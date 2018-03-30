@@ -17,7 +17,16 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">local_offer</i> Tracked from Github
+                                  
+                                        <i class="material-icons">alert</i> 
+                                        {% for message in messages %}
+                                        {% if (message.messageent) != "" %}
+                                     <p class="alerteentrepot">{{ message.messageent }}<p>
+                                     {% endif %}
+                                        
+                                        
+                                        {%   endfor %}
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -29,12 +38,19 @@
                                 </div>
                                 <div class="card-content">
                                     <p class="category">Alerte Magasin</p>
+                                               {% for message in messages %}
+                                        {% if (message.messagemag) != "" %}
+                                    <p class="alertemagasin">{{ message.messagemag }}<p>
+                                     {% endif %}
+                                        
+                                        
+                                        {%   endfor %}
                                    
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
                                     
-                                        <i class="material-icons">local_offer</i> <p>Zizi en manque dans l'entrepot</p>
+                                        <i class="material-icons"></i> <p class="alertemagasin"><p>
                                     </div>
                                 </div>
                             </div>
@@ -51,7 +67,7 @@
                                     <p class="category">Listes des produits au  {{ "now"|date("d/m/Y") }} </p>	
                                 </div>
                                 <div class="card-content table-responsive">
-                                    <table id="table_id" class="table table-hover display">
+                                    <table id="table" class="table table-hover display">
                                         <thead class="text-warning">
                                             <th>ID</th>
                                             <th>Produit</th>
@@ -63,7 +79,7 @@
                                             <th>Quantité (Entrepot)</th>
                                         </thead>
                                         <tbody>
-                                        <p class="erreurstockmag"> <p>
+                                        <p class="erreurstockmag succes"> <p>
                                         {% for articles in article %}
                                             <tr>
                                                 <td>{{ articles.id }}</td>
@@ -72,14 +88,14 @@
                                                 <td>{{ articles.couleur }}</td>
                                                 <td>{{ articles.sexe }}</td>
                                                 <td>{{ articles.couleur }}</td>
-                                                 <td><label for="stockmagasin">{{ articles.stock.stockMagasin }}</label>
-                                                 
-                                                 <input type="number" class ="stock stockmagasin" data="{{ articles.id }}" value=" " name="stockmagasin"></input>
-                                                 
-                                                 </td>
-                                           
-                                              <td><label class="labelentrepot" data="{{  articles.stock.stockEntrepot }}" for="stockentrepot">{{  articles.stock.stockEntrepot }}</label>
-                                              <input type="number"   class ="stock stockentrepot" data="{{ articles.id }}" value="" name="stockentrepot"></input></td>
+{#                           label et input pouur stock magasin #}
+                                                <td><label class="labelmagasin{{ articles.id }}" for="stockmagasin">{{ articles.stock.stockMagasin }}</label>
+                                                <input type="number" class ="stockm stockmagasin{{ articles.id }}" data="{{ articles.id }}"  name="stockmagasin"></input>
+                                                </td>
+ {#                           label et input pouur stock Entreprise #}                                            
+                                              <td><label class="labelentrepot{{ articles.id }}" data="{{  articles.stock.stockEntrepot }}" for="stockentrepot">{{  articles.stock.stockEntrepot }}</label>
+                                              <input type="number"   class ="stocke stockentrepot{{ articles.id }}" data="{{ articles.id }}"  name="stockentrepot"></input></td>
+  {#                           Bouton radio pour affichage vignette #}                                               
                                                <td> <input type="radio" name="article" value="{{ articles.id }}"></td>
                                             </tr>
 									
@@ -114,8 +130,8 @@
                                             <th>Couleurs</th>
                                             <th>Sexe</th>
                                             <th>Country</th>
-                                            <th>Quantité (Magasin)</th>
-                                            <th>Quantité (Entrepot)</th>
+                                            <th>Quantite</th>
+                                            <th>Quantite</th>
                                         </thead>
                                         <tbody>
                                         {% for articles in article %}
@@ -127,11 +143,11 @@
                                                 <td>{{ articles.sexe }}</td>
                                                 <td>{{ articles.couleur }}</td>
                                                  <td>
-                                                 <input type="number" class ="stock" data="{{ articles.id }}" value=" " name="stockmagasin"></input>
+                                                 <input type="number" class ="stock" id ="row-1-Quantite" name="row-1-Quantite" data="{{ articles.id }}" value=" " name="stockmagasin"></input>
                                                  </td>
                                            
                                               <td>
-                                              <input type="number"   class ="stock" data="{{ articles.id }}" value="" name="stockentrepot"></input></td>
+                                              <input type="number"   class ="stock" id ="row-2-Quantite" name="row-2-Quantite" data="{{ articles.id }}" value="" name="stockentrepot"></input></td>
                                                <td> <button type="submit">Mettre a jour</button></td>
                                             </tr>
 

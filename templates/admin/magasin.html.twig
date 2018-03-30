@@ -10,22 +10,22 @@
                         <div class="col-lg-8 col-lg-offset-2 col-md-12 col-sm-12">
                             <div class="card card-stats">
                                 <div class="card-header" data-background-color="red">
-                                    <i class="material-icons">Entrepot</i>
+                                    <i class="material-icons">Magasin</i>
                                 </div>
                                 <div class="card-content">
-                                    <p class="category">Alerte Entrepot</p>
+                                    <p class="category">Alerte Magasin</p>
                                    
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">local_offer</i> Tracked from Github
+                                        <i class="material-icons"></i> 
                                     </div>
                                 </div>
                             </div>
                         </div>
                                        <div class="row">
 
-                        <div class="col-lg-8 col-md-8">
+                        <div class="col-lg-11 ">
                             <div class="card">
                                 <div class="card-header" data-background-color="blue">
                                     <h4 class="title">Listes des produits</h4>
@@ -38,9 +38,7 @@
                                             <th>Produit</th>
                                             <th>Prix</th>
                                             <th>Couleurs</th>
-                                            <th>Country</th>
-                                            <th>Country</th>
-                                            
+                                            <th>sexe</th>                                     
                                             <th>Quantité (Magasin)</th>
                                         </thead>
                                         <tbody>
@@ -50,9 +48,9 @@
                                                 <td>{{ articles.nom }}</td>
                                                 <td>{{ articles.prix }}</td>
                                                 <td>{{ articles.couleur }}</td>
-                                                <td>{{ articles.couleur }}</td>
-                                                <td>{{ articles.couleur }}</td>
-                                                <td>{{ articles.couleur }}</td>
+                                                <td>{{ articles.sexe }}</td>
+                                              
+                                                <td>{{ articles.stock.stockMagasin  }}</td>
                                                
                                             </tr>
 
@@ -64,13 +62,7 @@
                                 </div>
                             </div>
                         </div>
-                       
-                         {% for articles in article %}
-                         {% if articles.id == "13" %}
-                        {% include 'productsingle.php.twig' %}
-                        {% endif %}
-                        {% endfor %}
-                        
+                 
                         </div>
                         </div>
                         </div>    

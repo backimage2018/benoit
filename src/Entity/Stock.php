@@ -28,11 +28,6 @@ class Stock
    
     
     
-    
-    
-    
-    
-    
     /**
      * @return mixed
      */
@@ -76,15 +71,7 @@ class Stock
     }
     
     
-    
-    /**
-     * @return mixed
-     */
-    public function getProduct()
-    {
-        return $this->product;
-    }
-    
+
     /**
      * @param mixed $id
      */
@@ -95,11 +82,5 @@ class Stock
     
     
     
-    /**
-     * @param mixed $product
-     */
-    public function setProduct($product)
-    {
-        $this->product = $product;
-    }
+
 }

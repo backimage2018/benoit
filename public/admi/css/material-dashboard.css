@@ -6779,3 +6779,24 @@ footer .btn {
         overflow: visible;
     }
 }
+
+/* rajout de css */
+
+.alerteentrepot,.alertemagasin{
+	
+	color :red !important;
+	font-size: 15px !important;
+}
+.table input{
+	width:80px;
+	
+}
+.table label{
+	width: 50px;
+	color:black;	
+}
+.erreurstockmag{
+	color :red !important;
+	text-align: center;
+	
+}

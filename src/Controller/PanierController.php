@@ -39,6 +39,7 @@ class PanierController extends Controller
     $quantite=$request->request->get('quantite');
 //quantite de product_page
     $quantites=$request->request->get('qty');
+   
     
 // requete base de donnees pour ressortir le produit $Product a modifier ou creer, 
         $Product=$this-> getDoctrine()
@@ -66,20 +67,26 @@ class PanierController extends Controller
          }else{
              if (is_null($quantite)AND is_null($quantites)){
                       $panier->setQuantite(($panier->getQuantite())+1);
+                      $panier->getProduct()->getstock()->setstockMagasin($panier->getProduct()->getstock()->getstockMagasin()-1);
              }
              else if (!is_null($quantites)){
                  
                  $panier->setQuantite(($panier->getQuantite())+$quantites);
+                 $panier->getProduct()->getstock()->setstockMagasin($panier->getProduct()->getstock()->getstockMagasin()-$quantites);
              }
              else{
                  
                  $panier->setQuantite($quantite);
+                 $panier->getProduct()->getstock()->setstockMagasin($panier->getProduct()->getstock()->getstockMagasin()-$quantite);
              }
              }
 //calcul des totaux des lignes
             $totalligne=($Product->getprix()*$panier->getQuantite());
             $panier->setPrixligne($totalligne);
 //mise a jour de la bdd
+            
+            
+         
              $em = $this->getDoctrine()->getManager();
              $em->persist($panier);
              $em->flush();
