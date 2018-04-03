@@ -368,7 +368,7 @@ textarea.input {
 }
 
 .header-search>form .search-input {
-  padding-left: 150px;
+  padding-left: 10px;
   padding-right: 45px;
 }
 
@@ -906,6 +906,7 @@ textarea.input {
 .product.product-single .product-thumb {
   position: relative;
   margin-bottom: 15px;
+      height: 374px;
 }
 
 .product.product-single .product-thumb>img {

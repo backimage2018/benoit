@@ -14,10 +14,18 @@ class ProductRepository extends ServiceEntityRepository
     
 
     }
-    /**
-     * @param $price
-     * @return Product[]
-     */
+
+    
+    //custom repo pour ressortir tous les artciles sauf les display non
+    public function findAllNodisplay(){
+        $qb = $this->createQueryBuilder('p')
+        ->andWhere("p.display = 'oui'")
+        ->Join('p.image', 'i')
+        ->addSelect('i')
+        ->getQuery();
+        return $qb->execute();
+    }
+    
     public function customdeletedproduct()
     {
         // automatically knows to select Products
@@ -42,7 +50,10 @@ public function customcorbeilleproduct()
 public function productnew()
 {
     $qb = $this->createQueryBuilder('p')
-    ->andWhere('p.new = "oui"')
+    ->Join('p.image', 'i')
+    ->addSelect('i')
+    ->where("p.new = 'new' AND p.display = 'oui'")
+    ->setMaxResults(7)
     ->getQuery();
     return $qb->execute();
 }
@@ -50,6 +61,9 @@ public function productnew()
 public function findByAlllimit()
 {
     $qb = $this->createQueryBuilder('p')
+    ->Join('p.image', 'i')
+    ->addSelect('i')
+    ->Where(" p.display = 'oui' ")
     ->orderBy('p.id', 'ASC')
     ->setMaxResults(5)
     ->getQuery();
@@ -59,7 +73,9 @@ public function findByAlllimit()
 public function search($value)
 {
     $qb = $this->createQueryBuilder('p')
-    ->Where('p.nom like :valeur')
+    ->Join('p.image', 'i')
+    ->addSelect('i')
+    ->Where("p.nom like :valeur AND p.display = 'oui' ")
     ->setParameter('valeur', $value)
     ->getQuery();
     
@@ -70,7 +86,10 @@ public function search($value)
 public function categorie($value)
 {
     $qb = $this->createQueryBuilder('p')
+    ->Join('p.image', 'i')
+    ->addSelect('i')
     ->Where('p.categorie like :valeur')
+    ->andWhere("p.display = 'oui'")
     ->setParameter('valeur', $value)
    
     ->getQuery();
@@ -82,7 +101,10 @@ public function categorie($value)
 public function categoriegenre($value)
 {
     $qb = $this->createQueryBuilder('p')
+    ->Join('p.image', 'i')
+    ->addSelect('i')
     ->Where('p.sexe like :valeur OR p.sexe = :valeur2 ')
+    ->andWhere("p.display = 'oui'")
     ->setParameter('valeur', $value)
     ->setParameter('valeur2','mixte')
     ->getQuery();
@@ -93,7 +115,10 @@ public function categoriegenre($value)
 public function categoriegenrevetement($value)
 {
     $qb = $this->createQueryBuilder('p')
+    ->Join('p.image', 'i')
+    ->addSelect('i')
     ->Where('p.sexe = :valeur AND p.categorie = :valeur2 ')
+    ->andWhere("p.display = 'oui'")
     ->setParameter('valeur', $value)
     ->setParameter('valeur2','clothing')
     ->getQuery();
@@ -116,15 +141,17 @@ public function produitPanier($value)
  public function articleenstock()
  {
      return $this->createQueryBuilder('e')
-     ->where('e.stock IS NOT NULL')
+     ->Join('e.image', 'i')
+     ->addSelect('i')
+     ->where("e.display ='oui'")
      ->getQuery()
      ->getResult()
      ;
  }
- public function articlehorsstock()
+ public function articlenoshow()
  {
      return $this->createQueryBuilder('e')
-     ->where('e.stock IS NULL')
+     ->where("e.display ='non'")
      ->getQuery()
      ->getResult()
      ;
@@ -132,6 +159,10 @@ public function produitPanier($value)
  public function stockproduit($value)
  {
  return  $this->createQueryBuilder('p')
+ ->Join('p.image', 'i')
+ ->addSelect('i')
+ ->Join('p.stock', 's')
+ ->addSelect('s')
  ->Where('p.id =:id')
  ->setParameter('id', $value)
  ->getQuery()

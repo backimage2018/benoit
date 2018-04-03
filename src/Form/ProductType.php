@@ -41,11 +41,11 @@ class ProductType extends AbstractType
             'choices' => array(
                 'Women\'s clothing' => 'clothing',
                 'Men\'s clothing' => 'clothing',
-                'Bags & shoes' => 'bags_and_shoes',
-                'Jewelry & watches' => 'jewelry_and_watches',
-                'Phone\'s & accessories' => 'phones_and_accessories',
-                'Computer & office' => 'computer_and_office',
-                'Consumer electronics' => 'consumer_electronics'
+                'Bags & shoes' => 'BagsShoes',
+                'Jewelry & watches' => 'JewelryWatches',
+                'Phone\'s & accessories' => 'PhonesandAccessories',
+                'Computer & office' => 'COMPUTERANDOFFICE',
+                'Consumer electronics' => 'CONSUMERELECTRONICS'
             )
         ))
         ->add('sexe', ChoiceType::class, array(
@@ -55,14 +55,30 @@ class ProductType extends AbstractType
                 'Mixte' => 'mixte'
             )
         ))
-        ->add('reduction', TextType::class)
+        ->add('reduction', ChoiceType::class, array(
+            'choices' => array(
+                'aucune'=>'',
+                'Reduction : 5%' => '5%',
+                '10%' => '10%',
+                '15%' => '15%',
+                '20%' => '20%',
+                '50%' => '50%',
+                '80%' => '80%',
+                
+            )
+        ))
         ->add('new',  ChoiceType::class, array(
             'choices' => array(
                 'None' => null,
                 'New' => 'new'
             )
             ))
-        ->add('display', TextType::class)
+            ->add('display', ChoiceType::class, array(
+                'choices' => array(
+                    'Afficher sur le site ' => 'oui',
+                    'Ne pas afficher sur le site' => 'non'
+                ))
+               )
         ->add('image', ImageType::class)
         ->add('Stock', StockType::class)
         ;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Ven 30 Mars 2018 à 14:36
+-- Généré le :  Lun 02 Avril 2018 à 21:01
 -- Version du serveur :  5.7.14-log
 -- Version de PHP :  7.0.10
 
@@ -44,7 +44,30 @@ INSERT INTO `image` (`id`, `lien`, `product_id`) VALUES
 (15, 'd114f3a2320454ac289fce080d17b271.jpeg', 16),
 (16, 'cf1624bbfcbcf820951d695ac0c7fcff.jpeg', 17),
 (17, 'c271f4fc32c19ec09ae348fa02928a97.jpeg', 18),
-(18, '5bcfe3f31b66912fe9bcce99b7f96bd8.jpeg', 19);
+(18, '5bcfe3f31b66912fe9bcce99b7f96bd8.jpeg', 19),
+(19, 'c0639ff9ae816f08ba54ba16f759ba17.jpeg', 20),
+(20, '550767b0e29aed22f0f99709005d78ad.jpeg', 21),
+(21, '2c8c2fbb7129e09c65ad8ecd7e1aae1c.jpeg', 22),
+(22, '6ec3a5bb2acff32b3424387d89cbaf77.jpeg', 23),
+(23, '11b88fed0e137f147f0d8cd994d4b9f8.jpeg', 24),
+(24, '5b014d158d6efdce9c6f5d60e314878f.jpeg', 25),
+(25, 'ff47a49ed643cfcc4f8557b4662a5812.jpeg', 26),
+(26, 'eaa3b6dbab27057712c59798ed131959.jpeg', 27),
+(27, '3ce5ee9ffafdc3ad2d27ce94cb9c9975.jpeg', 28),
+(28, 'bd7090fdf807f8423bf25dcb5dd5a352.jpeg', 29),
+(29, 'f845fe5df3ce71a31082181a48b84ff7.jpeg', 30),
+(30, '24c32d4e830886eb31b6e97d8bf091a4.jpeg', 31),
+(31, 'adb89713566120d16e16faaec1523745.jpeg', 32),
+(32, '0b12bcf56f923ddc924897c537c50d6a.jpeg', 33),
+(33, 'fadeef416454cddb0e06dc11c73f6924.jpeg', 34),
+(34, '05587ca878d5390515e839b0dd9c49a8.jpeg', 35),
+(35, 'b57bd865a17dcce92fb4ef5dbcd4688f.jpeg', 36),
+(36, '7097cb8a590cc255267c7787a6cd0742.jpeg', 37),
+(37, '3060efc5a04b081df8d2ba8dab836ab8.jpeg', 38),
+(38, '42a811b76f5ea9e0f7cce9ee6c693045.jpeg', 39),
+(39, '3712c195d6d302a917aea3fb2a43bf3a.jpeg', 40),
+(40, 'eea8409a1f13138f9649e0f6c13273a9.jpeg', 41),
+(41, '30b1ba87a03f925d75813e91f27c9839.jpeg', 42);
 
 -- --------------------------------------------------------
 
@@ -156,7 +179,8 @@ INSERT INTO `migration_versions` (`version`) VALUES
 ('20180329124245'),
 ('20180329125509'),
 ('20180329125543'),
-('20180329142840');
+('20180329142840'),
+('20180402163249');
 
 -- --------------------------------------------------------
 
@@ -211,9 +235,10 @@ CREATE TABLE `panier` (
 INSERT INTO `panier` (`id`, `nom`, `quantite`, `product_id`, `user_id`, `prixligne`) VALUES
 (179, 'test', 1, 14, 9, 35),
 (180, 'test', 1, 17, 9, 500),
-(194, 'test', 20, 15, 8, 400),
-(196, 'test', 5, 16, 8, 2500),
-(197, 'test', 910, 12, 8, 45500);
+(202, 'test', 1, 15, 8, 20),
+(203, 'test', 1, 25, 8, 859),
+(205, 'test', 1, 35, 8, 424.95),
+(206, 'test', 1, 40, 8, 3200);
 
 -- --------------------------------------------------------
 
@@ -237,7 +262,7 @@ CREATE TABLE `product` (
   `reduction` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `new` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `display` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ancienprix` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `ancienprix` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `datefinpromo` datetime DEFAULT NULL,
   `image_id` int(11) DEFAULT NULL,
   `deleted` datetime DEFAULT NULL,
@@ -250,14 +275,37 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `nom`, `prix`, `taille`, `couleur`, `collection`, `description`, `disponibilite`, `marque`, `detail`, `categorie`, `sexe`, `reduction`, `new`, `display`, `ancienprix`, `datefinpromo`, `image_id`, `deleted`, `panier_id`, `stock_id`) VALUES
-(12, 'Botte noir', '50', 'L', 'bleu', 'Vetements', 'Joli', 'En stock', 'Levis', 'Très joli', 'ddd', 'Men', '20%', 'non', 'oui', '500', '2021-09-02 00:00:00', 11, NULL, NULL, 1),
-(13, 'Montre en or', '50', 'L', 'bleu', 'Watches', 'Joli', 'En stock', 'Levis', 'Très joli', 'ddd', 'Women', '20%', 'oui', 'oui', '40', '2021-09-02 00:00:00', 12, NULL, NULL, 2),
-(14, 'Ceinture', '35', 'L', 'bleu', 'Accessories', 'Joli', 'En stock', 'Levis', 'Très joli', 'ddd', 'Mixte', '20%', 'oui', 'oui', '45', '2021-09-02 00:00:00', 13, NULL, NULL, 3),
-(15, 'basket', '20', 'L', 'bleu', 'Shoes', 'Joli', 'En stock', 'Levis', 'Très joli', 'ddd', 'Women', '20%', 'oui', 'oui', '45', '2021-09-02 00:00:00', 14, NULL, NULL, 4),
-(16, 'portefeuille', '500', 'L', 'bleu', 'Accessories', 'Joli', 'En stock', 'Levis', 'Très joli', 'ddd', 'Men', '20%', 'oui', 'oui', '45', NULL, 15, NULL, NULL, 5),
+(12, 'Botte noir', '50', 'L', 'bleu', 'Vetements', 'Joli', 'En stock', 'Levis', 'Très joli', 'ddd', 'Men', '20%', 'non', 'oui', '500', '2021-09-02 00:00:00', 11, '2018-04-02 17:32:51', NULL, 1),
+(13, 'Montre en or', '50', 'L', 'bleu', 'Watches', 'Joli', 'Disponible', 'Levis', 'Très joli', 'JewelryWatches', 'women', '20%', NULL, 'oui', '40', '2021-09-02 00:00:00', 12, '2018-04-02 19:38:51', NULL, 2),
+(14, 'Ceinture', '35', 'L', 'Marron', 'Accessories', 'Joli', 'Disponible', 'adidas', 'Très joli', 'clothing', 'women', '20%', NULL, 'oui', '45', '2021-09-02 00:00:00', 13, NULL, NULL, 3),
+(15, 'basket', '20', 'L', 'bleu', 'Shoes', 'Joli', 'Disponible', 'Levis', 'Très joli', 'BagsShoes', 'men', '20%', NULL, 'oui', '45', '2021-09-02 00:00:00', 14, NULL, NULL, 4),
+(16, 'portefeuille', '50', 'L', 'bleu', 'Accessories', 'Joli', 'Disponible', 'Levis', 'Très joli', 'BagsShoes', 'women', '20%', NULL, 'oui', '45', NULL, 15, '2018-04-02 18:49:48', NULL, 5),
 (17, 'Sac noir', '500', 'L', 'bleu', 'Bag', 'Joli', 'En stock', 'Levis', 'Très joli', 'ddd', 'Women', '20%', 'oui', 'oui', '45', NULL, 16, NULL, NULL, 6),
-(18, 'Telephone', '1999', NULL, NULL, 'Huawei', 'Telephone nouvelle génération', 'Disponible', 'Huawei', 'Telephone nouvelle génération', 'clothing', 'women', '0%', 'new', 'non', '400', NULL, 17, NULL, NULL, 7),
-(19, 'Montre', '10', 'L', 'Rose', 'Vetements', 'Joli', 'Disponible', 'Levis', 'Très joli', 'clothing', 'women', '20%', NULL, 'oui', '20', NULL, 18, NULL, NULL, 8);
+(18, 'Telephone', '1999', NULL, NULL, 'Huawei', 'Telephone nouvelle génération', 'Disponible', 'Huawei', 'Telephone nouvelle génération', 'clothing', 'women', '0%', 'oui', 'oui', '400', NULL, 17, '2018-04-02 19:06:57', NULL, 7),
+(19, 'Montre', '10', 'L', 'Rose', 'Vetements', 'Joli', 'Disponible', 'Levis', 'Très joli', 'clothing', 'women', '20%', NULL, 'oui', '20', NULL, 18, NULL, NULL, 8),
+(20, 'jean', '50', NULL, NULL, NULL, NULL, 'Disponible', NULL, NULL, 'clothing', 'women', NULL, NULL, 'oui', '50', NULL, 19, NULL, NULL, 9),
+(21, 'jean', '50', 'no', 'bleu', 've', 'joli', 'Disponible', 'adidas', 'jolie jolie', 'clothing', 'women', '20', NULL, 'oui', '50', NULL, 20, '2018-04-02 17:51:08', NULL, 10),
+(22, 'Cubot X18', '139.99', NULL, 'bleu', NULL, 'Cubot X18 Smartphone 4G Téléphone Portable Débloqué (Écran: 5.7 Pouces HD Rapport d\'Aspect 18:9 - 3GB+32GB - Android 7.0 - Caméras 13 + 16MP - Double SIM - Ultra-Slim - Empreinte Digitale - WIFI) Bleu', 'Disponible', 'Cubot', 'Affichage: Écran 5.7 pouces super HD, 2.5D IPS, 18:9 ratio d\'aspect, vous l\'utilisez d\'une seule main. Écran tactile multipoint très sensible, offrir le meilleur sentiment de touche. Avec une résolution de 1440 * 720p pour offrir un meilleur effet visuel', 'PhonesandAccessories', 'mixte', '15%', 'new', 'oui', '280', NULL, 21, NULL, NULL, 11),
+(23, 'Huawei P20 Pro', '899.99', NULL, 'Bleu', NULL, 'Huawei P20 Pro + Carte cadeau de 100€ offerte sur amazon.fr - Smartphone portable débloqué 4G (Ecran : 6,1 pouces - 128 Go - Double Nano-SIM - Android) Bleu [Version française]', 'Disponible', 'Huawei', 'Triple Capteur photo conçu avec Leica de 40MP+20MP+8MP pour des photos parfaites même en basse lumière Processeur doté d\'intelligence artificielle, Processeur Kirin 970 octo-core pour un téléphone qui reste rapide Zoom hybride x5, captez le moindre détail, même à distance Ecran Huawei FullView FHD+ de 6, 1 pouces pour des couleurs vives et des contrastes élevés.', 'clothing', 'women', '', NULL, 'non', NULL, NULL, 22, NULL, NULL, 13),
+(24, 'Apple iPhone X', '980', NULL, 'Argent', NULL, 'Apple iPhone X Smartphone débloqué 4G (Ecran : 5,8 pouces - 64 Go - Nano-SIM - iOS) Argent', 'Disponible', 'Apple', 'Ecran super Retina Reconnaissance faciale Chargement sans fil', 'PhonesandAccessories', 'mixte', '', NULL, 'oui', NULL, NULL, 23, NULL, NULL, 14),
+(25, 'Samsung Galaxy S9', '859', NULL, 'Noir', NULL, 'Samsung Galaxy S9 Dual SIM 64GB Noir - Android 8.0 (Oreo) - Version française', 'Disponible', 'Samsung', 'Ecran Infinity 5, 8" Quad HD+ Super Amoled RAM 4Go & ROM 64Go (et port micro SD jusqu\'à 256Go) Appareil photo Arrière 12MP doté d\'un capteur téléobjectif avec zoom optique x2 Super ralenti vidéo avec 960 images/secondes Certification IP68', 'PhonesandAccessories', 'mixte', '', 'new', 'oui', NULL, NULL, 24, NULL, NULL, 15),
+(26, 'Silvian Heach Dress Chiodelli', '86.25', 'L', 'Noir', 'Dress Chiodelli', 'Silvian Heach Dress Chiodelli, Robe Femme', 'Disponible', 'Silvian Heach', 'Jolie robe', 'clothing', 'women', '', 'new', 'oui', NULL, NULL, 25, NULL, NULL, 16),
+(27, 'Dressystar Robe à \'Audrey Hepburn\' Classique Vintage 50\'s 60\'s Style à mancheron', '25.99', 'M', 'Bleu', 'Audrey Hepburn', 'Dressystar Robe à \'Audrey Hepburn\' Classique Vintage 50\'s 60\'s Style à mancheron', 'Disponible', 'Dressystar', '90% Polyester, 10% Élasthanne Promotion: pour Solde Printemps, l\'option de couleur "Noir à pois blue B", son prix est de 11,99€ au 15,99€. Type de col: Col rond Vous pouvez repasser la robe à basse température.', 'clothing', 'women', '15%', 'new', 'oui', '50', NULL, 26, NULL, NULL, 17),
+(28, 'Levi\'s THE PERFECT - T-shirt imprimé', '19.95', 'M', NULL, 'THE PERFECT', 'THE PERFECT - T-shirt imprimé', 'Disponible', 'Levi\'s', 'Composition: 100% coton  Matière: Jersey', 'clothing', 'women', '', 'new', 'oui', NULL, NULL, 27, NULL, NULL, 18),
+(29, 'ALBANY - T-shirt imprimé', '24.95', '44', 'optic white', 'ALBANY', 'ALBANY - T-shirt imprimé', 'Disponible', 'Ellesse', 'Composition: 100% coton  Matière: Jersey  Conseils d\'entretien: Lavage en machine à 40°C, ne pas mettre au sèche-linge', 'clothing', 'women', '5%', 'new', 'oui', NULL, NULL, 28, NULL, NULL, 19),
+(30, 'YASCLADY SPRING PLAYSUIT - Combinaison', '59.95', '44', 'lunar rock', 'YASCLADY', 'YASCLADY SPRING PLAYSUIT - Combinaison', 'Disponible', 'YAS Tall', 'MATIÈRE ET ENTRETIEN  Composition: 65% polyester, 31% viscose, 4% elasthanne  DÉTAILS DU PRODUIT  Forme du col: Cache-cœur  Motif / Couleur: Couleur unie  Informations additionnelles: Poches  Référence: YA021T001-Q11', 'clothing', 'women', '', 'new', 'oui', NULL, NULL, 29, NULL, NULL, 20),
+(31, 'MONT - Sweat à capuche', '84.95', 'L', 'dark grey marl', 'MONT', 'MONT - Sweat à capuche', 'Disponible', 'Ellesse', 'Col: Capuche  Fermeture: Fermeture éclair  Capuche: Capuche avec cordon de serrage  Motif / Couleur: Chiné  Informations additionnelles: Fermeture éclair, poches  Référence: EL922T008-C11', 'clothing', 'men', '5%', NULL, 'oui', '90', NULL, 30, NULL, NULL, 21),
+(32, 'BURGEE - Sweat à capuche', '79.95', 'L', 'medium grey melange', 'BURGEE', 'BURGEE - Sweat à capuche', 'Disponible', 'Napapijri', 'Col: Capuche  Poches: Poches avec fermeture éclair  Capuche: Capuche avec cordon de serrage  Motif / Couleur: Chiné  Référence: NA622S01U-C11', 'clothing', 'men', '5%', 'new', 'oui', NULL, NULL, 31, NULL, NULL, 22),
+(33, 'LUZZI - Pantalon de survêtement', '49.95', 'XL', 'dress blues', 'LUZZI', 'LUZZI - Pantalon de survêtement', 'Disponible', 'Ellesse', 'Taille: Haute  Poches: Poches latérales  Motif / Couleur: Couleur unie  Informations additionnelles: Taille élastique  Référence: EL922E00T-K11', 'clothing', 'men', '5%', 'new', 'oui', NULL, NULL, 32, NULL, NULL, 23),
+(34, 'Veste légère', '199.95', 'XL', 'vintage green', NULL, NULL, 'Disponible', 'CLOSED', NULL, 'clothing', 'men', '50%', NULL, 'non', '400', NULL, 33, NULL, NULL, 24),
+(35, 'PERFECTO - Veste en cuir', '424.95', 'XL', 'schwarz', 'PERFECTO', 'Composition: 100% cuir  Doublure: 100% coton  Contient des éléments non-textiles d\'origine animale: Oui  Conseils d\'entretien: Nettoyage spécial cuir', 'Disponible', 'Schott NYC', 'Composition: 100% cuir  Doublure: 100% coton  Contient des éléments non-textiles d\'origine animale: Oui  Conseils d\'entretien: Nettoyage spécial cuir', 'clothing', 'men', '5%', 'new', 'oui', '500', NULL, 34, NULL, NULL, 25),
+(36, 'BOSTON - Veste en jean', '59.95', 'L', 'mid wash', 'BOSTON', 'BOSTON - Veste en jean', 'Disponible', 'LOYALTY & FAITH', 'Composition: 100% coton  Doublure: 100% polyester  Épaisseur de la doublure: Doublure légère  Matière: Denim  Conseils d\'entretien: Lavage en machine à 40°C, ne pas mettre au sèche-linge', 'clothing', 'men', '', NULL, 'oui', NULL, NULL, 35, NULL, NULL, 26),
+(37, 'AIR VAPORMAX PLUS - Baskets basses', '209.95', '43', 'black/volt/white', 'VAPORMAX', 'AIR VAPORMAX PLUS - Baskets basses', 'Disponible', 'Nike Sportswear', 'AIR VAPORMAX PLUS - Baskets basses', 'BagsShoes', 'men', '', 'new', 'oui', NULL, NULL, 36, NULL, NULL, 27),
+(38, 'ML574ESC - Baskets basses', '94.95', '41', 'nimbus cloud', 'ML574ESC', 'ML574ESC - Baskets basses', 'Disponible', 'New Balance', 'Dessus / Tige: Cuir et textile  Doublure: Textile  Semelle de propreté: Textile  Semelle d\'usure: Matière synthétique  Épaisseur de la doublure: Doublure protégeant du froid  Matière: Mesh  Conseils d\'entretien: Appliquez un imperméabilisant avant la première utilisation', 'BagsShoes', 'men', '', 'new', 'oui', NULL, NULL, 37, NULL, NULL, 28),
+(39, 'ML574 - Baskets basses', '70', '42', 'black iris', 'ML574ESC', 'ML574 - Baskets basses', 'Disponible', 'New Balance', 'Dessus / Tige: Cuir et textile  Doublure: Textile  Semelle de propreté: Textile  Semelle d\'usure: Matière synthétique  Épaisseur de la doublure: Doublure protégeant du froid  Matière: Mesh  Conseils d\'entretien: Appliquez un imperméabilisant avant la première utilisation', 'BagsShoes', 'men', '20%', 'new', 'oui', '99.95', NULL, 38, NULL, NULL, 29),
+(40, 'Oyster Perpetual Lady', '3200', NULL, 'Or Jaune et Acier', 'Oyster Perpetual Lady', 'Oyster Perpetual Lady', 'Disponible', 'Rolex', 'Lunette en or jaune 750/1000 (18k). Mouvement automatique certifié chronometre (COSC). Glace saphir et cadran argent. Index et aiguilles or jaune 750/1000 (18k) luminescents. Couronne et fond vissés. Service complet Rolex de 01/2017.', 'JewelryWatches', 'women', '', 'new', 'oui', NULL, NULL, 39, NULL, NULL, 30),
+(41, 'Startimer Big Date', '700', NULL, NULL, NULL, NULL, 'Disponible', 'Alpina', 'Glace saphir, cadran et compteurs noirs. Index, chiffres arabes et aiguilles luminescents. Couronne vissée.', 'JewelryWatches', 'mixte', '15%', 'new', 'oui', '995', NULL, 40, NULL, NULL, 31),
+(42, 'T12-44 DRIVEMASTER', '4800', NULL, NULL, 'Cuir', 'Série Limitée 50 exemplaires.', 'Disponible', 'BRM', 'Glace saphir et cadran noir "Gulf". Index noir et argent, aiguilles argent. Couronne vissée. Fond transparent.', 'JewelryWatches', 'men', '10%', 'new', 'oui', '6900', NULL, 41, NULL, NULL, 32);
 
 -- --------------------------------------------------------
 
@@ -300,7 +348,10 @@ INSERT INTO `review` (`id`, `nom`, `mail`, `review`, `note`, `product_id`) VALUE
 (62, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'joli', 2, NULL),
 (63, 'ban', 'sfsf@aol.com', 'sfsfsf', 1, NULL),
 (64, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'bon portefeuille', 5, NULL),
-(66, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'fhfhfhfghgfh', 1, NULL);
+(66, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'fhfhfhfghgfh', 1, NULL),
+(67, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'dsdsdq', 1, 12),
+(68, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'bonjour', 2, 19),
+(69, 'Benoit ribeiro', 'marseillais13800@gmail.com', 'ezeazeaze', 4, 19);
 
 -- --------------------------------------------------------
 
@@ -319,14 +370,37 @@ CREATE TABLE `stock` (
 --
 
 INSERT INTO `stock` (`id`, `stock_magasin`, `stock_entrepot`) VALUES
-(1, 2, 283),
-(2, 11065, 101),
-(3, 10062, 1020),
-(4, 10030, 1002),
-(5, 10049, 1007),
-(6, 52, 9998),
-(7, 50, 10000),
-(8, 1500, 99500);
+(1, 283, 20),
+(2, 1, 50),
+(3, 2, 20),
+(4, 89, 1),
+(5, 104, 1),
+(6, 72, 50),
+(7, 40, 50000),
+(8, 1500, 99500),
+(9, 50, 50),
+(10, 100, 0),
+(11, 50, 100),
+(13, 0, 0),
+(14, 20, 50),
+(15, 500, 10000),
+(16, 200, 500),
+(17, 1000, 7900),
+(18, 500, 9000),
+(19, 900, 90000),
+(20, 800, 80000),
+(21, 9000, 10000),
+(22, 7000, 70000),
+(23, 5000, 50000),
+(24, 15, 20),
+(25, 20, 60),
+(26, 40, 60),
+(27, 500, 100),
+(28, 900, 9008),
+(29, 400, 6000),
+(30, 500, 300),
+(31, 40, 50),
+(32, 6, 700);
 
 -- --------------------------------------------------------
 
@@ -422,32 +496,32 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT pour la table `newsletter`
 --
 ALTER TABLE `newsletter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT pour la table `panier`
 --
 ALTER TABLE `panier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=198;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=207;
 --
 -- AUTO_INCREMENT pour la table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 --
 -- AUTO_INCREMENT pour la table `review`
 --
 ALTER TABLE `review`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 --
 -- AUTO_INCREMENT pour la table `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT pour la table `user`
 --

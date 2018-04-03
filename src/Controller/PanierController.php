@@ -31,6 +31,7 @@ class PanierController extends Controller
 
     public function panier(Request $request, PanierService $PanierService){
         
+        
      $quantite=1;
      
 // recuperation des id produit user et les quantite (product_page et viewcart)
@@ -41,6 +42,7 @@ class PanierController extends Controller
 //quantite de product_page
     $quantites=$request->request->get('qty');
    
+ 
     
 // requete base de donnees pour ressortir le produit $Product a modifier ou creer, 
         $Product=$this-> getDoctrine()
@@ -50,12 +52,26 @@ class PanierController extends Controller
          $user=$this-> getDoctrine()
          ->getRepository(User::class)
          ->find($iduser);
-       
+         
+         $stockmagasin= $Product->getStock()->getStockmagasin();
+
+
 //verification si le produit est deja dans la panier de l'user 
         $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
         ->findOneBy(array('Product' => $id_product,'user'=>$iduser));
-
+        
+        
+        
+        /* On test si la quantité demandé est > à la quantité restante en magasin*/
+        
+        if ($quantite > $stockmagasin || $quantites> $stockmagasin ) {
+            $result=[];
+            $result['error'] = "Quantité trop important merci de choisir au maximum ".$stockmagasin. " de ce produit ";
+            
+            return $this->json($result);
+            
+        }else{
 //test pour mettre la quantite 
         if (empty ($panier)){
                      $panier=new Panier();
@@ -116,7 +132,7 @@ class PanierController extends Controller
             return new Response ($panier);
     }
     
-    
+    }
     
     
     /**

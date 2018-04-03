@@ -30,7 +30,7 @@ $(".add-to-cart").click(function(){
 				
 				 for (var i=0; i<$nombre; i++) {
 					 		
-					 		$html2=$html2+"<div class='product product-widget'><div class='product-thumb'><img src= /uploads/image/" + $result[i].Product.image.lien +"></div><div class='product-body'><h3  class='product-price'>"+$result[i].Product.prix +"  € <span class='qty'>x"+$result[i].Quantite+"</span></h3><h2  class='product-name'>"+$result[i].Product.nom+"<a href='#'></a></h2></div><button id='" + $result[i].id +"' class='cancel-btn'><i class='fa fa-trash'></i></button></div>";
+					 		$html2=$html2+"<div class='product product-widget'><div class='product-thumb'><img src= /uploads/image/" + $result[i].Product.image.lien +"></div><div class='product-body'><h3  class='product-price'>"+$result[i].Product.prix +"  € <span class='qty'>x"+$result[i].Quantite+"</span></h3><h2  class='product-name'>"+$result[i].Product.nom+"<a href='#'></a></h2></div><button id='" + $result[i].id + "'class='cancel-btn'><i class='fa fa-trash'></i></button></div>";
 					 		
 					 	
 					}
@@ -74,15 +74,21 @@ $.ajax({
 	 url : '/panier',
 	 type: 'POST',
 	 data: {id:$(this).attr('id'),quantite:$(this).val()},
+	 datatype:'json'
 	
 }).done(function(result){
-	
+	$('.error').html("");
+	if (result.error ==  undefined){
 	$result=JSON.parse(result);
 
-	
+	//ecriture dans le panier
 		 $('.'+$id+'').html("<td class='total text-center tl'><strong class='primary-color'>"+$result[0].Prixligne +" €</strong></td>");
 	 	$('.totalall').html("<th colspan='2' class='total'>" + ($result.total)+" €</th>")
 	 	$('#totalpanier').html("<span id='totalpanier'>" + ($result.total)+" €</span>")
+	}else{
+	//ecriture de l'erreur	
+		$('.error').html(result.error);
+	}
  })
 });
 })

@@ -4,14 +4,12 @@
 $(".stockm").blur(function(){
 
 	// declaration des variables (rajout de $ devant chaque variable )
-	var $id_product = $(this).attr('data');
-	var $stock = $(this).val();
-	var $labelentrepot = $(".labelentrepot"+$id_product).text();
+	let $id_product = $(this).attr('data');
+	let $stock = $(this).val();
+	let $labelentrepot = $(".labelentrepot"+$id_product).text();
 	
 //	var id_stocke = $(".stockentrepot").val();
-console.log($id_product);
-console.log($stock);
-console.log($labelentrepot);
+
 
 
 
@@ -49,8 +47,8 @@ console.log($labelentrepot);
 $(".stocke").blur(function(){
 	
 	// declaration des variables (rajout de $ devant chaque variable )
-	var $id_product = $(this).attr('data');
-	var $stock = $(this).val();
+	let $id_product = $(this).attr('data');
+	let $stock = $(this).val();
 
 		$.ajax({
 			 url : '/stocke',
@@ -69,3 +67,30 @@ $(".stocke").blur(function(){
 				 $(".succes").html("Mise a jour effectuée");
 	
 });
+
+// ajax pour la vignette
+$(".radio").click(function(){
+	let $id_product = $(this).attr('value');
+	let html ="";
+	$.ajax({
+		 url : '/vignette',
+		 type : 'POST',
+		 data: {id_product:$id_product},
+	 }).done(function(result){
+		 
+		 html = "<div class='col-md-3 col-sm-6 col-xs-6'><div class='product product-single'>" ;
+		html = html + "<a href='/product-page/"+ result.id +" ' class='main-btn quick-view' ><i class='fa fa-search-plus'></i> Quick view</a>";
+		 html = html+ "<img class='img-thumbnail' src='../uploads/image/"+ result.image +"')  alt=''></div>"
+		 html =  html+ "<div class='product-body'><h3 class='product-price'>"+result.prix+" €</h3></div>"
+		 html =  html+"<h2 class='product-name'><a href='/product-page/"+result.id+"'>"+result.nom+"</a></h2>"
+		 html= html+"<div class='product-btns'><a href='../admin/edit/"+result.id+"'class='primary-btn fa-trash-alt'> Modifier</a></div>"
+		 $('#vignette').html(html);
+		 
+	 }
+	 
+		)
+});
+
+
+
+

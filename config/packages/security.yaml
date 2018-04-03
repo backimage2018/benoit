@@ -11,6 +11,7 @@ security:
       form_login: 
         check_path: login
         login_path: login
+        default_target_path: dashboard
       logout: 
         path: /logout
         target: /
@@ -22,7 +23,8 @@ security:
         class: "App\\Entity\\User"
         property: username
   access_control: 
-    - { path: ^/admin, role: ROLE_ADMIN }         
+    - { path: ^/dashboard, role: ROLE_ADMIN }  
+    - { path: ^/admin, roles: ROLE_ADMIN }       
 
 
           

@@ -20,6 +20,7 @@ use App\Entity\Panier;
 use App\Entity\Product;
 use App\Service\PanierService;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\Category;
@@ -37,12 +38,15 @@ class DefaultController extends Controller{
     
     
     Public function index(TranslatorInterface $ti,PanierService $PanierService){
-
-        $iduser= $this->getUser()->getid();
+       
+         $iduser= $this->getUser();
+       
         $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
         ->findBy(array('user'=>$iduser));
+       
         $total=$PanierService->total($panier);
+  
    //variable commune     
         $param = [];
        
@@ -51,28 +55,27 @@ class DefaultController extends Controller{
         $param['total']=$total;
         $param=constante::variableindex($param);
         
-        
+// requete pour les 5 articles choisi 
         $articleforyou= $this-> getDoctrine()
         ->getRepository(Product::class)
         ->findByAlllimit();
 
-        
+  // requete pour les nouveaut�s       
         $articlenew= $this-> getDoctrine()
         ->getRepository(Product::class)
-        ->findBynew('oui');
-        
+        ->productnew();
+ // requete pour tous les articles   
         $articledeal= $this-> getDoctrine()
         ->getRepository(Product::class)
-        ->findAll();
+        ->findAllNodisplay();
+        
         $param['article']=$articleforyou;
         $param['articlesnew']=$articlenew;
         $param['articledeal']=$articledeal;
     
   
         return $this->render('index.php.twig',$param 
-//             array(
-//                 "panier"=>$panier,
-//                 "total"=>$total,
+
 
 
     );
@@ -86,7 +89,7 @@ class DefaultController extends Controller{
     
     function checkout(PanierService $PanierService){
         
-        $iduser= $this->getUser()->getid();
+        $iduser= $this->getUser();
         $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
         ->findBy(array('user'=>$iduser));
@@ -112,7 +115,7 @@ class DefaultController extends Controller{
     
     function blank(PanierService $PanierService){
         
-        $iduser= $this->getUser()->getid();
+        $iduser= $this->getUser();
         $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
         ->findBy(array('user'=>$iduser));
@@ -134,7 +137,7 @@ class DefaultController extends Controller{
     
     function viewcard(PanierService $PanierService){
         
-        $iduser= $this->getUser()->getid();
+        $iduser= $this->getUser();
         $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
         ->findBy(array('user'=>$iduser));
@@ -159,7 +162,7 @@ class DefaultController extends Controller{
     
     function profil(PanierService $PanierService){
         
-        $iduser= $this->getUser()->getid();
+        $iduser= $this->getUser();
         $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
         ->findBy(array('user'=>$iduser));
@@ -181,7 +184,7 @@ class DefaultController extends Controller{
     
 
     function about(PanierService $PanierService){
-        $iduser= $this->getUser()->getid();
+        $iduser= $this->getUser();
         $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
         ->findBy(array('user'=>$iduser));
@@ -204,7 +207,7 @@ class DefaultController extends Controller{
     
     function shippingandreturn(PanierService $PanierService){
         
-        $iduser= $this->getUser()->getid();
+        $iduser= $this->getUser();
         $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
         ->findBy(array('user'=>$iduser));
@@ -228,7 +231,7 @@ class DefaultController extends Controller{
     
     
     function  shipping_guide(panierService $PanierService){
-        $iduser= $this->getUser()->getid();
+        $iduser= $this->getUser();
         $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
         ->findBy(array('user'=>$iduser));
@@ -251,7 +254,7 @@ class DefaultController extends Controller{
     
     function  faq(panierService $PanierService){
         
-        $iduser= $this->getUser()->getid();
+        $iduser= $this->getUser();
         $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
         ->findBy(array('user'=>$iduser));
@@ -273,7 +276,7 @@ class DefaultController extends Controller{
     
     function  mention_legale(panierService $PanierService){
         
-        $iduser= $this->getUser()->getid();
+        $iduser= $this->getUser();
         $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
         ->findBy(array('user'=>$iduser));
@@ -296,7 +299,7 @@ class DefaultController extends Controller{
     
     function  store(panierService $PanierService){
         
-        $iduser= $this->getUser()->getid();
+        $iduser= $this->getUser();
         $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
         ->findBy(array('user'=>$iduser));
@@ -318,7 +321,7 @@ class DefaultController extends Controller{
      */
     function  exception(panierService $PanierService){
         
-        $iduser= $this->getUser()->getid();
+        $iduser= $this->getUser();
         $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
         ->findBy(array('user'=>$iduser));

@@ -120,11 +120,11 @@
 						<form method ="post" action="/search">
 							<input class="input search-input" name="search" type="text" placeholder="Enter your keyword">
 							
-							<select class="input search-categories">
-							{% for searchcategorie in searchcategories %}
-								<option value={{ searchcategorie.value }}>{{ searchcategorie.name }}</option>
-							{% endfor %}
-							</select>
+{# 							<select class="input search-categories">#}
+{# 							{% for searchcategorie in searchcategories %}#}
+{# 								<option value={{ searchcategorie.value }}>{{ searchcategorie.name }}</option>#}
+{# 							{% endfor %}#}
+{# 							</select>#}
 							
 							<button class="search-btn"><i class="fa fa-search"></i></button>
 						</form>

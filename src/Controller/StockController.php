@@ -6,6 +6,7 @@
 -entrepot
 -magasin
 -Stock
+-vignette
  */
 
 
@@ -32,10 +33,17 @@ use App\Form\ProductType;
      * @Route("admin/dashboard", name="dashboard")
      */
     Public function dashboard(Request $request,FileUploader $fileUploader){
-        
+ // sortir tous les produits en stock et visible        
         $article=$this-> getDoctrine()
         ->getRepository(Product::class)
-        ->findAll();
+        ->articleenstock();
+ // articles pas visible 
+        $articlenoshow=$this-> getDoctrine()
+        ->getRepository(Product::class)
+        ->articlenoshow();
+
+        
+// creation de l'alerte         
         $message=[];
         for ($i = 0; $i < count($article); $i++){
             $stockentrepot= $article[$i]->getStock()->getStockentrepot();
@@ -44,14 +52,17 @@ use App\Form\ProductType;
         
             $message[$i]=$this->alert($stockentrepot,$stockmagasin,$nomproduit);
         }
+        
+        
  //creation du formulaire ajout d'un produit 
  
         $Product = new Product();
         $Image = new Image();
+       
         
         $form = $this->createForm(ProductType::class, $Product);
         $form->handleRequest($request);
-     
+        
         
         if ($form->isSubmitted() && $form->isValid()){
             
@@ -60,24 +71,24 @@ use App\Form\ProductType;
             $Image->setLien($fileName);
             $Image->setProduct($Product);
             $Product->setImage($Image);
+           
             $em = $this->getDoctrine()->getManager();
             $em->persist($Product);
             $em->flush();
             
+            return $this->redirectToRoute('dashboard');
+            
         }
     
-  //alerte 
-  
-        
  
-    
-        
-        
+
  //     Variables
     $param=[];
     $param['article'] = $article;
     $param['messages'] = $message;
+    $param['articlenoshow']=$articlenoshow;
    
+    $param['articlenoshow']=$articlenoshow;
     
     //variable de la page
     $param['form']=$form->createView();
@@ -98,7 +109,7 @@ Public function entrepot(Request $request){
     $article=$this-> getDoctrine()
     ->getRepository(Product::class)
     ->findAll();
-    // requetes pour liste des messages pb de stock ($articles)
+    // requetes pour liste des messages pb de stock ($message)
     $message=[];
     for ($i = 0; $i < count($article); $i++){
         $stockentrepot= $article[$i]->getStock()->getStockentrepot();
@@ -140,6 +151,29 @@ Public function magasin(Request $request){
     $param['article'] = $article;
     $param['messages']=$message;
     return $this->render('admin/magasin.html.twig',$param);
+}
+
+
+/**
+ * @Route("/vignette", name="vignette")
+ */
+Public function vignette(Request $request){
+    //recuperation de l'id produit
+    $id_produit=$request->request->get('id_product');
+
+    //recuperation du produit pour la vignette
+    $vignette=$this->getDoctrine()->getRepository(Product::class)->findBy(array('id'=>$id_produit));
+    // tableau de donnée 
+  
+    $vignette=$vignette[0];
+    $result=[];
+    $result['image']=$vignette->getimage()->getlien();
+    $result['nom']=$vignette->getnom();
+    $result['prix']=$vignette->getprix();
+    $result['id']=$vignette->getid();
+
+    
+    return new JsonResponse ($result);
 }
 
 /**
@@ -223,8 +257,36 @@ Public function stocke(Request $request){
     $result['alert']=$message;
     return new JsonResponse ($result);
 }
+/**
+ * @Route("/admin/majstock/{id}", name="majstock")
+ */
+Public function majstock(Request $request ,$id ){
+// initialisation des varialble quantite (entrepot et magasin)
+    $qtyent=0;
+    $qtymag=0;
+  //recuperer le produit a mettre a jour   
+    $Product=$this-> getDoctrine()
+    ->getRepository(Product::class)
+    ->findOneBy(array('id' => $id));
+    // recuperer les quantites
+    $qtymag=($_GET['row-1-Quantite']);
+    $qtyent=($_GET['row-2-Quantite']);
+    
+  $Product->setdisplay("oui");
+  $Product->getStock()->setStockentrepot($qtyent);
+  $Product->getStock()->setStockmagasin($qtymag);
+  // envoie dans la bdd
+    $em = $this->getDoctrine()->getManager();
+    $em->persist($Product);
+    $em->flush();
+    
+    return  $this->redirect('../dashboard');
+    
+}
 
 
+
+// fonction qui gere les alertes 
 public function alert($stockentrepot,$stockmagasin,$nomproduit ){
     $messagemag="";
     $messageent="";

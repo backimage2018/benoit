@@ -131,7 +131,9 @@
 						<div class="product-thumb">
 							{% if articles.new is not empty or articles.reduction is not empty %}
 							<div class="product-label">
-                            {% if articles.new == "oui" %}
+							
+                            {% if articles.new == "new" %}
+                            
 								<span>New</span>
 							{% endif %}
 							{% if articles.reduction is not empty %}
@@ -140,13 +142,7 @@
 								
 							{% endif %}
 							</div>
-								<ul class="product-countdown" id="countdown" name = "{{ "3" }}">
-								
-										
-										<li><span id="counth"></span></li>
-										<li><span id="countm"></span></li>
-										<li><span id="counts"></span></li>
-									</ul>
+							
 					        {% endif %}
 					   
 							<a href="/product-page/{{ articles.id }}" class="main-btn quick-view" ><i class="fa fa-search-plus"></i> Quick view</a>

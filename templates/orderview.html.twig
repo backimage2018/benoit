@@ -16,6 +16,7 @@
 								</thead>
 								<tbody>
 									<tr>
+									<p class="error"></p>	
 									{% for paniers in panier %}
 										<td class="thumb"><img src={{asset("uploads/image/" ~ paniers.Product.image.lien) }} alt=""></td>
 										<td class="details">
@@ -31,7 +32,7 @@
 										<td class="total text-center"><strong class="primary-color {{paniers.Product.id}}">{{ paniers.prixligne }} €</strong></td>
 										<td  class="text-right"><button class="main-btn icon-btn"><i id ="{{ paniers.id }}" class="fa fa-trash cancel-btn"></i></button></td>
 									</tr>
-																		
+																	
 								</tbody>
 								{% endfor %}
 								<tfoot>

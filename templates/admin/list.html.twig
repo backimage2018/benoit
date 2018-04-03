@@ -11,7 +11,7 @@
 
 
 <div class ="col-md-3">
-<img src={{asset("uploads/image/" ~ article.image.lien) }}>
+<img class="img-thumbnail" src={{asset("uploads/image/" ~ article.image.lien) }}>
 <p><a href ={{ path('edit_product',{'id':article.id })}}>{{ article.nom }} {{ article.prix }} € </a></p>
 </div>
 

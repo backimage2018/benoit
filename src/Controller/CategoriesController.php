@@ -5,6 +5,7 @@ namespace App\Controller;
 //     - categorie
 //      -genre
 //      -categorygenresexe
+//      -categorygenre
 
 
 use App\Entity\Image;
@@ -33,7 +34,7 @@ class CategoriesController extends Controller
     {
         
         
-        $iduser= $this->getUser()->getid();
+        $iduser= $this->getUser();
         $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
         ->findBy(array('user'=>$iduser));
@@ -64,7 +65,7 @@ class CategoriesController extends Controller
     {
         
         
-        $iduser= $this->getUser()->getid();
+        $iduser= $this->getUser();
         $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
         ->findBy(array('user'=>$iduser));
@@ -95,7 +96,7 @@ class CategoriesController extends Controller
     {
         
         
-        $iduser= $this->getUser()->getid();
+        $iduser= $this->getUser();
         $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
         ->findBy(array('user'=>$iduser));

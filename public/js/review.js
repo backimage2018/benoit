@@ -12,7 +12,7 @@ $.ajax({
  data: data_form,
  }).done(function(result){
  
- 	$('#reviewsend').html('merci')})
+	 location.reload();})
 
  	
 

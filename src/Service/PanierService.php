@@ -12,7 +12,7 @@ class PanierService{
     
 
  
-    
+    //calcul du total du panier 
     public function total($panier){
         $total = 0;
         if ($panier != null ) {
@@ -27,7 +27,7 @@ class PanierService{
     }
     
     public function panier(){
-        $iduser= $this->getUser()->getid();
+        
         $panier=$this-> getDoctrine()
         ->getRepository(Panier::class)
         ->findBy(array('user'=>$iduser));
