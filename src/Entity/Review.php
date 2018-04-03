@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReviewRepository")
  * @ORM\HasLifecycleCallbacks
+ * @ORM\Table(name="ben_Review")
  */
 
 class Review

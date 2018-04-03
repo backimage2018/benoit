@@ -171,6 +171,7 @@ class PanierController extends Controller
 /**
  * @Route("/testpanier", name="testpanier")
  */
+// test panier si la quantite demande nest pas superieur a la quantite du magasin
 Public function testpanier(Request $request) {
     $id_produit=$request->request->get('id');
     $quantite=$request->request->get('qty');

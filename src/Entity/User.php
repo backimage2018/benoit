@@ -1,5 +1,7 @@
 <?php
+
 // src/Entity/User.php
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -8,6 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
+ * @ORM\Table(name="ben_User")
  * @ORM\Entity
  * @UniqueEntity(fields="email", message="Email already taken")
  * @UniqueEntity(fields="username", message="Username already taken")

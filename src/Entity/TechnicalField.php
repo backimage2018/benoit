@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 /**
  * @ORM\HasLifecycleCallbacks
+ * @ORM\Table(name="ben_TechnicalField")
  */
 trait TechnicalField
 {

@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="App\Repository\NewsletterRepository")
+ * @ORM\Table(name="ben_Newsletter")
  */
 class Newsletter
 {

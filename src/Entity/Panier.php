@@ -12,6 +12,7 @@ use Doctrine\DBAL\Types\DateType;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PanierRepository")
+ * @ORM\Table(name="ben_Panier")
  */
 class Panier implements \Serializable
 {

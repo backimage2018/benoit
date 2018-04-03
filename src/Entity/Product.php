@@ -13,6 +13,7 @@ use Doctrine\DBAL\Types\DateType;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @ORM\Table(name="ben_Product")
  */
 class Product implements \Serializable
 {
